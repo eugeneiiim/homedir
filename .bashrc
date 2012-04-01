@@ -1,6 +1,4 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -70,11 +68,6 @@ esac
     #alias vdir='ls --color=auto --format=long'
 #fi
 
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -103,12 +96,6 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK
 
 export CVSROOT=cvs.pdl.cmu.edu:/cvs
 export CVS_RSH=ssh
-
-function fp() { ssh -t fix.ece.cmu.edu "ssh fp$@.pdl.cmu.local" ; }
-#function fp() { ssh -t onionpowder.ece.cmu.edu "ssh fp$@.pdl.cmu.local" ; }
-
-function ss() { ssh -t fix.ece.cmu.edu "ssh ss$@.pdl.cmu.local" ; }
-#function ss() { ssh -t onionpowder.ece.cmu.edu "ssh ss$@.pdl.cmu.local" ; }
 
 export SCALA_HOME=/opt/local/share/scala
 
@@ -165,7 +152,6 @@ alias dbrc='. ~/.bashrc'
 alias gerrit='git push origin HEAD:refs/for/master'
 
 alias gfi='git fetch hhdev'
-alias eclipse37='~/Downloads/eclipse_3.7/eclipse/eclipse'
 
 alias srp='g stash && grom && gsp'
 
@@ -178,8 +164,6 @@ alias gast='git add hedgehog/core/*/src hedgehog/core/*/test'
 # export HADOOP_HOME=~/hadoop-0.20.205.0
 
 alias f2='ssh frontier-02'
-alias f3='ssh frontier-03'
-alias f4='ssh frontier-04'
 
 alias qsnode='ssh 50.116.0.118'
 
