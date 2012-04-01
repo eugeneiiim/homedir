@@ -1,15 +1,14 @@
 [user]
-  email = emarinelli@palantir.com
-#	email = eugeneiiim@gmail.com
-	name = Eugene Marinelli
+  email = eugeneiiim@gmail.com
+  name = Eugene Marinelli
 [color]
-	ui = auto
+  ui = auto
 [branch]
-	autosetuprebase = always
+  autosetuprebase = always
 [alias]
   co = checkout
   cp = cherry-pick
   br = branch
   st = stash
 [dude]
-	interval = 600
+  interval = 600
