@@ -133,3 +133,6 @@
 
 (require 'ido)
 (ido-mode t)
+
+(add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
+(add-to-list 'auto-mode-alist '("\\.ejs$" . html-mode))
