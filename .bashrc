@@ -157,6 +157,8 @@ alias gfi='git fetch hhdev'
 
 alias srp='g stash && grom && gsp'
 
+alias srd='screen -r -d'
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 alias gbr='for k in `git branch|perl -pe s/^..//`;do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k|head -n 1`\\t$k;done|sort -r'
