@@ -90,6 +90,7 @@ export PATH=$PATH:/Users/emarinel/android/platforms/android-1.1/tools
 export PATH=$PATH:/Users/emarinel/Programming/depot_tools
 export PATH=$PATH:/Applications/JFig3-Launcher.app/Contents/Resources
 export PATH=$PATH:~/jruby-1.3.1/bin
+export PATH=$PATH:~/.scala/bin
 
 #export JAVA_HOME=/Library/Java/Home
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
