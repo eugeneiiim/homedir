@@ -175,3 +175,7 @@ alias qsnode='ssh 50.116.0.118'
 #export PROMPT_COMMAND="history -n; history -a"
 
 alias linode='ssh emarinelli@50.116.3.137'
+
+if [[ -f "$HOME/.amazon_keys" ]]; then
+    source "$HOME/.amazon_keys";
+fi

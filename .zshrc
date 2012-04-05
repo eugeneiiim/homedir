@@ -72,3 +72,13 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/Users/emarinelli/hadoop/hadoop-0.18.0/bin:/opt/local/bin:/usr/local/smlnj-110.68/bin:/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/llvm-gcc-4.2/bin:/Applications/Twelf/bin:/Users/emarinelli/android/tools:/Applications/sshfs/bin:/Users/emarinelli/bin:/Applications/MATLAB_R2008a/bin/matlab:/Users/emarinel/android/platforms/android-1.1/tools:/Users/emarinel/Programming/depot_tools:/Applications/JFig3-Launcher.app/Contents/Resources:/Users/emarinelli/jruby-1.3.1/bin:/opt/subversion/bin:/Users/emarinelli/android/tools:/Users/emarinelli/android/platform-tools:/Users/emarinelli/.gem/ruby/1.8/bin:/Library/PostgreSQL/9.0/bin:/Users/emarinelli/scala-2.8.1.final/bin
+
+alias gl='git log'
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+if [[ -f "$HOME/.amazon_keys" ]]; then
+    source "$HOME/.amazon_keys";
+fi
+
+export PATH=$PATH:~/play-2.0
