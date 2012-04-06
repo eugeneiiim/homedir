@@ -53,11 +53,16 @@
   (setq load-path (cons path load-path))
   (load "scala-mode-auto.el"))
 
+(let ((path "~/emacs_stuff/nxml-mode-20041004"))
+  (setq load-path (cons path load-path))
+  (load "rng-auto.el"))
+(add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode))
+
 
 (autoload 'scala-mode "scala-mode" "Major mode for editing scala." t)
 (setq auto-mode-alist (cons '("\\.scala\\'" . scala-mode) auto-mode-alist))
 
-(setq auto-mode-alist (cons '("\\.erb\\'" . html-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.erb\\'" . nxml-mode) auto-mode-alist))
 
 (autoload 'doc-view "doc-view" "Major mode for viewing pdf." t)
 (autoload 'doc-view-mode "doc-view-mode" "Major mode for viewing pdf." t)
@@ -135,4 +140,4 @@
 (ido-mode t)
 
 (add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
-(add-to-list 'auto-mode-alist '("\\.ejs$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.ejs$" . nxml-mode))
