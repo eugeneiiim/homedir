@@ -82,3 +82,5 @@ if [[ -f "$HOME/.amazon_keys" ]]; then
 fi
 
 export PATH=$PATH:~/play-2.0
+
+alias qsnode='ssh 50.116.0.118'
