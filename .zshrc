@@ -82,5 +82,10 @@ if [[ -f "$HOME/.amazon_keys" ]]; then
 fi
 
 export PATH=$PATH:~/play-2.0
+export PATH=$PATH:~/mongo/bin
 
 alias qsnode='ssh 50.116.0.118'
+alias linode='ssh emarinelli@50.116.3.137'
+
+alias rmtilde='find . -name "*~" | xargs rm'
+alias rmsvn='find . -name ".svn" | xargs rm -r'
