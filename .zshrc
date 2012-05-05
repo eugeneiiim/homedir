@@ -32,6 +32,8 @@ setopt AUTO_CD
 
 setopt RM_STAR_WAIT
 
+setopt NO_SHARE_HISTORY
+
 # Alt-u goes up a directory
 bindkey -s '\eu' '^Ucd ..; ls^M'
 
