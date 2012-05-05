@@ -1,2 +1,54 @@
 alias qsnode='ssh 50.116.0.118'
 alias linode='ssh emarinelli@50.116.3.137'
+
+alias gl='git log'
+alias gs='git status'
+alias ga='git add -A'
+alias gam='git ls-files --modified | grep -v config | grep -v dispatch.* | grep -v launch | xargs git add'
+alias gau='git ls-files --other --exclude-standard | xargs git add'
+alias gb='git branch'
+alias gc='git commit'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias grmd='git ls-files --deleted | xargs git rm'
+alias glf='git ls-files'
+alias glfd='git ls-files --deleted'
+alias pull='git pull --rebase origin master'
+alias push='git push origin master'
+alias pom='git push origin HEAD:master'
+alias p311='git push origin HEAD:3.11.1'
+alias gfo='git fetch origin'
+alias gsh='git show HEAD'
+alias gsh2='git show HEAD^'
+alias g='git'
+alias brc='emacs ~/.bashrc'
+alias cbrc='cat ~/.bashrc'
+alias gsp='git stash pop'
+alias grom='git rebase origin/master'
+alias gr311='git rebase origin/3.11.1'
+alias grc='git rebase --continue'
+alias gra='git rebase --abort'
+
+alias e='emacs'
+
+alias amend='git commit --amend'
+alias dbrc='. ~/.bashrc'
+alias srp='g stash && grom && gsp'
+
+export GIT_EDITOR=emacs
+export EDITOR=emacs
+
+export PATH=$PATH:~/play-2.0
+export PATH=$PATH:~/mongo/bin
+
+alias rmtilde='find . -name "*~" | xargs rm'
+alias rmsvn='find . -name ".svn" | xargs rm -r'
+
+alias srd='screen -r -d'
+
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+if [[ -f "$HOME/.amazon_keys" ]]; then
+    source "$HOME/.amazon_keys";
+fi

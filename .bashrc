@@ -20,7 +20,6 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
 }
@@ -79,8 +78,6 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-export EDITOR=emacs
-
 export RUBYLIB=$RUBYLIB:/home/emarinel/hg/controller/lib:/var/lib/gems/1.8/gems/log4r-1.0.5/src:/var/lib/gems/1.8/gems/amazon-ec2-0.3.1/lib:/Library/Ruby/Gems/1.8/gems/twitter4r-0.3.0:/Library/Ruby/Gems/1.8/gems/schleyfox-peach-0.3/:/opt/local/lib/ruby/gems/1.8/gems/mongo_mapper-0.9.1/lib
 
 export GROOVY_HOME=/usr/share/groovy
@@ -95,8 +92,6 @@ export PATH=$PATH:/Users/emarinel/Programming/depot_tools
 export PATH=$PATH:/Applications/JFig3-Launcher.app/Contents/Resources
 export PATH=$PATH:~/jruby-1.3.1/bin
 export PATH=$PATH:~/.scala/bin
-export PATH=$PATH:~/play-2.0
-
 #export JAVA_HOME=/Library/Java/Home
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
 
@@ -105,9 +100,6 @@ export CVS_RSH=ssh
 
 export SCALA_HOME=/opt/local/share/scala
 
-alias oldbox='ssh emarinelli@emarinelli-t54x64'
-alias emlinux='ssh emarinelli@emarinelli-linux'
-
 export PATH=$PATH:/opt/subversion/bin
 
 alias supple='ssh eugeneiiim@ssh.supplelabs.com'
@@ -115,71 +107,12 @@ alias supple_website='ssh supplelabs_supplelabs@ssh.phx.nearlyfreespeech.net'
 export AKKA_HOME=/Users/emarinel/Programming/akka
 
 export PATH=$PATH:/Users/emarinelli/android/tools:/Users/emarinelli/android/platform-tools:~/.gem/ruby/1.8/bin:/Library/PostgreSQL/9.0/bin:~/scala-2.9.1.final/bin:/Users/emarinelli/Downloads/gwt-2.3.0
-
-export PATH=$PATH:~/mongo/bin
 export PATH=$PATH:~/QtSDK/Desktop/Qt/4.8.0/gcc/bin
 
-export ANDROID_SDK_ROOT=/Users/emarinel2/android
-
-alias gs='git status'
-
-#alias gl='git log | grep --color=never -Ev "Tested-by|git-svn-id|Change-Id|Reviewed-on|pg-ci-gerrit" | less'
-alias gl='git log'
-
-alias ga='git add -A'
-alias gam='git ls-files --modified | grep -v config | grep -v dispatch.* | grep -v launch | xargs git add'
-alias gau='git ls-files --other --exclude-standard | xargs git add'
-alias gb='git branch'
-alias gc='git commit'
-alias gd='git diff'
-alias gdc='git diff --cached'
-alias grmd='git ls-files --deleted | xargs git rm'
-alias glf='git ls-files'
-alias glfd='git ls-files --deleted'
-alias pull='git pull --rebase origin master'
-alias push='git push origin master'
-alias pom='git push origin HEAD:master'
-alias p311='git push origin HEAD:3.11.1'
-alias gfo='git fetch origin'
-alias gsh='git show HEAD'
-alias gsh2='git show HEAD^'
-alias g='git'
-alias brc='emacs ~/.bashrc'
-alias cbrc='cat ~/.bashrc'
-alias gsp='git stash pop'
-alias grom='git rebase origin/master'
-alias gr311='git rebase origin/3.11.1'
-alias grc='git rebase --continue'
-alias gra='git rebase --abort'
 alias gca='git commit --amend -C HEAD'
-alias e='emacs'
-alias amend='git commit --amend'
-alias dbrc='. ~/.bashrc'
-alias gerrit='git push origin HEAD:refs/for/master'
-
-alias gfi='git fetch hhdev'
-
-alias srp='g stash && grom && gsp'
-
-alias srd='screen -r -d'
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 alias gbr='for k in `git branch|perl -pe s/^..//`;do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k|head -n 1`\\t$k;done|sort -r'
 
-alias gast='git add hedgehog/core/*/src hedgehog/core/*/test'
-
-# export HADOOP_HOME=~/hadoop-0.20.205.0
-
-alias f2='ssh frontier-02'
-
-alias qsnode='ssh 50.116.0.118'
-
-#shopt -s histappend
-#export PROMPT_COMMAND="history -n; history -a"
-
-alias linode='ssh emarinelli@50.116.3.137'
-
-if [[ -f "$HOME/.amazon_keys" ]]; then
-    source "$HOME/.amazon_keys";
+if [[ -r ~/.zsh_bash_common ]]; then
+    source ~/.zsh_bash_common
 fi
