@@ -1,0 +1,2 @@
+alias qsnode='ssh 50.116.0.118'
+alias linode='ssh emarinelli@50.116.3.137'
