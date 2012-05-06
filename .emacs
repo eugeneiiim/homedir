@@ -47,7 +47,7 @@
       (append '(("\\.css$" . css-mode))
               auto-mode-alist))
 
-
+(add-hook 'find-file-hook 'c-subword-mode)
 
 (let ((path "~/emacs_stuff/scala_mode"))
   (setq load-path (cons path load-path))
@@ -141,3 +141,15 @@
 
 (add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs$" . nxml-mode))
+
+(require 'desktop)
+(desktop-save-mode 1)
+(defun my-desktop-save ()
+  (interactive)
+  ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+;;  (if (eq (desktop-owner) (emacs-pid))
+;;      (desktop-save desktop-dirname)))
+  (desktop-save desktop-dirname)
+)
+
+(add-hook 'auto-save-hook 'my-desktop-save)
