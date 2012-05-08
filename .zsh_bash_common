@@ -42,6 +42,7 @@ alias rmtilde='find . -name "*~" | xargs rm'
 alias rmsvn='find . -name ".svn" | xargs rm -r'
 
 alias srd='screen -r -d'
+alias f='fg'
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
