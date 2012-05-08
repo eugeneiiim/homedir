@@ -1,6 +1,3 @@
-alias qsnode='ssh 50.116.0.118'
-alias linode='ssh emarinelli@50.116.3.137'
-
 alias gl='git log'
 alias gs='git status'
 alias ga='git add -A'
@@ -46,9 +43,12 @@ alias rmsvn='find . -name ".svn" | xargs rm -r'
 
 alias srd='screen -r -d'
 
-
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 if [[ -f "$HOME/.amazon_keys" ]]; then
     source "$HOME/.amazon_keys";
+fi
+
+if [[ -r ~/.private ]]; then
+    source ~/.private
 fi
