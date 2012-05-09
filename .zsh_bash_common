@@ -32,7 +32,7 @@ alias amend='git commit --amend'
 alias dbrc='. ~/.bashrc'
 alias srp='g stash && grom && gsp'
 
-export GIT_EDITOR=emacs
+export GIT_EDITOR='emacs --no-desktop'
 export EDITOR=emacs
 
 export PATH=$PATH:~/play-2.0
