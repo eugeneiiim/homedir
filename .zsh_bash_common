@@ -37,6 +37,7 @@ export EDITOR=emacs
 
 export PATH=$PATH:~/play-2.0
 export PATH=$PATH:~/mongo/bin
+export PATH=$PATH:~/hbase-0.90.4-cdh3u3/bin
 
 alias rmtilde='find . -name "*~" | xargs rm'
 alias rmsvn='find . -name ".svn" | xargs rm -r'
