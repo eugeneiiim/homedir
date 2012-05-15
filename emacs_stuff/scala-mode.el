@@ -363,7 +363,7 @@ reserved keywords when used alone.")
     (or (and (scala-in-comment-p)
              (not (= (char-after) ?\/))
              (scala-comment-indentation))
-        (scala-indentation-from-following)
+;;        (scala-indentation-from-following)
         (scala-indentation-from-preceding)
         (scala-indentation-from-block)
         0)))
@@ -410,14 +410,36 @@ reserved keywords when used alone.")
   ;; current expression. Return nil if indentation cannot be guessed.
   (save-excursion
     (scala-backward-spaces)
-    (when (and (not (bobp))
-               (or (eq (char-syntax (char-before)) ?\()
-                   (progn
-                     (when (eq (char-before) ?\))
-                       (backward-sexp)
-                       (scala-backward-spaces))
-                     (scala-looking-at-backward scala-expr-start-re))))
-      (+ (current-indentation) scala-indent-step))))
+    (and
+     (not (bobp))
+     (if (eq (char-syntax (char-before)) ?\()
+         (scala-block-indentation)
+       (progn
+         (when (eq (char-before) ?\))
+           (backward-sexp)
+           (scala-backward-spaces))
+         t
+         ;;(scala-looking-at-backward scala-expr-start-re)
+
+         ))
+     (if (scala-looking-at-backward scala-expr-start-re)
+         (+ (current-indentation) scala-mode-indent:step)
+       (current-indentation)
+       ))))
+
+;; (defun scala-indentation-from-preceding ()
+;;   ;; Return suggested indentation based on the preceding part of the
+;;   ;; current expression. Return nil if indentation cannot be guessed.
+;;   (save-excursion
+;;     (scala-backward-spaces)
+;;     (when (and (not (bobp))
+;;                (or (eq (char-syntax (char-before)) ?\()
+;;                    (progn
+;;                      (when (eq (char-before) ?\))
+;;                        (backward-sexp)
+;;                        (scala-backward-spaces))
+;;                      (scala-looking-at-backward scala-expr-start-re))))
+;;       (+ (current-indentation) scala-indent-step))))
 
 (defun scala-indentation-from-block ()
   ;; Return suggested indentation based on the current block.
