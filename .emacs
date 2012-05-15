@@ -57,6 +57,7 @@
   (setq load-path (cons path load-path))
   (load "rng-auto.el"))
 (add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode))
+(add-to-list 'auto-mode-alist '("\\.jst$" . nxml-mode))
 
 
 (autoload 'scala-mode "scala-mode" "Major mode for editing scala." t)
@@ -181,3 +182,6 @@
 (setq interprogram-paste-function 'copy-from-osx)
 
 (setq column-number-mode t)
+
+(add-hook 'scala-mode-hook
+          (lambda () (local-set-key (kbd "RET") 'reindent-then-newline-and-indent)))
