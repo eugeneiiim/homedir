@@ -40,9 +40,6 @@
 
 (autoload 'css-mode "css-mode" "Mode for editing CSS files" t)
 
-(add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
-(autoload 'javascript-mode "javascript" nil t)
-
 (setq auto-mode-alist
       (append '(("\\.css$" . css-mode))
               auto-mode-alist))
@@ -183,7 +180,9 @@
 
 (setq column-number-mode t)
 
-(add-hook 'scala-mode-hook
-          (lambda () (local-set-key (kbd "RET") 'reindent-then-newline-and-indent)))
+;; (add-hook 'scala-mode-hook
+;;          (lambda () (local-set-key (kbd "RET") 'reindent-then-newline-and-indent)))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(require 'midnight)
