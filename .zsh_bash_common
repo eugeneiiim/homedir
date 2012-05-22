@@ -50,7 +50,7 @@ alias f='fg'
 alias k1='kill -9 %1'
 alias emacsnd='emacs --no-desktop'
 
-export SBT_OPTS='-XX:MaxPermSize=512M' # -XX:+PrintGCDetails -verbosegc'
+export SBT_OPTS='-XX:MaxPermSize=512M -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled' # -XX:+PrintGCDetails -verbosegc'
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
