@@ -198,3 +198,6 @@
 ;; (global-set-key "\C-w" 'backward-kill-word)
 ;; (global-set-key "\C-x\C-k" 'kill-region)
 ;; (global-set-key "\C-c\C-k" 'kill-region)
+
+(require 'less-mode)
+(add-to-list 'auto-mode-alist '("\\.less$" . less-mode))
