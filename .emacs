@@ -8,8 +8,8 @@
 (setq scroll-conservatively 50)
 (setq scroll-preserve-screen-position nil)
 
-(setq-default tab-width 4)
-(setq tab-width 4)
+(setq-default tab-width 2)
+(setq tab-width 2)
 (setq-default indent-tabs-mode nil)
 (setq indent-tabs-mode nil)
 
@@ -186,3 +186,15 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (require 'midnight)
+
+;;(global-set-key (kbd "M-/") 'hippie-expand)
+
+;;(global-set-key [(super \\)] 'find-file-at-point)
+;;(global-set-key (kbd "M-m") 'find-file-at-point)
+
+;;(global-set-key "\C-x\C-m" 'execute-extended-command)
+;;(global-set-key "\C-c\C-m" 'execute-extended-command)
+
+;; (global-set-key "\C-w" 'backward-kill-word)
+;; (global-set-key "\C-x\C-k" 'kill-region)
+;; (global-set-key "\C-c\C-k" 'kill-region)
