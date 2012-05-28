@@ -201,3 +201,11 @@
 
 (require 'less-mode)
 (add-to-list 'auto-mode-alist '("\\.less$" . less-mode))
+
+(add-to-list 'load-path "~/emacs_stuff/color-theme")
+(add-to-list 'load-path "~/emacs_stuff/color-theme/color-theme.el")
+(require 'color-theme)
+(eval-after-load "color-theme"
+  '(progn
+     (color-theme-initialize)
+     (color-theme-hober)))
