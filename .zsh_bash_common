@@ -72,6 +72,8 @@ fi
 
 alias hbaselogs='tail -f `which hbase`/../../logs/hbase*.log'
 
+alias dev='ssh emarinelli@eugene.dev.compose.cc'
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 if [[ -f "$HOME/.amazon_keys" ]]; then
