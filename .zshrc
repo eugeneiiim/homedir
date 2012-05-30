@@ -47,3 +47,5 @@ bindkey "^[s" insert-sudo
 if [[ -r ~/.zsh_bash_common ]]; then
     source ~/.zsh_bash_common
 fi
+
+cd ~/treat
