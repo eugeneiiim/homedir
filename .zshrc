@@ -7,7 +7,7 @@ export ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 export ZSH_THEME="robbyrussell"
 
-alias gca='git commit --amend -C "HEAD"'
+alias gca='bash -c git commit --amend -C HEAD'
 
 # Set to this to use case-sensitive completion
 # export CASE_SENSITIVE="true"

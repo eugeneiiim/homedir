@@ -26,6 +26,7 @@ alias grom='git rebase origin/master'
 alias gr311='git rebase origin/3.11.1'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
+alias add='git add'
 
 alias e='emacs'
 
@@ -40,7 +41,7 @@ export PATH=$PATH:~/play-2.0
 export PATH=$PATH:~/mongo/bin
 export PATH=$PATH:~/hbase-0.90.4-cdh3u3/bin
 
-export BLEND_ENV=emarinelli_mbp
+export BLEND_NAMESPACE=emarinelli_mbp
 
 alias rmtilde='find . -name "*~" | xargs rm'
 alias rmsvn='find . -name ".svn" | xargs rm -r'
@@ -58,7 +59,7 @@ alias k6='kill -9 %6'
 alias emacsnd='emacs --no-desktop'
 alias end='emacs --no-desktop'
 
-export SBT_OPTS='-Xmx200M -XX:MaxPermSize=128M -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -XX:-PrintCommandLineFlags' # -XX:+PrintGCDetails -verbosegc'
+export SBT_OPTS='-Xmx400M -XX:PermSize=64M -XX:MaxPermSize=256M -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -XX:-PrintCommandLineFlags' # -XX:+PrintGCDetails -verbosegc'
 
 export ENSIME_JVM_ARGS=$SBT_OPTS
 
