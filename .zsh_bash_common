@@ -29,6 +29,7 @@ alias gra='git rebase --abort'
 alias add='git add'
 
 alias e='emacs'
+alias ec='emacsclient -t'
 
 alias amend='git commit --amend'
 alias dbrc='. ~/.bashrc'
