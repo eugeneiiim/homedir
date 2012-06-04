@@ -1,0 +1,3 @@
+#! /usr/bin/ruby
+
+`find . -name \"#{ARGV[0]}*\" | grep -v class`.split("\n").select {|x| !x.include?('~') }.each { |l| puts l }
