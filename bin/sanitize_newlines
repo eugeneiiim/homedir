@@ -1,0 +1,8 @@
+#! /bin/bash
+
+FILE=$1
+
+newline='
+'
+lastline=$(tail -n 1 $FILE; echo x); lastline=${lastline%x}
+[ "${lastline#"${lastline%?}"}" != "$newline" ] && echo >> $FILE
