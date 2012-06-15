@@ -30,7 +30,7 @@ export PATH=/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/lo
 # Don't need to type cd.
 setopt AUTO_CD
 
-setopt RM_STAR_WAIT
+#setopt RM_STAR_WAIT
 
 setopt NO_SHARE_HISTORY
 
