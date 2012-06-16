@@ -202,10 +202,7 @@
 (require 'less-mode)
 (add-to-list 'auto-mode-alist '("\\.less$" . less-mode))
 
-(add-to-list 'load-path "~/emacs_stuff/color-theme")
-(add-to-list 'load-path "~/emacs_stuff/color-theme/color-theme.el")
+(add-to-list 'load-path "~/zenburn-emacs")
 (require 'color-theme)
-(eval-after-load "color-theme"
-  '(progn
-     (color-theme-initialize)
-     (color-theme-hober)))
+(require 'color-theme-hober2)
+(color-theme-hober2)
