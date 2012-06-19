@@ -13,4 +13,4 @@
 [dude]
   interval = 600
 [core]
-	excludesfile = ~/.gitignore_global
+  excludesfile = ~/.gitignore_global
