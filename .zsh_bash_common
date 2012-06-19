@@ -1,4 +1,4 @@
-alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --'
+alias gl='git log --graph --pretty=format:"%Cred%h %C(bold blue)%an%C(yellow)%d%Creset %s %Cgreen(%cr) %Creset" --abbrev-commit --'
 
 alias gs='git status'
 alias ga='git add -A'
