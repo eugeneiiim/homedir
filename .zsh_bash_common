@@ -1,4 +1,5 @@
-alias gl='git log'
+alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --'
+
 alias gs='git status'
 alias ga='git add -A'
 alias gam='git ls-files --modified | grep -v config | grep -v dispatch.* | grep -v launch | xargs git add'
@@ -30,6 +31,7 @@ alias gra='git rebase --abort'
 alias add='git add'
 alias ci='git commit'
 alias co='git checkout'
+alias gg='git grep'
 
 alias e='emacs'
 alias ec='emacsclient -t'
