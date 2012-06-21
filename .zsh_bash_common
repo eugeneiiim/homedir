@@ -47,6 +47,7 @@ export PATH=$PATH:~/play-2.0
 export PATH=$PATH:~/mongo/bin
 export PATH=$PATH:~/hbase-0.92.1-cdh4.0.0/bin
 export PATH=$PATH:~/bin
+export PATH=$PATH:~/elasticsearch/bin
 
 export BLEND_NAMESPACE=emarinelli_mbp
 
