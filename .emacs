@@ -206,3 +206,5 @@
 (require 'color-theme)
 (require 'color-theme-hober2)
 (color-theme-hober2)
+(require 'find-file-in-project)
+(global-set-key (kbd "C-x p") 'find-file-in-project)
