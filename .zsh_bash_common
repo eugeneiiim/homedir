@@ -35,6 +35,9 @@ alias gg='git grep'
 
 alias e='emacs'
 alias ec='emacsclient -t'
+alias ed='emacs --daemon'
+alias ep='ps aux | grep emacs'
+alias dz='. ~/.zshrc'
 
 alias amend='git commit --amend'
 alias dbrc='. ~/.bashrc'
