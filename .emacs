@@ -208,3 +208,5 @@
 (color-theme-hober2)
 (require 'find-file-in-project)
 (global-set-key (kbd "C-x p") 'find-file-in-project)
+
+(global-auto-revert-mode t)
