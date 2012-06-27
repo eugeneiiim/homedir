@@ -34,6 +34,8 @@ setopt AUTO_CD
 
 setopt NO_SHARE_HISTORY
 
+unsetopt correct_all
+
 # Alt-u goes up a directory
 bindkey -s '\eu' '^Ucd ..; ls^M'
 
