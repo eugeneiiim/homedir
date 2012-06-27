@@ -40,6 +40,9 @@ alias ed='emacs --daemon'
 alias ep='ps aux | grep emacs'
 alias dz='. ~/.zshrc'
 
+alias acs='apt-cache search'
+alias agi='sudo apt-get install'
+
 alias amend='git commit --amend'
 alias dbrc='. ~/.bashrc'
 alias srp='g stash && grom && gsp'
