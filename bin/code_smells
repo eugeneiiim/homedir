@@ -3,7 +3,7 @@
 doit() {
   PATTERN=$1
   echo ">>> $PATTERN"
-  git grep "$PATTERN" -- *.scala
+  git grep "$PATTERN" -- *.scala | grep -v test
   echo
 }
 
