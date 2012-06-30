@@ -16,6 +16,7 @@ alias push='git push origin master'
 alias pom='git push origin HEAD:master'
 alias p311='git push origin HEAD:3.11.1'
 alias gfo='git fetch origin'
+alias gf='git fetch origin'
 alias gsh='git show "HEAD"'
 alias gshn='git show "HEAD" --name-only'
 alias gsh2='git show "HEAD^"'
@@ -24,9 +25,12 @@ alias brc='emacs ~/.bashrc'
 alias cbrc='cat ~/.bashrc'
 alias gsp='git stash pop'
 alias grom='git rebase origin/master'
+alias ro='git rebase origin/master'
 alias gr311='git rebase origin/3.11.1'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
+alias rs='git reset --soft HEAD~ ; git status'
+alias gr='git reset'
 
 alias add='git add'
 alias a='git add'
@@ -75,12 +79,14 @@ alias k6='kill -9 %6'
 alias emacsnd='emacs --no-desktop'
 alias end='emacs --no-desktop'
 
+export PANTS_DEV=1
+
 export SBT_OPTS='-Xmx512M -XX:PermSize=64M -XX:MaxPermSize=256M -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -XX:-PrintCommandLineFlags' # -XX:+PrintGCDetails -verbosegc'
 
 export ENSIME_JVM_ARGS=$SBT_OPTS
 
 cim() {
-  MESSAGE=$1
+  MESSAGE=$@
   git commit -m "$MESSAGE"
 }
 
@@ -90,7 +96,7 @@ else
    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 fi
 
-alias hbaselogs='tail -f `which hbase`/../../logs/hbase*.log'
+alias hbaselogs='tail -f `dirname \`which hbase\``/../logs/hbase*.log'
 
 alias dev='ssh emarinelli@eugene.dev.compose.cc'
 
