@@ -1,5 +1,4 @@
 (modify-frame-parameters nil '((wait-for-wm . nil)))
-;(speedbar-frame-mode)
 
 (mouse-wheel-mode t)
 (setq scroll-step 1)
@@ -18,45 +17,11 @@
   (width . 80) (height . 61)
   ))
 
-(setq exec-path (append exec-path (list "~/bin")))
+(global-auto-revert-mode t)
 
-;;disable splash screen and startup message
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
+(setq column-number-mode t)
 
-(autoload 'ruby-mode "ruby-mode" "Major mode for editing ruby." t)
-(setq auto-mode-alist (cons '("\\.rb\\'" . ruby-mode) auto-mode-alist))
-
-(setq load-path (cons (expand-file-name "~/emacs_stuff") load-path))
-
-(autoload 'css-mode "css-mode" "Mode for editing CSS files" t)
-
-(setq auto-mode-alist
-      (append '(("\\.css$" . css-mode))
-              auto-mode-alist))
-
-(add-hook 'find-file-hook 'c-subword-mode)
-
-(let ((path "~/emacs_stuff/scala_mode"))
-  (setq load-path (cons path load-path))
-  (load "scala-mode-auto.el"))
-
-(let ((path "~/emacs_stuff/nxml-mode-20041004"))
-  (setq load-path (cons path load-path))
-  (load "rng-auto.el"))
-(add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode))
-(add-to-list 'auto-mode-alist '("\\.jst$" . nxml-mode))
-
-
-(autoload 'scala-mode "scala-mode" "Major mode for editing scala." t)
-(setq auto-mode-alist (cons '("\\.scala\\'" . scala-mode) auto-mode-alist))
-
-(setq auto-mode-alist (cons '("\\.erb\\'" . nxml-mode) auto-mode-alist))
-
-(require 'show-wspace) ; Load this library.
-
-(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
-(add-hook 'font-lock-mode-hook 'show-ws-highlight-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
@@ -82,17 +47,81 @@
  )
 
 
+(setq exec-path (append exec-path (list "~/bin")))
+
+;;disable splash screen and startup message
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+
+(autoload 'ruby-mode "ruby-mode" "Major mode for editing ruby." t)
+(setq auto-mode-alist (cons '("\\.rb\\'" . ruby-mode) auto-mode-alist))
+
+(setq load-path (cons (expand-file-name "~/emacs_stuff") load-path))
+
+(autoload 'css-mode "css-mode" "Mode for editing CSS files" t)
+
+(require 'ido)
+(ido-mode t)
+
+(setq auto-mode-alist
+      (append '(("\\.css$" . css-mode))
+              auto-mode-alist))
+
+;;(add-hook 'find-file-hook 'c-subword-mode)
+(add-hook 'find-file-hook 'subword-mode)
+
+
+;; (let ((path "~/emacs_stuff/nxml-mode-20041004"))
+;;   (setq load-path (cons path load-path))
+;;   (load "rng-auto.el"))
+
+(add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode))
+(add-to-list 'auto-mode-alist '("\\.jst$" . nxml-mode))
+
+(setq auto-mode-alist (cons '("\\.erb\\'" . nxml-mode) auto-mode-alist))
+
+(require 'show-wspace)
+
+(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
+(add-hook 'font-lock-mode-hook 'show-ws-highlight-trailing-whitespace)
+
+
+
+;; Scala
+(add-hook 'scala-mode-hook
+          '(lambda ()
+             (yas/minor-mode-on)))
+
+;; (setq yas/my-directory "~/emacs_stuff/scala-mode/contrib/yasnippet/snippets")
+;; (yas/load-directory yas/my-directory)
+
+
+
+
+;;(let ((path "~/emacs_stuff/scala_mode"))
+;;   (setq load-path (cons path load-path))
+;;   (load "scala-mode-auto.el"))
+
+;; (autoload 'scala-mode "scala-mode" "Major mode for editing scala." t)
+;; (setq auto-mode-alist (cons '("\\.scala\\'" . scala-mode) auto-mode-alist))
+
+
 ;; Load the ensime lisp code...
-(add-to-list 'load-path "~/emacs_stuff/ensime/elisp/")
-(require 'ensime)
+;; (add-to-list 'load-path "~/emacs_stuff/ensime/elisp/")
+;; (require 'ensime)
 
 ;; This step causes the ensime-mode to be started whenever
 ;; scala-mode is started for a buffer. You may have to customize this step
 ;; if you're not using the standard scala mode.
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+;;(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
 ;; MINI HOWTO:
 ;; Open .scala file. M-x ensime (once per project)
+
+
+;; (add-hook 'scala-mode-hook
+;;          (lambda () (local-set-key (kbd "RET") 'reindent-then-newline-and-indent)))
+
 
 
 (put 'upcase-region 'disabled nil)
@@ -108,11 +137,12 @@
 (add-hook 'coffee-mode-hook
   '(lambda() (coffee-custom)))
 
-(require 'ido)
-(ido-mode t)
 
 (add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs$" . nxml-mode))
+
+(require 'less-mode)
+(add-to-list 'auto-mode-alist '("\\.less$" . less-mode))
 
 (require 'desktop)
 (desktop-save-mode 1)
@@ -127,60 +157,42 @@
 (add-hook 'auto-save-hook 'my-desktop-save)
 
 ;; Enable mouse support
-(unless window-system
-  (require 'mouse)
-  (xterm-mouse-mode t)
-  (global-set-key [mouse-4] '(lambda ()
-                              (interactive)
-                              (scroll-down 1)))
-  (global-set-key [mouse-5] '(lambda ()
-                              (interactive)
-                              (scroll-up 1)))
-  (defun track-mouse (e))
-  (setq mouse-sel-mode t)
-)
+;; (unless window-system
+;;   (require 'mouse)
+;;   (xterm-mouse-mode t)
+;;   (global-set-key [mouse-4] '(lambda ()
+;;                                (interactive)
+;;                                (scroll-down 1)))
+;;   (global-set-key [mouse-5] '(lambda ()
+;;                                (interactive)
+;;                                (scroll-up 1)))
+;;   (defun track-mouse (e))
+;;   (setq mouse-sel-mode t)
+;; )
 
-(defun copy-from-osx ()
-  (shell-command-to-string "pbpaste"))
+;; (defun copy-from-osx ()
+;;   (shell-command-to-string "pbpaste"))
 
-(defun paste-to-osx (text &optional push)
-  (let ((process-connection-type nil))
-      (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-        (process-send-string proc text)
-        (process-send-eof proc))))
+;; (defun paste-to-osx (text &optional push)
+;;   (let ((process-connection-type nil))
+;;       (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+;;         (process-send-string proc text)
+;;         (process-send-eof proc))))
 
-(setq interprogram-cut-function 'paste-to-osx)
-(setq interprogram-paste-function 'copy-from-osx)
+;; (setq interprogram-cut-function 'paste-to-osx)
+;; (setq interprogram-paste-function 'copy-from-osx)
 
-(setq column-number-mode t)
-
-;; (add-hook 'scala-mode-hook
-;;          (lambda () (local-set-key (kbd "RET") 'reindent-then-newline-and-indent)))
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (require 'midnight)
 
-;;(global-set-key (kbd "M-/") 'hippie-expand)
 
-;;(global-set-key [(super \\)] 'find-file-at-point)
-;;(global-set-key (kbd "M-m") 'find-file-at-point)
+;; (add-to-list 'load-path "~/emacs_stuff/color-theme")
+;; (add-to-list 'load-path "~/emacs_stuff/color-theme/color-theme.el")
 
-;; (global-set-key "\C-x\C-m" 'execute-extended-command)
-;; (global-set-key "\C-c\C-m" 'execute-extended-command)
+;; (add-to-list 'load-path "~/zenburn-emacs")
+;; (require 'color-theme)
+;; (require 'color-theme-hober2)
+;; (color-theme-hober2)
 
-;; (global-set-key "\C-w" 'backward-kill-word)
-;; (global-set-key "\C-x\C-k" 'kill-region)
-;; (global-set-key "\C-c\C-k" 'kill-region)
-
-(require 'less-mode)
-(add-to-list 'auto-mode-alist '("\\.less$" . less-mode))
-
-(add-to-list 'load-path "~/zenburn-emacs")
-(require 'color-theme)
-(require 'color-theme-hober2)
-(color-theme-hober2)
-(require 'find-file-in-project)
-(global-set-key (kbd "C-x p") 'find-file-in-project)
-
-(global-auto-revert-mode t)
+;; (require 'find-file-in-project)
+;; (global-set-key (kbd "C-x p") 'find-file-in-project)
