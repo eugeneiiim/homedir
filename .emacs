@@ -1,8 +1,6 @@
 (modify-frame-parameters nil '((wait-for-wm . nil)))
 ;(speedbar-frame-mode)
 
-;(add-hook 'write-file-functions 'delete-trailing-whitespace)
-
 (mouse-wheel-mode t)
 (setq scroll-step 1)
 (setq scroll-conservatively 50)
@@ -16,22 +14,15 @@
 (set-default-font "6x13")
 
 (setq default-frame-alist
-	'(
-	(width . 80) (height . 61)
-     ))
+  '(
+  (width . 80) (height . 61)
+  ))
 
-(setq exec-path (append exec-path (list "~/bin" )))
+(setq exec-path (append exec-path (list "~/bin")))
 
 ;;disable splash screen and startup message
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
-
-(autoload 'actionscript-mode "actionscript-mode" "Enter actionscript mode." t)
-(setq auto-mode-alist (cons '("\\.as\\'" . actionscript-mode) auto-mode-alist))
-
-(autoload 'matlab-mode "matlab" "Enter MATLAB mode." t)
-(setq auto-mode-alist (cons '("\\.m\\'" . matlab-mode) auto-mode-alist))
-(autoload 'matlab-shell "matlab" "Interactive MATLAB mode." t)
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for editing ruby." t)
 (setq auto-mode-alist (cons '("\\.rb\\'" . ruby-mode) auto-mode-alist))
@@ -62,24 +53,7 @@
 
 (setq auto-mode-alist (cons '("\\.erb\\'" . nxml-mode) auto-mode-alist))
 
-(autoload 'doc-view "doc-view" "Major mode for viewing pdf." t)
-(autoload 'doc-view-mode "doc-view-mode" "Major mode for viewing pdf." t)
-(setq auto-mode-alist (cons '("\\.pdf\\'" . doc-view) auto-mode-alist))
-
 (require 'show-wspace) ; Load this library.
-
-(require 'haml-mode)
-
-(setq auto-mode-alist
-      (cons '("\\.ml[iylp]?$" . tuareg-mode) auto-mode-alist))
-(autoload 'caml-mode "caml" "Major mode for editing Caml code." t)
-(autoload 'run-caml "inf-caml" "Run an inferior Caml process." t)
-
-;(defun font-courier-14 ()
-;	(interactive)
-;	(set-default-font "-adobe-courier-medium-r-normal--14-100-100-100-m-90-iso10646-1"))
-;(defun font-default () (interactive) (font-courier-14))
-;(font-default)
 
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-trailing-whitespace)
@@ -192,8 +166,8 @@
 ;;(global-set-key [(super \\)] 'find-file-at-point)
 ;;(global-set-key (kbd "M-m") 'find-file-at-point)
 
-;;(global-set-key "\C-x\C-m" 'execute-extended-command)
-;;(global-set-key "\C-c\C-m" 'execute-extended-command)
+;; (global-set-key "\C-x\C-m" 'execute-extended-command)
+;; (global-set-key "\C-c\C-m" 'execute-extended-command)
 
 ;; (global-set-key "\C-w" 'backward-kill-word)
 ;; (global-set-key "\C-x\C-k" 'kill-region)
