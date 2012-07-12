@@ -102,6 +102,9 @@ fi
 alias hbaselogs='tail -f `dirname \`which hbase\``/../logs/hbase*.log'
 
 alias dev='ssh emarinelli@eugene.dev.compose.cc'
+alias dev0='ssh dev0.dev.compose.cc'
+alias dev2='ssh eugene2.dev.compose.cc'
+alias em='ssh -i ~/.ssh/clkey.pem 192.168.1.26' # eugene.local.compose.cc
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
