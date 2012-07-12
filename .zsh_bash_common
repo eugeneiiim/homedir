@@ -30,6 +30,7 @@ alias ro='git rebase origin/master'
 alias gr311='git rebase origin/3.11.1'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
+alias grs='git reset --soft HEAD~ ; git status'
 alias rs='git reset --soft HEAD~ ; git status'
 alias gr='git reset'
 
@@ -63,7 +64,7 @@ export PATH=$PATH:~/bin
 export PATH=$PATH:~/elasticsearch/bin
 export PATH=$PATH:~/.scala/bin
 
-export BLEND_NAMESPACE=emarinelli_mbp
+export BLEND_NAMESPACE=emarinelli_cans2
 
 alias rmtilde='find . -name "*~" | xargs rm'
 alias rmsvn='find . -name ".svn" | xargs rm -r'
