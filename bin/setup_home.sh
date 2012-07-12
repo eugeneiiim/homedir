@@ -13,3 +13,6 @@ make -C $SMDIR
 
 # Blend
 git clone git@github.com:blendlabs/treat.git
+
+wget http://archive.cloudera.com/cdh4/cdh/4/hbase-0.92.1-cdh4.0.0.tar.gz
+tar xzfv hbase-0.92.1-cdh4.0.0.tar.gz
