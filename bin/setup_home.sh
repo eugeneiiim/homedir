@@ -10,3 +10,6 @@ git checkout .zshrc  # OMZ changes .zshrc -- revert it.
 SMDIR=~/emacs_stuff/scala-mode
 svn co http://lampsvn.epfl.ch/svn-repos/scala/scala-tool-support/trunk/src/emacs/ $SMDIR
 make -C $SMDIR
+
+# Blend
+git clone git@github.com:blendlabs/treat.git
