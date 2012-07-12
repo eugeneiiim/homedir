@@ -39,6 +39,26 @@
 (require 'less-mode)
 (add-to-list 'auto-mode-alist '("\\.less$" . less-mode))
 
+;; Yasnippet
+(add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
+(require 'yasnippet)
+(yas/initialize)
+;;(yas/load-directory "~/.emacs.d/snippets")
+
+
+
+
+;;(setq yas/root-directory "~/emacs.d/snippets")
+;;(yas/load-directory "~/.emacs.d/snippets")
+
+;;(setq yas/snippet-dirs "~/.emacs.d/snippets" )
+
+;;(yas/global-mode 1)
+
+
+
+;;(setq yas/snippet-dirs "~/.emacs.d/snippets" )
+;; (yas/reload-all)
 
 
 
