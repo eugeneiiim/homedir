@@ -3,6 +3,10 @@
 (global-auto-revert-mode t)
 (add-hook 'find-file-hook 'subword-mode)
 
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+(menu-bar-mode 0)
+
 ;; Whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (require 'show-wspace)
@@ -37,7 +41,8 @@
 
 
 
-;; (modify-frame-parameters nil '((wait-for-wm . nil)))
+
+;;(modify-frame-parameters nil '((wait-for-wm . nil)))
 
 ;; (mouse-wheel-mode t)
 ;; (setq scroll-step 1)
