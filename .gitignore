@@ -20,3 +20,6 @@
 emacs_stuff/scala-mode
 treat
 .blend-cache
+.lesshst
+.npm
+hbase-0.92.1-cdh4.0.0
