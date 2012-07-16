@@ -1,6 +1,7 @@
 alias gl='git log --graph --pretty=format:"%Cred%h %C(bold blue)%an%C(yellow)%d%Creset %s %Cgreen(%cr) %Creset" --abbrev-commit '
 
 alias gbr='for k in `git branch|perl -pe s/^..//`;do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k|head -n 1`\\t$k;done|sort -r'
+alias px='chmod +x'
 
 alias gs='git status'
 alias ga='git add -A'
