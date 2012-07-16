@@ -45,8 +45,8 @@
 (yas/initialize)
 ;;(yas/load-directory "~/.emacs.d/snippets")
 
-
-
+;; JST
+(add-to-list 'auto-mode-alist '("\\.jst$" . nxml-mode))
 
 ;;(setq yas/root-directory "~/emacs.d/snippets")
 ;;(yas/load-directory "~/.emacs.d/snippets")
