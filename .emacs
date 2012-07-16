@@ -48,6 +48,10 @@
 ;; JST
 (add-to-list 'auto-mode-alist '("\\.jst$" . nxml-mode))
 
+;; pants BUILD
+(add-to-list 'auto-mode-alist '("BUILD$" . python-mode))
+
+
 ;;(setq yas/root-directory "~/emacs.d/snippets")
 ;;(yas/load-directory "~/.emacs.d/snippets")
 
