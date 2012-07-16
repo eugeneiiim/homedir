@@ -111,8 +111,6 @@ export PATH=$PATH:~/QtSDK/Desktop/Qt/4.8.0/gcc/bin
 
 alias gca='git commit --amend -C HEAD'
 
-alias gbr='for k in `git branch|perl -pe s/^..//`;do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k|head -n 1`\\t$k;done|sort -r'
-
 if [[ -r ~/.zsh_bash_common ]]; then
     source ~/.zsh_bash_common
 fi
