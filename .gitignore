@@ -28,3 +28,5 @@ elasticsearch*
 .emacs.d
 repo
 .Xauthority
+.pip
+.aptitude
