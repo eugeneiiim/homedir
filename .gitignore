@@ -18,15 +18,15 @@
 .zsh_history
 .zshrc.pre-oh-my-zsh
 emacs_stuff/scala-mode
-treat
+treat*
 .blend-cache
 .lesshst
 .npm
 hbase-0.92.1-cdh4.0.0
 *.tar.gz
 elasticsearch*
-.emacs.d
 repo
 .Xauthority
 .pip
 .aptitude
+.emacs.d
