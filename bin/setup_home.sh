@@ -24,6 +24,6 @@ tar xvfz $ES_PKG.tar.gz
 ln -s $ES_PKG elasticsearch
 
 # yasnippet
-YDIR=~.emacs.d/plugins
+YDIR=~/.emacs.d/plugins
 mkdir $YDIR
 git clone git://github.com/capitaomorte/yasnippet.git $YDIR/yasnippet
