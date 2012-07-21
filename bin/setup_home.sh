@@ -25,5 +25,5 @@ ln -s $ES_PKG elasticsearch
 
 # yasnippet
 YDIR=~/.emacs.d/plugins
-mkdir $YDIR
+mkdir -p $YDIR
 git clone git://github.com/capitaomorte/yasnippet.git $YDIR/yasnippet
