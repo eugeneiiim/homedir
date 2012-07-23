@@ -40,7 +40,10 @@ alias add='git add'
 alias a='git add'
 alias ci='git commit'
 alias co='git checkout'
-alias gg='git grep'
+
+function gg() {
+  git grep $1 | grep -v "models/gen"
+}
 
 alias e='emacs'
 alias ec='emacsclient -t'
