@@ -4,7 +4,6 @@ alias gbr='for k in `git branch|perl -pe s/^..//`;do echo -e `git show --pretty=
 alias px='chmod +x'
 
 alias gs='git status'
-alias ga='git add -A'
 alias gam='git ls-files --modified | grep -v config | grep -v dispatch.* | grep -v launch | xargs git add'
 alias gau='git ls-files --other --exclude-standard | xargs git add'
 alias gb='git branch'

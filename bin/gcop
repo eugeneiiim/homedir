@@ -1,0 +1,4 @@
+#! /usr/bin/ruby
+
+require "#{File.dirname(__FILE__)}/common.rb"
+git_do_on_starting_with('checkout', ARGV[0], `git diff --name-only`.split("\n"))
