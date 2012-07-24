@@ -51,6 +51,14 @@
 ;; pants BUILD
 (add-to-list 'auto-mode-alist '("BUILD$" . python-mode))
 
+;; Colors
+(custom-set-faces
+ '(minibuffer-prompt ((t (:foreground "#ffffff"))))
+)
+
+
+
+
 
 ;;(setq yas/root-directory "~/emacs.d/snippets")
 ;;(yas/load-directory "~/.emacs.d/snippets")
