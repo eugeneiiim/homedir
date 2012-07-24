@@ -1,4 +1,5 @@
 #! /usr/bin/ruby
 
 require "#{File.dirname(__FILE__)}/common.rb"
-git_do_on_starting_with('add', ARGV[0], `git diff --name-only`.split("\n"))
+
+git_do_on_starting_with('add', ARGV[0], unstaged_modified_files())
