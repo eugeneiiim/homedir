@@ -3,6 +3,8 @@ alias gl='git log --graph --pretty=format:"%Cred%h %C(bold blue)%an%C(yellow)%d%
 alias gbr='for k in `git branch|perl -pe s/^..//`;do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k|head -n 1`\\t$k;done|sort -r'
 alias px='chmod +x'
 
+alias gca='amend -C HEAD~'
+
 alias gs='git status'
 alias gam='git ls-files --modified | grep -v config | grep -v dispatch.* | grep -v launch | xargs git add'
 alias gau='git ls-files --other --exclude-standard | xargs git add'
@@ -69,7 +71,7 @@ export PATH=$PATH:~/bin
 export PATH=$PATH:~/elasticsearch/bin
 export PATH=$PATH:~/.scala/bin
 
-export BLEND_NAMESPACE=emarinelli_cans2
+export BLEND_NAMESPACE=emarinelli_em
 
 alias rmtilde='find . -name "*~" | xargs rm'
 alias rmsvn='find . -name ".svn" | xargs rm -r'
