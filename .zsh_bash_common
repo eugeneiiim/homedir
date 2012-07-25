@@ -44,7 +44,7 @@ alias ci='git commit'
 alias co='git checkout'
 
 function gg() {
-  git grep $1 | grep -v "models/gen"
+  git grep $1 | grep -v "models/gen" | less
 }
 
 alias e='emacs'
