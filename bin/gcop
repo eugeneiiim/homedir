@@ -1,4 +1,4 @@
 #! /usr/bin/ruby
 
 require "#{File.dirname(__FILE__)}/common.rb"
-git_do_on_starting_with('checkout', ARGV[0], unstaged_modified_files())
+git_do_on_starting_with('checkout', ARGV, unstaged_modified_files())

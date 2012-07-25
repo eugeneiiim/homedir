@@ -2,4 +2,4 @@
 
 require "#{File.dirname(__FILE__)}/common.rb"
 
-git_do_on_starting_with('add', ARGV[0], unstaged_modified_files())
+git_do_on_starting_with('add', ARGV, unstaged_modified_files())
