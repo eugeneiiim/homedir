@@ -31,3 +31,4 @@ repo
 .pip
 .aptitude
 .emacs.d
+.m2
