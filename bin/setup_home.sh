@@ -6,6 +6,8 @@ sudo apt-get install zsh ruby htop man subversion screen redis-server emacs emac
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 git checkout .zshrc  # OMZ changes .zshrc -- revert it.
 
+sudo chsh -s /bin/zsh emarinelli
+
 # scala-mode
 SMDIR=~/emacs_stuff/scala-mode
 svn co http://lampsvn.epfl.ch/svn-repos/scala/scala-tool-support/trunk/src/emacs/ $SMDIR
