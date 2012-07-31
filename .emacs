@@ -1,6 +1,6 @@
 ;; General
 (setq load-path (cons (expand-file-name "~/emacs_stuff") load-path))
-(global-auto-revert-mode t)
+;; (global-auto-revert-mode t)
 (add-hook 'find-file-hook 'subword-mode)
 
 (setq inhibit-startup-message t)
