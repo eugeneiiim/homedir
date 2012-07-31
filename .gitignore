@@ -19,6 +19,7 @@
 .zshrc.pre-oh-my-zsh
 emacs_stuff/scala-mode
 treat*
+pointofsale
 .blend-cache
 .lesshst
 .npm
