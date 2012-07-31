@@ -1,6 +1,6 @@
 #! /bin/bash
 
-sudo apt-get install zsh ruby htop man subversion screen redis-server emacs emacs-goodies-el build-essential maven2
+sudo apt-get install zsh ruby htop man subversion screen redis-server emacs emacs-goodies-el build-essential openjdk-7-jdk maven2
 
 # Oh-my-zsh
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
@@ -25,3 +25,6 @@ git remote add origin git://github.com/capitaomorte/yasnippet.git && \
 git fetch && \
 git branch master origin/master && \
 git checkout master
+
+# Java
+sudo update-alternatives --set java /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
