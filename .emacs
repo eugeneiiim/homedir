@@ -57,6 +57,7 @@
 )
 
 
+(global-set-key (kbd "C-x TAB") 'indent-rigidly)
 
 
 
