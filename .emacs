@@ -26,6 +26,15 @@
 ;; ido
 (require 'ido)
 (ido-mode t)
+(setq
+ ido-case-fold  t
+ ido-ignore-buffers '()
+ ido-use-filename-at-point nil
+ ido-use-url-at-point nil
+ ido-enable-flex-matching nil
+)
+
+(setq confirm-nonexistent-file-or-buffer nil)
 
 ;; FFIP
 (require 'find-file-in-project)
