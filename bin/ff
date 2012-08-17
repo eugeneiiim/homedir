@@ -1,3 +1,8 @@
 #! /usr/bin/ruby
 
-`find . -name \"#{ARGV[0]}*\" | grep -v class | grep -v target`.split("\n").select {|x| !x.include?('~') }.each { |l| puts l }
+if !ARGV[0] || ARGV[0].empty?
+  puts 'No pattern specified.'
+  exit 1
+end
+
+`find . -name \"#{ARGV[0]}*\" | grep -v class | grep -v .git | grep -v target`.split("\n").select {|x| !x.include?('~') }.each { |l| puts l }
