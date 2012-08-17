@@ -66,18 +66,26 @@
 
 (require 'project-local-variables)
 
+
 (defvar ffip-regexp
   (concat ".*\\.\\("
 	  (mapconcat (lambda (x) x)
-		     '("rb" "coffee" "scala" "sh" "css" "jst" "erb" "html" "el") "\\|")
+		     '("rb" "coffee" "scala" "sh" "css" "jst" "erb" "html" "el" "less") "\\|")
 	  "\\)")
   "Regexp of things to look for when using find-file-in-project.")
 
+;; (defvar ffip-find-options
+;;   ""
+;;   "Extra options to pass to `find' when using find-file-in-project.
+
+;; Use this to exclude portions of your project: \"-not -regex \\\".*vendor.*\\\"\"")
+
 (defvar ffip-find-options
-  ""
+  "-not -regex \".*target.*\""
   "Extra options to pass to `find' when using find-file-in-project.
 
 Use this to exclude portions of your project: \"-not -regex \\\".*vendor.*\\\"\"")
+
 
 (defvar ffip-project-root nil
   "If non-nil, overrides the project root directory location.")
