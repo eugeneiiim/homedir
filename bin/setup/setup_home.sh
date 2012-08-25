@@ -1,6 +1,6 @@
 #! /bin/bash
 
-sudo apt-get install zsh ruby htop man subversion screen redis-server emacs emacs-goodies-el build-essential openjdk-7-jdk maven2
+sudo apt-get install zsh ruby htop man subversion screen redis-server emacs emacs-goodies-el build-essential openjdk-7-jdk maven2 curl
 
 # Oh-my-zsh
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
