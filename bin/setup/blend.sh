@@ -10,3 +10,5 @@ ES_PKG=elasticsearch-0.19.8
 wget https://github.com/downloads/elasticsearch/elasticsearch/$ES_PKG.tar.gz
 tar xvfz $ES_PKG.tar.gz
 ln -s $ES_PKG elasticsearch
+
+sudo apt-get install python-setuptools python-dev build-essential npm python3
