@@ -75,6 +75,7 @@ export PATH=$PATH:~/.scala/bin
 export PATH=$PATH:~/treat/node_modules/.bin
 
 export BLEND_NAMESPACE=emarinelli_em
+export BLEND_ENV=live
 
 alias rmtilde='find . -name "*~" | xargs rm'
 alias rmtmp='find . -name ".#*" | xargs rm'
