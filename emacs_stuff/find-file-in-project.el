@@ -70,7 +70,7 @@
 (defvar ffip-regexp
   (concat ".*\\.\\("
 	  (mapconcat (lambda (x) x)
-		     '("rb" "coffee" "scala" "sh" "css" "jst" "js" "erb" "html" "el" "less" "py" "avdl") "\\|")
+		     '("rb" "coffee" "scala" "sh" "css" "jst" "js" "erb" "html" "el" "less" "py" "avdl" "routes") "\\|")
 	  "\\)")
   "Regexp of things to look for when using find-file-in-project.")
 
