@@ -2,3 +2,6 @@
 \#*
 .\#*
 .ensime
+*.o
+*.hi
+target
