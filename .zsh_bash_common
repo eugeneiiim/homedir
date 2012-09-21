@@ -132,3 +132,6 @@ fi
 if [[ -r ~/.private ]]; then
     source ~/.private
 fi
+
+# use virtualenv python
+source /home/emarinelli/bin/activate
