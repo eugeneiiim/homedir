@@ -5,3 +5,4 @@
 *.o
 *.hi
 target
+.DS_Store
