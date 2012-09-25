@@ -84,6 +84,10 @@
       `((".*" ,user-temporary-file-directory t)))
 
 
+(autoload 'ruby-mode "ruby-mode" "Major mode for editing ruby." t)
+(setq auto-mode-alist (cons '("\\.rb\\'" . ruby-mode) auto-mode-alist))
+
+
 ;;(setq yas/root-directory "~/emacs.d/snippets")
 ;;(yas/load-directory "~/.emacs.d/snippets")
 
@@ -144,9 +148,6 @@
 ;; ;;disable splash screen and startup message
 ;; (setq inhibit-startup-message t)
 ;; (setq initial-scratch-message nil)
-
-;; (autoload 'ruby-mode "ruby-mode" "Major mode for editing ruby." t)
-;; (setq auto-mode-alist (cons '("\\.rb\\'" . ruby-mode) auto-mode-alist))
 
 ;; (autoload 'css-mode "css-mode" "Mode for editing CSS files" t)
 
