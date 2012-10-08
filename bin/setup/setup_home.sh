@@ -30,7 +30,7 @@ git checkout master
 
 
 # *** Slow stuff ***
-sudo apt-get install htop man subversion screen redis-server build-essential openjdk-7-jdk maven2
+sudo apt-get install postgresql-client-8.4 htop man subversion screen redis-server build-essential openjdk-7-jdk maven2
 
 # Java
 sudo update-alternatives --set java /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
