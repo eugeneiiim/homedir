@@ -1,0 +1,25 @@
+#! /usr/bin/ruby
+
+SLEEP_TIME = 10
+
+command = ARGV[0..-1] * ' '
+puts "Command is '#{command}'."
+
+def git_head
+  `git rev-parse HEAD`.strip()
+end
+
+loop do
+  prev_head = git_head()
+  system('git pull')
+  cur_head = git_head()
+
+  if prev_head != cur_head
+    puts "#{prev_head} != #{cur_head}: #{command}"
+    system(command)
+  else
+
+  end
+
+  sleep(SLEEP_TIME)
+end
