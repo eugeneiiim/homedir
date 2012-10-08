@@ -11,14 +11,13 @@ end
 
 loop do
   prev_head = git_head()
-  system('git pull')
+  system('git pull > /dev/null')
   cur_head = git_head()
 
   if prev_head != cur_head
     puts "#{prev_head} != #{cur_head}: #{command}"
     system(command)
-  else
-
+    puts "Done running #{command}."
   end
 
   sleep(SLEEP_TIME)
