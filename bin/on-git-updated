@@ -4,7 +4,7 @@
 
 SLEEP_TIME = 10
 
-command = ARGV[0..-1] * ' '
+command = ARGV * ' '
 puts "Command is '#{command}'."
 
 def git_head
