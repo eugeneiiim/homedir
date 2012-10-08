@@ -32,3 +32,4 @@ repo
 .aptitude
 .emacs.d
 .m2
+.psql_history
