@@ -1,5 +1,7 @@
 #! /usr/bin/ruby
 
+# Usage: on-git-updated echo 'hello'
+
 SLEEP_TIME = 10
 
 command = ARGV[0..-1] * ' '
