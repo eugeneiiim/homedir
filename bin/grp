@@ -1,4 +1,4 @@
 #! /usr/bin/ruby
 
 require "#{File.dirname(__FILE__)}/common.rb"
-git_do_on_starting_with('reset', ARGV, `git diff --cached --name-only`.split("\n"))
+do_on_starting_with('git reset', ARGV, staged_files())
