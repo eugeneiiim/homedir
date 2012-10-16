@@ -1,2 +1,2 @@
-java -XX:MaxDirectMemorySize=1g -Xmx10G -XX:MaxPermSize=512M -jar `dirname $0`/sbt-launch.jar "$@"
+java -XX:MaxDirectMemorySize=1g -Xmx10G -XX:MaxPermSize=512M -jar `dirname $0`/sbt-launch_0.12.1.jar "$@"
 # -verbose:gc
