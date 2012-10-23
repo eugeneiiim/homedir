@@ -7,7 +7,7 @@ def staged_files
 end
 
 def all_git_files
-  `git ls-tree -r --name-only HEAD`
+  `git ls-tree -r --name-only HEAD`.split("\n")
 end
 
 class Array
