@@ -69,6 +69,9 @@
 (global-set-key (kbd "C-x TAB") 'indent-rigidly)
 
 
+;; Javascript
+(setq js-indent-level 2)
+
 
 ;; http://amitp.blogspot.com/2007/03/emacs-move-autosave-and-backup-files.html
 (defvar user-temporary-file-directory
