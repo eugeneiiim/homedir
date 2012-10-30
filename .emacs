@@ -72,6 +72,9 @@
 ;; Javascript
 (setq js-indent-level 2)
 
+;; Dart
+(require 'dart-mode)
+(add-to-list 'auto-mode-alist '("\\.dart$" . dart-mode))
 
 ;; http://amitp.blogspot.com/2007/03/emacs-move-autosave-and-backup-files.html
 (defvar user-temporary-file-directory

@@ -137,3 +137,5 @@ fi
 
 # use virtualenv python
 source /home/emarinelli/bin/activate
+
+export PATH=$PATH:~/dart/dart-sdk/bin
