@@ -1,0 +1,2 @@
+JAVA=/usr/lib/jvm/java-1.6.0-openjdk-amd64/bin/java
+$JAVA -XX:MaxDirectMemorySize=1g -Xmx10G -XX:MaxPermSize=512M -jar `dirname $0`/sbt-launch-0.12.0.jar "$@"
