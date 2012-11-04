@@ -23,6 +23,8 @@
 (add-to-list 'load-path "~/emacs_stuff/scala-mode")
 (require 'scala-mode-auto)
 
+(add-to-list 'auto-mode-alist '("\\.sbt$" . scala-mode))
+
 ;; ido
 (require 'ido)
 (ido-mode t)
