@@ -50,6 +50,7 @@
 (require 'less-mode)
 (add-to-list 'auto-mode-alist '("\\.less$" . less-mode))
 (setq css-indent-offset 2)
+(setq less-compile-at-save nil)
 
 ;; Yasnippet
 (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
