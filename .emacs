@@ -49,6 +49,7 @@
 ;; Less
 (require 'less-mode)
 (add-to-list 'auto-mode-alist '("\\.less$" . less-mode))
+(setq css-indent-offset 2)
 
 ;; Yasnippet
 (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
@@ -77,6 +78,9 @@
 ;; Dart
 (require 'dart-mode)
 (add-to-list 'auto-mode-alist '("\\.dart$" . dart-mode))
+
+;; Avro
+(add-to-list 'auto-mode-alist '("\\.avdl$" . c-mode))
 
 ;; http://amitp.blogspot.com/2007/03/emacs-move-autosave-and-backup-files.html
 (defvar user-temporary-file-directory
