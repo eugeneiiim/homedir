@@ -1,14 +1,11 @@
 #! /bin/bash
 
-git clone git@github.com:blendlabs/treat.git
+mkdir -p repo
+cd repo
 
-HBASE_PKG=hbase-0.92.1-cdh4.0.0.tar.gz
-wget http://archive.cloudera.com/cdh4/cdh/4/$HBASE_PKG
-tar xzfv $HBASE_PKG
-
-ES_PKG=elasticsearch-0.19.8
-wget https://github.com/downloads/elasticsearch/elasticsearch/$ES_PKG.tar.gz
-tar xvfz $ES_PKG.tar.gz
-ln -s $ES_PKG elasticsearch
-
-sudo apt-get install python-setuptools python-dev build-essential npm python3
+git clone git@github.com:blendlabs/autograph.git
+git clone git@github.com:blendlabs/dash.git
+git clone git@github.com:blendlabs/analysis.git
+git clone git@github.com:blendlabs/entity.git
+git clone git@github.com:blendlabs/blend-common.git
+git clone git@github.com:blendlabs/cacheserver.git
