@@ -137,6 +137,6 @@ if [[ -r ~/.private ]]; then
 fi
 
 # use virtualenv python
-source /home/emarinelli/bin/activate
+#source ~/bin/activate
 
 export PATH=$PATH:~/dart/dart-sdk/bin
