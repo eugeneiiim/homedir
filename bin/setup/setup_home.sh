@@ -10,7 +10,7 @@ $SAGI zsh emacs emacs-goodies-el curl ssh ruby subversion
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 git checkout .zshrc  # OMZ changes .zshrc -- revert it.
 
-sudo chsh -s /bin/zsh emarinelli
+sudo chsh -s /bin/zsh `whoami`
 
 # scala-mode
 SMDIR=~/emacs_stuff/scala-mode
