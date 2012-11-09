@@ -2,7 +2,9 @@
 
 # *** Quick stuff ***
 
-sudo apt-get install zsh emacs emacs-goodies-el curl ssh ruby
+SAGI=sudo apt-get install -y
+
+$SAGI zsh emacs emacs-goodies-el curl ssh ruby
 
 # Oh-my-zsh
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
@@ -30,7 +32,7 @@ git checkout master
 
 
 # *** Slow stuff ***
-sudo apt-get install postgresql-client-8.4 openvpn htop man subversion screen redis-server build-essential openjdk-7-jdk maven2
+$SAGI postgresql-client-8.4 openvpn htop man subversion screen redis-server build-essential openjdk-7-jdk maven2
 
 # Java
 sudo update-alternatives --set java /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
