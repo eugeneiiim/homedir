@@ -139,4 +139,6 @@ fi
 # use virtualenv python
 #source ~/bin/activate
 
+alias pms='python -m SimpleHTTPServer'
+
 export PATH=$PATH:~/dart/dart-sdk/bin
