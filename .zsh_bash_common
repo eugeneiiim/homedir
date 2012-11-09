@@ -57,7 +57,7 @@ alias ep='ps aux | grep emacs'
 alias dz='. ~/.zshrc'
 
 alias acs='apt-cache search'
-alias agi='sudo apt-get install'
+alias agi='sudo apt-get install -y'
 
 alias amend='git commit --amend'
 alias dbrc='. ~/.bashrc'
