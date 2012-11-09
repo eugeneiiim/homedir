@@ -4,7 +4,7 @@
 
 SAGI='sudo apt-get install -y'
 
-$SAGI zsh emacs emacs-goodies-el curl ssh ruby
+$SAGI zsh emacs emacs-goodies-el curl ssh ruby subversion
 
 # Oh-my-zsh
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
