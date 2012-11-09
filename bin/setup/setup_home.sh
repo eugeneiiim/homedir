@@ -4,7 +4,7 @@
 
 SAGI='sudo apt-get install -y'
 
-$SAGI zsh emacs emacs-goodies-el curl ssh ruby subversion scala-mode-el
+$SAGI zsh emacs emacs-goodies-el curl ssh ruby subversion scala-mode-el yasnippet
 
 # Oh-my-zsh
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
@@ -20,7 +20,7 @@ make -C $SMDIR
 # yasnippet
 YDIR=~/.emacs.d/plugins/yasnippet
 mkdir -p $YDIR
-git clone git://github.com/capitaomorte/yasnippet.git $YDIR/yasnippet
+#git clone git://github.com/capitaomorte/yasnippet.git $YDIR/yasnippet
 
 # yasnippet dir may already exist, so clone "manually"
 cd $YDIR && \
