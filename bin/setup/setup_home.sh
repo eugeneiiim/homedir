@@ -2,7 +2,7 @@
 
 # *** Quick stuff ***
 
-SAGI=sudo apt-get install -y
+SAGI='sudo apt-get install -y'
 
 $SAGI zsh emacs emacs-goodies-el curl ssh ruby
 
