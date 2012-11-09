@@ -20,7 +20,7 @@ make -C $SMDIR
 # yasnippet
 YDIR=~/.emacs.d/plugins/yasnippet
 mkdir -p $YDIR
-#git clone git://github.com/capitaomorte/yasnippet.git $YDIR/yasnippet
+git clone git://github.com/capitaomorte/yasnippet.git $YDIR/yasnippet
 
 # yasnippet dir may already exist, so clone "manually"
 cd $YDIR && \
