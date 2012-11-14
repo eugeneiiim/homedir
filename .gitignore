@@ -17,7 +17,6 @@
 .zsh-update
 .zsh_history
 .zshrc.pre-oh-my-zsh
-emacs_stuff/scala-mode
 treat*
 pointofsale
 .blend-cache
@@ -33,3 +32,5 @@ repo
 .emacs.d
 .m2
 .psql_history
+.svn
+emacs_stuff/scala-mode/*.elc
