@@ -134,8 +134,8 @@
    ([(control tab)]            'scala-undent-line)
    ([backspace]                'backward-delete-char-untabify)
 
-   ;("\r"                       'scala-newline)
-   ("\r"                       'besi-newline)
+   ("\r"                       'scala-newline)
+   ;("\r"                       'besi-newline)
 
    ([f1]                       'speedbar-get-focus)
 

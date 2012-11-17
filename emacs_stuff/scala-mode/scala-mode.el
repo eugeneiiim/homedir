@@ -48,7 +48,7 @@
 
 (provide 'scala-mode)
 
-(require 'besi)
+;(require 'besi)
 (require 'cl)
 
 (require 'scala-mode-constants)
@@ -170,7 +170,7 @@ When started, run `scala-mode-hook'.
   (make-local-variable 'comment-start-skip)
   (make-local-variable 'comment-end-skip)
   (make-local-variable 'comment-column)
-  ;(make-local-variable 'comment-indent-function)
+  (make-local-variable 'comment-indent-function)
   (make-local-variable 'indent-line-function)
   ;;
   (set-syntax-table scala-mode-syntax-table)
@@ -193,9 +193,9 @@ When started, run `scala-mode-hook'.
 	comment-start-skip            "/\\*+ *\\|//+ *"
 	comment-end-skip              " *\\*+/\\| *"
 	comment-column                40
-;	comment-indent-function       'scala-comment-indent-function
-;	indent-line-function          'scala-indent-line
-	indent-line-function          'besi-indent-line
+	comment-indent-function       'scala-comment-indent-function
+	indent-line-function          'scala-indent-line
+;	indent-line-function          'besi-indent-line
 	)
 
   (use-local-map scala-mode-map)
@@ -203,7 +203,3 @@ When started, run `scala-mode-hook'.
   (scala-mode-feature-install)
   (if scala-mode-hook
       (run-hooks 'scala-mode-hook)))
-
-
-
-
