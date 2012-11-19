@@ -101,6 +101,9 @@
 (setq auto-mode-alist (cons '("\\.rb\\'" . ruby-mode) auto-mode-alist))
 
 
+(global-set-key (kbd "C-x e") 'delete-region)
+
+
 ;;(setq yas/root-directory "~/emacs.d/snippets")
 ;;(yas/load-directory "~/.emacs.d/snippets")
 
