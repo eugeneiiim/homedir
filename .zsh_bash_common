@@ -122,6 +122,7 @@ alias dev2='ssh eugene2.dev.compose.cc'
 alias em='ssh -i ~/.ssh/clkey.pem em.local.compose.cc'
 alias jenkins='ssh -i ~/.ssh/clkey.pem jenkins@ci.dev.compose.cc'
 alias euge='ssh eugene.local.compose.cc'
+alias eu='ssh eugene.local.compose.cc'
 
 alias addgen='g add src/java/blendlabs/models/gen'
 alias rconf='g reset src/scala/blendlabs/config/BlendConfig.scala ; gs'
