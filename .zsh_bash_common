@@ -127,7 +127,7 @@ alias addgen='g add src/java/blendlabs/models/gen'
 alias rconf='g reset src/scala/blendlabs/config/BlendConfig.scala ; gs'
 
 function r() {
-  F=`ls ~/repo | grep $1 | head -n 1`
+  F=`ls ~/repo | grep ^$1 | head -n 1`
   echo cd ~/repo/$F
   cd ~/repo/$F
 }
