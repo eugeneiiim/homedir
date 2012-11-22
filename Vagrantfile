@@ -38,6 +38,7 @@ Vagrant::Config.run do |config|
   # folder, and the third is the path on the host to the actual folder.
   config.vm.share_folder "v-data", "/home/vagrant/shared", "./vagrant/shared"
   config.vm.share_folder "blend-repos", "/home/vagrant/repo", "./vagrant/repo"
+  config.vm.share_folder "blend-ivy", "/home/vagrant/.ivy2", "./vagrant/ivy2"
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
