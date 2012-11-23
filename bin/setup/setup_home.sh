@@ -32,7 +32,7 @@ git checkout master
 
 
 # *** Slow stuff ***
-$SAGI postgresql-9.1 openvpn htop man subversion screen redis-server build-essential openjdk-7-jdk maven2
+$SAGI postgresql-9.1 openvpn htop man subversion screen redis-server build-essential openjdk-7-jdk maven2 rubygems
 
 # Java
 sudo update-alternatives --set java /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
