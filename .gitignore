@@ -38,3 +38,5 @@ emacs_stuff/scala-mode/*.elc
 .vbox_version
 .veewee_version
 postinstall.sh
+.ssh/id_rsa
+.ssh/id_rsa.pub
