@@ -33,3 +33,8 @@ repo
 .psql_history
 .svn
 emacs_stuff/scala-mode/*.elc
+.ssh/authorized_keys
+.ssh/known_hosts
+.vbox_version
+.veewee_version
+postinstall.sh
