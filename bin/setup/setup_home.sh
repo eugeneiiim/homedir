@@ -38,3 +38,6 @@ $SAGI postgresql-9.1 openvpn htop man subversion screen redis-server build-essen
 sudo update-alternatives --set java /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
 
 mkdir -p repo
+
+cd ~
+exec zsh
