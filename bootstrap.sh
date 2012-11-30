@@ -9,4 +9,5 @@ git config --global http.sslVerify false
 git clone https://github.com/eugeneiiim/homedir
 shopt -s dotglob # make dotfiles moveable
 rsync -a homedir/ ~
+rm -rf homedir
 bin/setup/setup_home.sh
