@@ -10,4 +10,5 @@ git clone https://github.com/eugeneiiim/homedir
 shopt -s dotglob # make dotfiles moveable
 rsync -a homedir/ ~
 rm -rf homedir
+g remote set-url origin git@github.com:eugeneiiim/homedir.git
 bin/setup/setup_home.sh
