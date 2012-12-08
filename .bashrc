@@ -114,3 +114,5 @@ alias gca='git commit --amend -C HEAD'
 if [[ -r ~/.zsh_bash_common ]]; then
     source ~/.zsh_bash_common
 fi
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
