@@ -9,3 +9,4 @@ target
 __pycache__
 .emacs-project
 *.avpr
+.lib
