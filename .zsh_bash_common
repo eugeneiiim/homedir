@@ -156,3 +156,5 @@ alias tep='touch .emacs-project'
 alias s='./sbt'
 
 export PATH=$PATH:~/dart/dart-sdk/bin
+
+export PATH=$PATH:~/AWS-ElasticBeanstalk-CLI-2.2/eb/linux/python2.7
