@@ -152,5 +152,7 @@ alias pms='python -m SimpleHTTPServer'
 alias va='vagrant'
 alias h='heroku'
 alias hlt='heroku logs -t'
+alias tep='touch .emacs-project'
+alias s='./sbt'
 
 export PATH=$PATH:~/dart/dart-sdk/bin
