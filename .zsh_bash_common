@@ -56,6 +56,7 @@ alias ec='emacsclient -t'
 alias ed='emacs --daemon'
 alias ep='ps aux | grep emacs'
 alias dz='. ~/.zshrc'
+alias ez='emacs ~/.zsh_bash_common'
 
 alias acs='apt-cache search'
 alias agi='sudo apt-get install -y'
