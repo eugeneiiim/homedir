@@ -154,6 +154,7 @@ alias h='heroku'
 alias hlt='heroku logs -t'
 alias tep='touch .emacs-project'
 alias s='./sbt'
+alias todo='emacs ~/Dropbox/todo/todo.txt'
 
 export PATH=$PATH:~/dart/dart-sdk/bin
 
