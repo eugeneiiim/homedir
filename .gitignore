@@ -39,3 +39,7 @@ emacs_stuff/scala-mode/*.elc
 postinstall.sh
 .ssh/id_rsa
 .ssh/id_rsa.pub
+Movies
+Music
+Pictures
+Public
