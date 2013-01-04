@@ -52,7 +52,7 @@ function gg() {
   git grep $1 | grep -v "models/gen" | less
 }
 
-alias e='emacs'
+alias e='emacs -nw'
 alias ec='emacsclient -t'
 alias ed='emacs --daemon'
 alias ep='ps aux | grep emacs'
