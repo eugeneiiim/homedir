@@ -12,5 +12,7 @@ List(
   ("rm", "run-main"),
   ("p", "project"),
   ("cn", "console"),
-  ("up", "update")
+  ("up", "update"),
+  ("pa", "project autograph"),
+  ("pd", "project dash")
 ).map({ case (k,v) => addCommandAlias(k,v) }).reduce(_ ++ _)
