@@ -1,5 +1,5 @@
 shellPrompt := { state =>
- "sbt (%s)> ".format(Project.extract(state).currentProject.id)
+ "sbt (%s)$ ".format(Project.extract(state).currentProject.id)
 }
 
 List(
