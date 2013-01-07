@@ -2,4 +2,4 @@
 # name: println
 # key: p
 # --
-println("")
+println($0)
