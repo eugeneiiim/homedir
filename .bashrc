@@ -80,34 +80,12 @@ fi
 
 export RUBYLIB=$RUBYLIB:/home/emarinel/hg/controller/lib:/var/lib/gems/1.8/gems/log4r-1.0.5/src:/var/lib/gems/1.8/gems/amazon-ec2-0.3.1/lib:/Library/Ruby/Gems/1.8/gems/twitter4r-0.3.0:/Library/Ruby/Gems/1.8/gems/schleyfox-peach-0.3/:/opt/local/lib/ruby/gems/1.8/gems/mongo_mapper-0.9.1/lib
 
-export GROOVY_HOME=/usr/share/groovy
-
-export PATH=$PATH:~/hadoop/hadoop-0.18.0/bin:/opt/local/bin:/usr/local/smlnj-110.68/bin:/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/llvm-gcc-4.2/bin:/Applications/Twelf/bin:~/android/tools
-
-export PATH=$PATH:/Applications/sshfs/bin
 export PATH=$PATH:~/bin
-export PATH=$PATH:/Applications/MATLAB_R2008a/bin/matlab
-export PATH=$PATH:/Users/emarinel/android/platforms/android-1.1/tools
-export PATH=$PATH:/Users/emarinel/Programming/depot_tools
-export PATH=$PATH:/Applications/JFig3-Launcher.app/Contents/Resources
-export PATH=$PATH:~/jruby-1.3.1/bin
 export PATH=$PATH:~/.scala/bin
-#export JAVA_HOME=/Library/Java/Home
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
-
-export CVSROOT=cvs.pdl.cmu.edu:/cvs
-export CVS_RSH=ssh
-
-export SCALA_HOME=/opt/local/share/scala
-
-export PATH=$PATH:/opt/subversion/bin
 
 alias supple='ssh eugeneiiim@ssh.supplelabs.com'
 alias supple_website='ssh supplelabs_supplelabs@ssh.phx.nearlyfreespeech.net'
-export AKKA_HOME=/Users/emarinel/Programming/akka
-
-export PATH=$PATH:/Users/emarinelli/android/tools:/Users/emarinelli/android/platform-tools:~/.gem/ruby/1.8/bin:/Library/PostgreSQL/9.0/bin:~/scala-2.9.1.final/bin:/Users/emarinelli/Downloads/gwt-2.3.0
-export PATH=$PATH:~/QtSDK/Desktop/Qt/4.8.0/gcc/bin
 
 alias gca='git commit --amend -C HEAD'
 
