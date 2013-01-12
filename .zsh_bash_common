@@ -96,6 +96,7 @@ alias k3='kill -9 %3'
 alias k4='kill -9 %4'
 alias k5='kill -9 %5'
 alias k6='kill -9 %6'
+alias kj='killall java'
 
 alias emacsnd='emacs --no-desktop'
 alias end='emacs --no-desktop'
@@ -130,7 +131,7 @@ alias addgen='g add src/java/blendlabs/models/gen'
 alias rconf='g reset src/scala/blendlabs/config/BlendConfig.scala ; gs'
 
 function r() {
-  F=`ls ~/repo | grep ^$1 | head -n 1`
+  F=`ls ~/repo | grep $1 | head -n 1`
   echo cd ~/repo/$F
   cd ~/repo/$F
 }
