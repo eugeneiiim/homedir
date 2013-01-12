@@ -3,7 +3,7 @@
 doit() {
   PATTERN=$1
   echo ">>> $PATTERN"
-  git grep "$PATTERN" -- *.scala | grep -v test
+  git grep "$PATTERN" -- *.scala | grep -v test | grep -v gen
   echo
 }
 
@@ -14,6 +14,8 @@ doit "\"true\" else \"false\""
 doit "\.get\s"
 doit "log.error(\""
 doit "case Some("
+doit "scala.Some"
+doit "scala.None"
 doit "var"
 doit "asInstanceOf"
 doit "sleep"
