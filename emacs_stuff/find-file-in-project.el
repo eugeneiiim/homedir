@@ -68,10 +68,10 @@
 
 
 (defvar ffip-regexp
-  (concat ".*\\.\\("
+  (concat ".*\.("
 	  (mapconcat (lambda (x) x)
-		     '("rb" "coffee" "scala" "sh" "css" "jst" "js" "erb" "html" "el" "less" "py" "avdl" "routes" "mako" "java" "sbt") "\\|")
-	  "\\)")
+		     '("rb" "coffee" "scala" "sh" "css" "jst" "js" "erb" "html" "el" "less" "py" "avdl" "routes" "mako" "java" "sbt") "|")
+	  ")")
   "Regexp of things to look for when using find-file-in-project.")
 
 ;; (defvar ffip-find-options
@@ -104,7 +104,7 @@ directory they are found in so that they are unique."
 		  (ffip-uniqueify file-cons))
 		(add-to-list 'file-alist file-cons)
 		file-cons))
-	    (split-string (shell-command-to-string (concat "find " (or ffip-project-root
+	    (split-string (shell-command-to-string (concat "find -E " (or ffip-project-root
 								       (ffip-project-root))
 							   " -type f -regex \""
 							   ffip-regexp
