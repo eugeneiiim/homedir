@@ -7,6 +7,8 @@
 (setq initial-scratch-message nil)
 (menu-bar-mode 0)
 
+(transient-mark-mode t)
+
 ;; Whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (require 'show-wspace)
