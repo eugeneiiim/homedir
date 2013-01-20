@@ -5,7 +5,7 @@ alias px='chmod +x'
 
 alias gca='amend -C HEAD'
 
-alias gs='git status'
+alias gs='git status --short --branch'
 alias gam='git ls-files --modified | grep -v config | grep -v dispatch.* | grep -v launch | xargs git add'
 alias gau='git ls-files --other --exclude-standard | xargs git add'
 alias gb='git branch'
