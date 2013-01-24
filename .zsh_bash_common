@@ -5,7 +5,7 @@ alias px='chmod +x'
 
 alias gca='amend -C HEAD'
 
-alias gs='git status --short --branch'
+alias gs='git status'
 alias gam='git ls-files --modified | grep -v config | grep -v dispatch.* | grep -v launch | xargs git add'
 alias gau='git ls-files --other --exclude-standard | xargs git add'
 alias gb='git branch'
@@ -52,7 +52,7 @@ function gg() {
   git grep $1 | grep -v "models/gen" | less
 }
 
-alias e='emacs -nw'
+alias e='emacs -nw .'
 alias ec='emacsclient -t'
 alias ed='emacs --daemon'
 alias ep='ps aux | grep emacs'
@@ -77,6 +77,7 @@ export PATH=$PATH:~/bin
 export PATH=$PATH:~/elasticsearch/bin
 export PATH=$PATH:~/.scala/bin
 export PATH=$PATH:~/treat/node_modules/.bin
+export PATH=$PATH:/usr/local/share/npm/bin
 
 export BLEND_NAMESPACE=emarinelli_em
 export BLEND_ENV=live
@@ -154,7 +155,7 @@ alias va='vagrant'
 alias h='heroku'
 alias hlt='heroku logs -t'
 alias tep='touch .emacs-project'
-alias s='./sbt'
+alias s='./sbt -J-XX:MaxPermSize=1024m'
 alias todo='emacs ~/Dropbox/todo/todo.txt'
 
 export PATH=$PATH:~/dart/dart-sdk/bin
