@@ -10,7 +10,7 @@ end
 
 to, subject, body = ARGV
 
-File.open('/home/emarinelli/.sendmail', 'r').readlines.each do |l|
+File.open("#{ENV['HOME']}/.sendmail", 'r').readlines.each do |l|
   eval(l.strip)
 end
 
