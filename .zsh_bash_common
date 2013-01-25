@@ -161,3 +161,5 @@ alias todo='emacs ~/Dropbox/todo/todo.txt'
 export PATH=$PATH:~/dart/dart-sdk/bin
 
 export PATH=$PATH:~/AWS-ElasticBeanstalk-CLI-2.2/eb/linux/python2.7
+
+export MAKEFLAGS='-j 8'
