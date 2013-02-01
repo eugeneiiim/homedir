@@ -3,9 +3,9 @@ shellPrompt := { state =>
 }
 
 List(
-  ("c", "compile"),
+  ("c", "test:compile"),
   ("tc", "test:compile"),
-  ("cc", "~compile"),
+  ("cc", "~test:compile"),
   ("r", "reload"),
   ("u", "run"),
   ("uu", "~run"),
