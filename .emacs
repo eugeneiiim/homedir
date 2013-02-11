@@ -12,6 +12,10 @@
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 
+(global-set-key (kbd "C-M-[")  'windmove-left)
+(global-set-key (kbd "C-M-]")  'windmove-right)
+(setq windmove-wrap-around t)
+
 ;; Whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (require 'show-wspace)
