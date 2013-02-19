@@ -78,6 +78,7 @@ export PATH=$PATH:~/elasticsearch/bin
 export PATH=$PATH:~/.scala/bin
 export PATH=$PATH:~/treat/node_modules/.bin
 export PATH=$PATH:/usr/local/share/npm/bin
+export PATH=$PATH:/usr/local/share/python
 
 export BLEND_NAMESPACE=emarinelli_em
 export BLEND_ENV=live
