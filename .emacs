@@ -1,7 +1,7 @@
 ;; General
 (setq load-path (cons (expand-file-name "~/emacs_stuff") load-path))
 ;; (global-auto-revert-mode t)
-(add-hook 'find-file-hook 'subword-mode)
+;;(add-hook 'find-file-hook 'subword-mode)
 
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
@@ -62,9 +62,9 @@
 (setq less-compile-at-save nil)
 
 ;; Yasnippet
-(add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
-(require 'yasnippet)
-(yas/initialize)
+;; (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
+;; (require 'yasnippet)
+;; (yas/initialize)
 ;;(yas/load-directory "~/.emacs.d/snippets")
 
 ;; JST
