@@ -10,3 +10,4 @@ __pycache__
 .emacs-project
 *.avpr
 .lib
+node_modules
