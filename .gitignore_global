@@ -12,3 +12,4 @@ __pycache__
 .lib
 node_modules
 npm-debug.log
+.env
