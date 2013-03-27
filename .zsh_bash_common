@@ -139,6 +139,7 @@ function r() {
 }
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+[[ -s $HOME/.nvm/nvm.sh ]] && . /Users/emarinelli/.nvm/nvm.sh # This loads NVM
 
 if [[ -f "$HOME/.amazon_keys" ]]; then
     source "$HOME/.amazon_keys";
@@ -164,3 +165,5 @@ export PATH=$PATH:~/dart/dart-sdk/bin
 export PATH=$PATH:~/AWS-ElasticBeanstalk-CLI-2.2/eb/linux/python2.7
 
 export MAKEFLAGS='-j 8'
+
+nvm use 0.10 > /dev/null
