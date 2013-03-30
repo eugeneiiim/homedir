@@ -43,7 +43,11 @@ alias grs='git reset --soft HEAD~ ; git status'
 alias rs='git reset --soft HEAD~ ; git status'
 alias gr='git reset'
 
-alias add='git add'
+function add() {
+  git add $1
+  git status
+}
+
 alias a='git add'
 alias ci='git commit'
 alias co='git checkout'
