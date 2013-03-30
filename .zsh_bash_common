@@ -83,6 +83,7 @@ export PATH=$PATH:~/.scala/bin
 export PATH=$PATH:~/treat/node_modules/.bin
 export PATH=$PATH:/usr/local/share/npm/bin
 export PATH=$PATH:/usr/local/share/python
+export PATH="./node_modules/.bin:$PATH"
 
 export BLEND_NAMESPACE=emarinelli_em
 export BLEND_ENV=live
@@ -161,12 +162,8 @@ alias va='vagrant'
 alias h='heroku'
 alias hlt='heroku logs -t'
 alias tep='touch .emacs-project'
-alias s='./sbt -J-XX:MaxPermSize=1024m'
+alias s='./sbt -J-XX:MaxPermSize=512m'
 alias todo='emacs ~/Dropbox/todo/todo.txt'
-
-export PATH=$PATH:~/dart/dart-sdk/bin
-
-export PATH=$PATH:~/AWS-ElasticBeanstalk-CLI-2.2/eb/linux/python2.7
 
 export MAKEFLAGS='-j 8'
 
