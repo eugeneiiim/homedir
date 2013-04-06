@@ -84,6 +84,7 @@ export PATH=$PATH:~/treat/node_modules/.bin
 export PATH=$PATH:/usr/local/share/npm/bin
 export PATH=$PATH:/usr/local/share/python
 export PATH="./node_modules/.bin:$PATH"
+export PATH=$PATH:~/.pythonbrew/bin
 
 export BLEND_NAMESPACE=emarinelli_em
 export BLEND_ENV=live
@@ -168,3 +169,7 @@ alias todo='emacs ~/Dropbox/todo/todo.txt'
 export MAKEFLAGS='-j 8'
 
 nvm use 0.10 > /dev/null
+
+rvm use 1.9.3
+
+[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
