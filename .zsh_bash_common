@@ -44,7 +44,7 @@ alias rs='git reset --soft HEAD~ ; git status'
 alias gr='git reset'
 
 function add() {
-  git add $1
+  git add $@
   git status
 }
 
@@ -165,6 +165,7 @@ alias hlt='heroku logs -t'
 alias tep='touch .emacs-project'
 alias s='./sbt -J-XX:MaxPermSize=512m'
 alias todo='emacs ~/Dropbox/todo/todo.txt'
+alias fr='foreman run'
 
 export MAKEFLAGS='-j 8'
 
