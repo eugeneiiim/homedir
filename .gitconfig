@@ -10,7 +10,5 @@
   cp = cherry-pick
   br = branch
   st = stash
-[dude]
-  interval = 600
 [core]
   excludesfile = ~/.gitignore_global
