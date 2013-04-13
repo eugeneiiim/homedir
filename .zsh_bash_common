@@ -83,7 +83,7 @@ export PATH=$PATH:~/.scala/bin
 export PATH=$PATH:~/treat/node_modules/.bin
 export PATH=$PATH:/usr/local/share/npm/bin
 export PATH=$PATH:/usr/local/share/python
-export PATH="./node_modules/.bin:$PATH"
+export PATH=$PATH:"./node_modules/.bin"
 export PATH=$PATH:~/.pythonbrew/bin
 
 export BLEND_NAMESPACE=emarinelli_em
@@ -96,7 +96,6 @@ alias rmr='rm -r'
 
 alias srd='screen -r -d'
 alias ss='screen -S'
-alias f='fg'
 
 alias k1='kill -9 %1'
 alias k2='kill -9 %2'
@@ -166,6 +165,7 @@ alias tep='touch .emacs-project'
 alias s='./sbt -J-XX:MaxPermSize=512m'
 alias todo='emacs ~/Dropbox/todo/todo.txt'
 alias fr='foreman run'
+alias f='foreman'
 
 export MAKEFLAGS='-j 8'
 
