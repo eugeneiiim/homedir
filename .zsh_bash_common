@@ -53,7 +53,8 @@ alias ci='git commit'
 alias co='git checkout'
 
 function gg() {
-  git grep $1 | grep -v "models/gen" | less
+  ag $*
+  #git grep $1 | grep -v "models/gen" | less
 }
 
 alias e='emacs -nw .'
@@ -83,7 +84,7 @@ export PATH=$PATH:~/.scala/bin
 export PATH=$PATH:~/treat/node_modules/.bin
 export PATH=$PATH:/usr/local/share/npm/bin
 export PATH=$PATH:/usr/local/share/python
-export PATH=$PATH:"./node_modules/.bin"
+export PATH=$PATH:node_modules/.bin
 export PATH=$PATH:~/.pythonbrew/bin
 
 export BLEND_NAMESPACE=emarinelli_em
