@@ -28,6 +28,9 @@
 (setq-default indent-tabs-mode nil)
 (setq indent-tabs-mode nil)
 
+(add-to-list 'load-path "~/emacs_stuff/go-mode")
+(require 'go-mode)
+
 ;; Scala
 (add-to-list 'load-path "~/emacs_stuff/scala-mode")
 (require 'scala-mode-auto)

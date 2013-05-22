@@ -94,3 +94,5 @@ if [[ -r ~/.zsh_bash_common ]]; then
 fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
