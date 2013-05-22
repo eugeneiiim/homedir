@@ -175,3 +175,5 @@ nvm use 0.10 > /dev/null
 rvm use 1.9.3
 
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
