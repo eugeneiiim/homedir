@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: println
+# key: p
+# --
+println($0)

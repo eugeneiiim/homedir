@@ -1,0 +1,6 @@
+# Author: Eugene Marinelli
+# name: import scalaz
+# key: sz
+# --
+import scalaz._
+import Scalaz._

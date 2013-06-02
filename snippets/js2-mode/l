@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: console.log
+# key: l
+# --
+console.log('$0');
