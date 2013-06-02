@@ -65,9 +65,12 @@
 (setq less-compile-at-save nil)
 
 ;; Yasnippet
-;; (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
-;; (require 'yasnippet)
-;; (yas/initialize)
+(add-to-list 'load-path "~/.emacs.d/plugins/yasnippet/yasnippet")
+(require 'yasnippet)
+
+(setq yas/snippet-dirs '("~/snippets"))
+(yas/global-mode 1)
+;;(yas/initialize)
 ;;(yas/load-directory "~/.emacs.d/snippets")
 
 ;; JST
