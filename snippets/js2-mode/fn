@@ -2,6 +2,5 @@
 # name: function
 # key: fn
 # --
-function($1cb) {
-  $2
+function($1) {
 }

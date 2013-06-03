@@ -1,0 +1,7 @@
+# Author: Eugene Marinelli
+# name: module.exports
+# key: me
+# --
+module.exports = {
+  $1
+};

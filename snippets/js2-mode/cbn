@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: call callback with value only
+# key: cbn
+# --
+cb(null, $1);
