@@ -1,0 +1,9 @@
+# Author: Eugene Marinelli
+# name: ngl
+# key: ngl
+# --
+<ul>
+  <li ng-repeat="$1 in $2">
+    {{$1}}
+  </li>
+</ul>

@@ -1,0 +1,6 @@
+# Author: Eugene Marinelli
+# name: li
+# key: li
+# --
+<li ng-repeat="$1">
+</li>
