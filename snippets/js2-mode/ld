@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: lodash
+# key: ld
+# --
+var _ = require('lodash');

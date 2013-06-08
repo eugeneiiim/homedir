@@ -1,0 +1,6 @@
+# Author: Eugene Marinelli
+# name: anon function
+# key: fa
+# --
+function($1) {
+}
