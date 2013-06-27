@@ -2,8 +2,8 @@
 # name: callback
 # key: cb
 # --
-function(err, ret) {
+function(err, $1) {
   if (err) return cb(err);
 
-  $1
+  $2
 }

@@ -98,6 +98,10 @@
 (require 'dart-mode)
 (add-to-list 'auto-mode-alist '("\\.dart$" . dart-mode))
 
+;; Clojure
+(require 'clojure-mode)
+(add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+
 ;; Avro
 (add-to-list 'auto-mode-alist '("\\.avdl$" . c-mode))
 
