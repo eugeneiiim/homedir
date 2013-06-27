@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: console.trace
+# key: ct
+# --
+console.trace($0);

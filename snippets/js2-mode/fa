@@ -1,6 +1,6 @@
 # Author: Eugene Marinelli
-# name: anon function
+# name: function 2
 # key: fa
 # --
-function($1) {
+function $1($2) {
 }

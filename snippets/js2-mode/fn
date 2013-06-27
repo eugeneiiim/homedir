@@ -2,5 +2,5 @@
 # name: named function
 # key: fn
 # --
-function $1($2) {
+function($1) {
 }

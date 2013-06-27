@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: cb(null, ...)
+# key: cn
+# --
+cb(null, $1);
