@@ -58,6 +58,12 @@
 (require 'coffee-mode)
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
 
+;; CSS
+(autoload 'css-mode "css-mode" "Mode for editing CSS files" t)
+(setq auto-mode-alist
+      (append '(("\\.css$" . css-mode))
+              auto-mode-alist))
+
 ;; Less
 (require 'less-mode)
 (add-to-list 'auto-mode-alist '("\\.less$" . less-mode))
