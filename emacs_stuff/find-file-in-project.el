@@ -81,7 +81,7 @@
 ;; Use this to exclude portions of your project: \"-not -regex \\\".*vendor.*\\\"\"")
 
 (defvar ffip-find-options
-  "-not -regex \".*target.*\""
+  " -not -regex \".*components.*\" -not -regex \".*node_modules.*\" -not -regex \".*dist.*\" -not -regex \".*git.*\" "
   "Extra options to pass to `find' when using find-file-in-project.
 
 Use this to exclude portions of your project: \"-not -regex \\\".*vendor.*\\\"\"")
