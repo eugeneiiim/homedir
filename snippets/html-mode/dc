@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: div class
+# key: dc
+# --
+<div class="$1">$0</div>

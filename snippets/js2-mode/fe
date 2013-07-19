@@ -1,0 +1,7 @@
+# Author: Eugene Marinelli
+# name: forEach
+# key: fe
+# --
+forEach(function($1) {
+  $2
+});
