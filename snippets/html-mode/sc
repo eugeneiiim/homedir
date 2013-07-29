@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: span class
+# key: sc
+# --
+<span class="$1">$0</span>

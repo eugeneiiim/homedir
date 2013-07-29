@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: val
+# key: v
+# --
+val $1 = $2

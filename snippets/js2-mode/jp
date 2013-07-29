@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: JSON.parse
+# key: jp
+# --
+JSON.parse($1)
