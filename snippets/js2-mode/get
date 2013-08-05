@@ -1,0 +1,12 @@
+# Author: Eugene Marinelli
+# name: get
+# key: get
+# --
+request({
+  url: '$1',
+  json: true
+}, function(err, ret, body) {
+  if (err) return cb(err);
+
+  cb(null, body);
+});

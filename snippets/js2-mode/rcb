@@ -1,0 +1,9 @@
+# Author: Eugene Marinelli
+# name: request callback
+# key: rcb
+# --
+function(err, ret, body) {
+  if (err) return cb(err);
+
+  cb(null, body);
+}

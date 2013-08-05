@@ -1,0 +1,8 @@
+# Author: Eugene Marinelli
+# name: script callback
+# key: scb
+# --
+function(err) {
+  if (err) console.trace(err);
+  process.exit(0);
+}
