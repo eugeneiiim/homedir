@@ -1,0 +1,7 @@
+# Author: Eugene Marinelli
+# name: angular controller
+# key: con
+# --
+module.controller('$1Controller', ['$scope', '$routeParams', function($scope, $routeParams) {
+  $0
+}]);

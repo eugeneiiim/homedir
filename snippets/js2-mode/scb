@@ -2,7 +2,7 @@
 # name: script callback
 # key: scb
 # --
-function(err) {
+var cb = function(err) {
   if (err) console.trace(err);
   process.exit(0);
-}
+};
