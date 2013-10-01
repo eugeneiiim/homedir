@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: button
+# key: btn
+# --
+<button class="btn" ng-click="save()">Save</button>
