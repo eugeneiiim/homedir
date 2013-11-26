@@ -19,7 +19,8 @@ alias glf='git ls-files'
 alias glfd='git ls-files --deleted'
 alias pull='git pull --rebase origin master'
 alias push='git push origin master'
-alias pom='git push origin HEAD:master'
+#alias pom='git push origin HEAD:master'
+alias poh='git push origin HEAD'
 alias phm='git push heroku HEAD:master'
 alias p='git push origin HEAD:master'
 alias p311='git push origin HEAD:3.11.1'
@@ -42,6 +43,9 @@ alias gra='git rebase --abort'
 alias grs='git reset --soft HEAD~ ; git status'
 alias rs='git reset --soft HEAD~ ; git status'
 alias gr='git reset'
+alias ad='git add .'
+
+alias gr='grunt'
 
 function add() {
   git add $@
@@ -52,12 +56,13 @@ alias a='git add'
 alias ci='git commit'
 alias co='git checkout'
 
-function gg() {
-  ag $*
-  #git grep $1 | grep -v "models/gen" | less
-}
+# function gg() {
+#  ag $*
+#  #git grep $1 | grep -v "models/gen" | less
+#}
+alias gg=ag
 
-alias e='emacs -nw .'
+alias e='emacs -nw'
 alias ec='emacsclient -t'
 alias ed='emacs --daemon'
 alias ep='ps aux | grep emacs'
@@ -105,13 +110,14 @@ alias k4='kill -9 %4'
 alias k5='kill -9 %5'
 alias k6='kill -9 %6'
 alias kj='killall java'
+alias kn='killall node'
 
 alias emacsnd='emacs --no-desktop'
 alias end='emacs --no-desktop'
 
 export PANTS_DEV=1
 
-export SBT_OPTS='-Xmx512M -XX:PermSize=64M -XX:MaxPermSize=256M -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -XX:-PrintCommandLineFlags' # -XX:+PrintGCDetails -verbosegc'
+export SBT_OPTS='-Xmx128M -XX:PermSize=64M -XX:MaxPermSize=256M -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -XX:-PrintCommandLineFlags' # -XX:+PrintGCDetails -verbosegc'
 
 export ENSIME_JVM_ARGS=$SBT_OPTS
 
@@ -167,12 +173,14 @@ alias s='./sbt -mem 1024'
 alias todo='emacs ~/Dropbox/todo/todo.txt'
 alias fr='foreman run'
 alias f='foreman'
+alias ap='git add -p'
 
 export MAKEFLAGS='-j 8'
 
 nvm use 0.10 > /dev/null
 
 rvm use 1.9.3
+export PATH="/usr/local/Cellar/ruby/2.0.0-p247/bin:$PATH"
 
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
 export GOPATH=$HOME/go
