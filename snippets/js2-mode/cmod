@@ -1,0 +1,7 @@
+# Author: Eugene Marinelli
+# name: count mod log
+# key: cml
+# --
+if ($1 % 1000 === 0) {
+  console.log($1);
+}

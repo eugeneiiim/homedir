@@ -2,7 +2,16 @@
 # name: form
 # key: form
 # --
-<form ng-submit="submit(myInput)">
-  <input ng-model="myInput"></input>
-  <button class="btn">Save</button>
+<form class="form-horizontal" ng-submit="submit(myInput)">
+  <div class="control-group">
+    <label class="control-label" for="myInput">Input</label>
+    <div class="controls">
+      <input type="text" id="myInput" placeholder="Input">
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn">Submit</button>
+    </div>
+  </div>
 </form>
