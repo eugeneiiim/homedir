@@ -92,9 +92,6 @@ export PATH=$PATH:/usr/local/share/python
 export PATH=$PATH:node_modules/.bin
 export PATH=$PATH:~/.pythonbrew/bin
 
-export BLEND_NAMESPACE=emarinelli_em
-export BLEND_ENV=live
-
 alias rmtilde='find . -name "*~" | xargs rm'
 alias rmtmp='find . -name ".#*" | xargs rm'
 alias rmsvn='find . -name ".svn" | xargs rm -r'
