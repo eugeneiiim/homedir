@@ -147,6 +147,11 @@ function r() {
   cd ~/repo/$F
 }
 
+function set_upstream() {
+  BRANCH=`git symbolic-ref --short HEAD`
+  git branch --set-upstream-to=origin/$BRANCH $BRANCH
+}
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 [[ -s $HOME/.nvm/nvm.sh ]] && . /Users/emarinelli/.nvm/nvm.sh # This loads NVM
 
