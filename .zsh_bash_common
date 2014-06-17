@@ -60,7 +60,7 @@ alias co='git checkout'
 #  ag $*
 #  #git grep $1 | grep -v "models/gen" | less
 #}
-alias gg=ag
+alias gg='ag --ignore-dir dev --ignore-dir logs'
 
 alias e='emacs -nw'
 alias ec='emacsclient -t'
