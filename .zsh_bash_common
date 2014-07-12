@@ -6,7 +6,6 @@ alias px='chmod +x'
 alias gca='amend -C HEAD'
 
 alias gs='git status'
-alias gam='git ls-files --modified | grep -v config | grep -v dispatch.* | grep -v launch | xargs git add'
 alias gau='git ls-files --other --exclude-standard | xargs git add'
 alias gb='git branch'
 alias gc='git commit'
@@ -23,7 +22,6 @@ alias push='git push origin master'
 alias poh='git push origin HEAD'
 alias phm='git push heroku HEAD:master'
 alias p='git push origin HEAD:master'
-alias p311='git push origin HEAD:3.11.1'
 alias gfo='git fetch origin'
 alias gf='git fetch origin'
 alias gsh='git show "HEAD"'
@@ -80,13 +78,10 @@ alias sr='g stash && grom && gsp'
 export GIT_EDITOR='emacs --no-desktop'
 export EDITOR=emacs
 
-export PATH=$PATH:~/repo/Play20
 export PATH=$PATH:~/mongo/bin
-export PATH=$PATH:~/hbase-0.92.1-cdh4.0.0/bin
 export PATH=$PATH:~/bin
 export PATH=$PATH:~/elasticsearch/bin
 export PATH=$PATH:~/.scala/bin
-export PATH=$PATH:~/treat/node_modules/.bin
 export PATH=$PATH:/usr/local/share/npm/bin
 export PATH=$PATH:/usr/local/share/python
 export PATH=$PATH:node_modules/.bin
@@ -112,8 +107,6 @@ alias kn='killall node'
 alias emacsnd='emacs --no-desktop'
 alias end='emacs --no-desktop'
 
-export PANTS_DEV=1
-
 export SBT_OPTS='-Xmx128M -XX:PermSize=64M -XX:MaxPermSize=256M -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSClassUnloadingEnabled -XX:-PrintCommandLineFlags' # -XX:+PrintGCDetails -verbosegc'
 
 export ENSIME_JVM_ARGS=$SBT_OPTS
@@ -124,19 +117,12 @@ cim() {
 }
 
 if [[ `uname` = Darwin ]]; then
-   export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
+   export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/Current/Home
 else
    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 fi
 
 alias hbaselogs='tail -f `dirname \`which hbase\``/../logs/hbase*.log'
-
-alias dev='ssh emarinelli@eugene.dev.compose.cc'
-alias dev0='ssh dev0.dev.compose.cc'
-alias dev2='ssh eugene2.dev.compose.cc'
-alias em='ssh -i ~/.ssh/clkey.pem em.local.compose.cc'
-alias jenkins='ssh -i ~/.ssh/clkey.pem jenkins@ci.dev.compose.cc'
-alias eu='ssh em.local.compose.cc'
 
 alias addgen='g add src/java/blendlabs/models/gen'
 alias rconf='g reset src/scala/blendlabs/config/BlendConfig.scala ; gs'
@@ -187,3 +173,13 @@ export PATH="/usr/local/Cellar/ruby/2.0.0-p247/bin:$PATH"
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+
+export DOCKER_IP=192.168.59.103
+export DOCKER_HOST=tcp://$DOCKER_IP:2375
+
+alias docker_stop_all='docker stop $(docker ps -a -q)'
+alias docker_rm_all='docker rm $(docker ps -a -q)'
+alias docker_kill_all='docker kill $(docker ps -a -q)'
+alias b2d='boot2docker'
+
+alias ek='emacs ~/.ssh/known_hosts'
