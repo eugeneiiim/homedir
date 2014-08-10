@@ -42,6 +42,7 @@ alias grs='git reset --soft HEAD~ ; git status'
 alias rs='git reset --soft HEAD~ ; git status'
 alias gr='git reset'
 alias ad='git add .'
+alias gre='git reset'
 
 alias gr='grunt'
 
@@ -157,7 +158,6 @@ alias va='vagrant'
 alias h='heroku'
 alias hlt='heroku logs -t'
 alias tep='touch .emacs-project'
-alias s='./sbt -mem 1024'
 alias todo='emacs ~/Dropbox/todo/todo.txt'
 alias fr='foreman run'
 alias f='foreman'
@@ -173,6 +173,7 @@ export PATH="/usr/local/Cellar/ruby/2.0.0-p247/bin:$PATH"
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:~/bin/packer
 
 export DOCKER_IP=192.168.59.103
 export DOCKER_HOST=tcp://$DOCKER_IP:2375
