@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: error handler
+# key: e
+# --
+if (err) return cb(err)

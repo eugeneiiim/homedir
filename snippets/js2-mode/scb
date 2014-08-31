@@ -3,6 +3,6 @@
 # key: scb
 # --
 var cb = function(err) {
-  if (err) console.trace(err);
+  if (err) console.error(err.stack);
   process.exit(0);
 };

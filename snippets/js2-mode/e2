@@ -2,4 +2,4 @@
 # name: error handler console.trace
 # key: e2
 # --
-if (err) return console.trace(err);
+if (err) return console.error(err.stack);
