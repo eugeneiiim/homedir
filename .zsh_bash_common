@@ -139,8 +139,8 @@ function set_upstream() {
   git branch --set-upstream-to=origin/$BRANCH $BRANCH
 }
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-[[ -s $HOME/.nvm/nvm.sh ]] && . /Users/emarinelli/.nvm/nvm.sh # This loads NVM
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+# [[ -s $HOME/.nvm/nvm.sh ]] && . /Users/emarinelli/.nvm/nvm.sh # This loads NVM
 
 if [[ -f "$HOME/.amazon_keys" ]]; then
     source "$HOME/.amazon_keys";
@@ -165,10 +165,10 @@ alias ap='git add -p'
 
 export MAKEFLAGS='-j 8'
 
-nvm use 0.10 > /dev/null
+# nvm use 0.10 > /dev/null
 
-rvm use 1.9.3
-export PATH="/usr/local/Cellar/ruby/2.0.0-p247/bin:$PATH"
+# rvm use 1.9.3
+# export PATH="/usr/local/Cellar/ruby/2.0.0-p247/bin:$PATH"
 
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
 export GOPATH=$HOME/go
