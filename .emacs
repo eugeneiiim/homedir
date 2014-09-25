@@ -70,14 +70,22 @@
 (setq css-indent-offset 2)
 (setq less-compile-at-save nil)
 
-;; Yasnippet
-(add-to-list 'load-path "~/.emacs.d/plugins/yasnippet/yasnippet")
-(require 'yasnippet)
+;; ;; Yasnippet
+;; (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet/yasnippet")
+;; (require 'yasnippet)
 
-(setq yas/snippet-dirs '("~/snippets"))
-(yas/global-mode 1)
+;; (yas/global-mode 1)
 ;;(yas/initialize)
 ;;(yas/load-directory "~/.emacs.d/snippets")
+
+(setq yas-snippet-dirs
+      '("~/snippets"                 ;; personal snippets
+        ))
+;;(yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
+
+(add-to-list 'load-path "~/.emacs.d/elpa/yasnippet-0.8.0")
+(load-library "yasnippet")
+(yas-global-mode 1)
 
 ;; JST
 (add-to-list 'auto-mode-alist '("\\.jst$" . nxml-mode))
