@@ -185,3 +185,5 @@ alias docker_kill_all='docker kill $(docker ps -a -q)'
 alias b2d='boot2docker'
 
 alias ek='emacs ~/.ssh/known_hosts'
+
+export TERM=xterm-256color
