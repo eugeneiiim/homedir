@@ -53,3 +53,7 @@ Dropbox*
 .Trash
 .dropbox
 .cups
+*.log
+*.pem
+go-projects
+gocode
