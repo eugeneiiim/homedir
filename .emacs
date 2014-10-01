@@ -141,6 +141,23 @@
 
 (global-set-key (kbd "C-x e") 'delete-region)
 
+(require 'package)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-20080305.34")
+(add-to-list 'load-path "~/.emacs.d/elpa/lush-theme-20140922.1117")
+
+(load-library "color-theme")
+;;(require 'color-theme)
+(color-theme-initialize)
+;;(load-file "~/.emacs.d/elpa/lush-theme-20140922.1117")
+(load-library "lush-theme")
+
+;; (add-to-list 'load-path "~/.emacs.d/elpa/zenburn-theme-2.1")
+;; (load-library "zenburn-theme")
+
+;;(load-theme 'zenburn t)
 
 ;;(setq yas/root-directory "~/emacs.d/snippets")
 ;;(yas/load-directory "~/.emacs.d/snippets")
@@ -149,6 +166,12 @@
 
 ;;(yas/global-mode 1)
 
+
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 
 ;;(setq yas/snippet-dirs "~/.emacs.d/snippets" )
