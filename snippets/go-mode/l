@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: log.Printf
+# key: l
+# --
+log.Printf("$0")
