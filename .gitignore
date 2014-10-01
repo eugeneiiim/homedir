@@ -8,19 +8,15 @@
 .ivy2
 .oh-my-zsh
 .profile
-.scala_history
 .subversion
 .sudo_as_admin_successful
 .zcompdump
 .zsh-update
 .zsh_history
 .zshrc.pre-oh-my-zsh
-treat*
-pointofsale
 .blend-cache
 .lesshst
 .npm
-hbase-0.92.1-cdh4.0.0
 *.tar.gz
 elasticsearch*
 repo
@@ -31,7 +27,6 @@ repo
 .m2
 .psql_history
 .svn
-emacs_stuff/scala-mode/*.elc
 .ssh/authorized_keys
 .ssh/known_hosts
 .vbox_version
