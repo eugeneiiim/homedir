@@ -52,3 +52,4 @@ Dropbox*
 *.pem
 go-projects
 gocode
+.yas-compiled-snippets.el
