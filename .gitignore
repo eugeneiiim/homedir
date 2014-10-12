@@ -53,3 +53,9 @@ Dropbox*
 go-projects
 gocode
 .yas-compiled-snippets.el
+.bower
+.aws
+.packer.d
+*.retry
+.httpie
+.dbshell
