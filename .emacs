@@ -120,6 +120,7 @@
 (add-to-list 'auto-mode-alist '("\\.avdl$" . c-mode))
 
 (add-to-list 'auto-mode-alist '("\\.handlebars$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.svg$" . html-mode))
 
 ;; http://amitp.blogspot.com/2007/03/emacs-move-autosave-and-backup-files.html
 (defvar user-temporary-file-directory
