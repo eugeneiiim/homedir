@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: fmt.Println
+# key: p
+# --
+fmt.Println("$0")
