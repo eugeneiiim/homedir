@@ -174,6 +174,7 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
+(global-set-key (kbd "C-c C-c") 'mc/edit-lines)
 
 ;;(setq yas/snippet-dirs "~/.emacs.d/snippets" )
 ;; (yas/reload-all)
