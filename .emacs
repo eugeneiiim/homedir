@@ -88,6 +88,8 @@
 (load-library "yasnippet")
 (yas-global-mode 1)
 
+(yas/compile-directory "~/snippets")
+
 ;; JST
 (add-to-list 'auto-mode-alist '("\\.jst$" . nxml-mode))
 
