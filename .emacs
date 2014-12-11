@@ -177,6 +177,8 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (global-set-key (kbd "C-c C-c") 'mc/edit-lines)
+(global-set-key (kbd "C-c C-n") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c C-u") 'mc/mark-all-like-this)
 
 ;;(setq yas/snippet-dirs "~/.emacs.d/snippets" )
 ;; (yas/reload-all)
