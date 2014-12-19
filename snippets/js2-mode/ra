@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: require async
+# key: ra
+# --
+var async = require('async');

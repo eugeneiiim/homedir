@@ -4,6 +4,7 @@
 # --
 async.waterfall([
   function(cb) {
+    $0
   },
 
   function(ret, cb) {
