@@ -67,3 +67,9 @@ gocode
 .heroku
 .netrc
 .ssh
+.rediscli_history
+.node-gyp
+.htoprc
+ansible_hosts
+.openvpn-connect.json
+.zshrc-e
