@@ -60,6 +60,3 @@ export PATH="/usr/local/heroku/bin:$PATH"
 function showcommit() {
     open "https://github.com/blendlabs/centrio/commit/$1"
 }
-
-export GOPATH=$HOME/gocode
-export PATH="$HOME/gocode/bin:$PATH"
