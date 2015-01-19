@@ -187,3 +187,4 @@ alias b2d='boot2docker'
 alias ek='emacs ~/.ssh/known_hosts'
 
 export TERM=xterm-256color
+RPROMPT='[%?]'
