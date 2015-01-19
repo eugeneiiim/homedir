@@ -1,0 +1,9 @@
+# Author: Eugene Marinelli
+# name: describe
+# key: des
+# --
+describe('$1', function() {
+  it('$0', function(cb) {
+    cb();
+  });
+});
