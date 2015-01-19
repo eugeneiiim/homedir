@@ -73,8 +73,8 @@ alias agi='sudo apt-get install -y'
 
 alias amend='git commit --amend'
 alias dbrc='. ~/.bashrc'
-alias srp='g stash && grom && gsp'
-alias sr='g stash && grom && gsp'
+alias srp='g stash && git rebase && gsp'
+alias sr='g stash && git rebase && gsp'
 
 export GIT_EDITOR='emacs --no-desktop'
 export EDITOR=emacs
