@@ -1,5 +1,12 @@
 # Author: Eugene Marinelli
-# name: assert
+# name: async.series
 # key: as
 # --
-assert($1, $2);
+async.series([
+  function(cb) {
+    $0
+  },
+
+  function(cb) {
+  }
+], cb);
