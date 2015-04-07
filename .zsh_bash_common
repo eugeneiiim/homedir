@@ -20,6 +20,7 @@ alias pull='git pull --rebase origin master'
 alias push='git push origin master'
 #alias pom='git push origin HEAD:master'
 alias poh='git push origin HEAD'
+alias pho='poh'
 alias phm='git push heroku HEAD:master'
 alias gfo='git fetch origin'
 alias gf='git fetch origin'
@@ -58,7 +59,7 @@ alias co='git checkout'
 #  ag $*
 #  #git grep $1 | grep -v "models/gen" | less
 #}
-alias gg='ag --ignore-dir dev --ignore-dir logs'
+alias gg='ag --ignore-dir dev --ignore-dir logs --ignore-dir vendor --ignore-dir coverage'
 
 alias e='emacs -nw'
 alias ec='emacsclient -t'
@@ -66,6 +67,7 @@ alias ed='emacs --daemon'
 alias ep='ps aux | grep emacs'
 alias dz='. ~/.zshrc'
 alias ez='emacs ~/.zsh_bash_common'
+alias c='cd'
 
 alias acs='apt-cache search'
 alias agi='sudo apt-get install -y'
@@ -190,3 +192,6 @@ alias ek='emacs ~/.ssh/known_hosts'
 
 export TERM=xterm-256color
 RPROMPT='[%?]'
+
+
+. /Users/emarinelli/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
