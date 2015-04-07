@@ -5,4 +5,4 @@ if !ARGV[0] || ARGV[0].empty?
   exit 1
 end
 
-`find . -name \"#{ARGV[0]}*\" | grep -v class | grep -v node_modules | grep -v .git | grep -v dev | grep -v target`.split("\n").select {|x| !x.include?('~') }.each { |l| puts l }
+`find . -name \"#{ARGV[0]}*\" | grep -v class | grep -v node_modules | grep -v .git | grep -v dev | grep -v vendor | grep -v coverage | grep -v target`.split("\n").select {|x| !x.include?('~') }.each { |l| puts l }
