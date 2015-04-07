@@ -67,11 +67,12 @@
 (require 'project-local-variables)
 
 
+
 (defvar ffip-regexp
   (concat ".*\.("
-	  (mapconcat (lambda (x) x)
-		     '("rb" "coffee" "scala" "sh" "css" "jst" "js" "erb" "html" "el" "less" "py" "avdl" "routes" "mako" "java" "sbt") "|")
-	  ")")
+    (mapconcat (lambda (x) x)
+      '("rb" "sh" "css" "js" "html" "less" "py") "|")
+    ")")
   "Regexp of things to look for when using find-file-in-project.")
 
 ;; (defvar ffip-find-options
@@ -81,7 +82,7 @@
 ;; Use this to exclude portions of your project: \"-not -regex \\\".*vendor.*\\\"\"")
 
 (defvar ffip-find-options
-  " -not -regex \".*components.*\" -not -regex \".*node_modules.*\" -not -regex \".*dist.*\" -not -regex \".*git.*\" "
+  " -not -regex \".*components.*\" -not -regex \".*node_modules.*\" -not -regex \".*dist.*\" -not -regex \".*git.*\" -not -regex \".*vendor.*\" -not -regex \".*dev.*\"  "
   "Extra options to pass to `find' when using find-file-in-project.
 
 Use this to exclude portions of your project: \"-not -regex \\\".*vendor.*\\\"\"")
