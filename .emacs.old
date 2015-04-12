@@ -1,0 +1,333 @@
+(require 'package)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+
+;; TODO include everything in .emacs.d/elpa somehow
+(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-20080305.34")
+(add-to-list 'load-path "~/.emacs.d/elpa/lush-theme-20140922.1117")
+(add-to-list 'load-path "~/.emacs.d/elpa/multiple-cursors-20141026.503")
+(add-to-list 'load-path "~/.emacs.d/elpa/s-20140910.334")
+(add-to-list 'load-path "~/.emacs.d/elpa/dash-20150311.2355")
+(add-to-list 'load-path "~/.emacs.d/elpa/js2-refactor-20150308.1235")
+
+;; General
+(setq load-path (cons (expand-file-name "~/emacs_stuff") load-path))
+;; (global-auto-revert-mode t)
+;;(add-hook 'find-file-hook 'subword-mode)
+
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+(menu-bar-mode 0)
+
+(transient-mark-mode t)
+(column-number-mode t)
+
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+
+(global-set-key (kbd "C-M-[")  'windmove-left)
+(global-set-key (kbd "C-M-]")  'windmove-right)
+(setq windmove-wrap-around t)
+
+;; Whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(require 'show-wspace)
+(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
+(add-hook 'font-lock-mode-hook 'show-ws-highlight-trailing-whitespace)
+
+;; Indentation
+(setq-default tab-width 2)
+(setq tab-width 2)
+(setq-default indent-tabs-mode nil)
+(setq indent-tabs-mode nil)
+
+(add-to-list 'load-path "~/emacs_stuff/go-mode")
+(require 'go-mode)
+
+;; ido
+(require 'ido)
+(ido-mode t)
+(setq
+ ido-case-fold  t
+ ido-ignore-buffers '()
+ ido-use-filename-at-point nil
+ ido-use-url-at-point nil
+ ido-enable-flex-matching nil
+)
+
+(setq confirm-nonexistent-file-or-buffer nil)
+
+;; FFIP
+(require 'find-file-in-project)
+(global-set-key (kbd "C-x p") 'find-file-in-project)
+
+;; Coffeescript
+(require 'coffee-mode)
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+
+;; CSS
+(autoload 'css-mode "css-mode" "Mode for editing CSS files" t)
+(setq auto-mode-alist
+      (append '(("\\.css$" . css-mode))
+              auto-mode-alist))
+
+;; Less
+(require 'less-mode)
+(add-to-list 'auto-mode-alist '("\\.less$" . less-mode))
+(setq css-indent-offset 2)
+(setq less-compile-at-save nil)
+
+;; Colors
+(custom-set-faces
+ '(minibuffer-prompt ((t (:foreground "#ffffff"))))
+)
+
+(global-set-key (kbd "C-x TAB") 'indent-rigidly)
+
+
+;; Javascript
+(add-to-list 'load-path "~/.emacs.d/elpa/js2-mode-20140114")
+
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(setq js-indent-level 2)
+(setq c-basic-offset 2)
+
+;; Haskell
+(add-hook 'haskell-mode-hook 'haskell-indentation-mode)
+
+;; ;; Yasnippet
+;; (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet/yasnippet")
+;; (require 'yasnippet)
+
+;; (yas/global-mode 1)
+;;(yas/initialize)
+;;(yas/load-directory "~/.emacs.d/snippets")
+
+(setq yas-snippet-dirs
+      '("~/snippets"                 ;; personal snippets
+        ))
+;;(yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
+
+(add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
+(load-library "yasnippet")
+(yas-global-mode 1)
+
+(yas/compile-directory "~/snippets")
+
+
+;; ;; Yasnippet
+;; (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet/yasnippet")
+;; (require 'yasnippet)
+
+;; (yas/global-mode 1)
+;;(yas/initialize)
+;;(yas/load-directory "~/.emacs.d/snippets")
+
+;;(yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
+
+;; (add-to-list 'load-path "~/.emacs.d/elpa/yasnippet-20150405.1526")
+;; ;;(load-library "yasnippet")
+;; (require 'yasnippet)
+;; ;;(yas/initialize)
+;; ;; (setq yas-snippet-dirs '("~/snippets"))
+;; (yas-compile-directory "~/snippets")
+;; (yas/load-directory "~/snippets")
+;; (yas-global-mode 1)
+
+
+;; (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
+;; (require 'yasnippet)
+;; (yas-global-mode 1)
+
+;; Clojure
+(require 'clojure-mode)
+(add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+
+(add-to-list 'auto-mode-alist '("\\.handlebars$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.svg$" . html-mode))
+
+;; http://amitp.blogspot.com/2007/03/emacs-move-autosave-and-backup-files.html
+(defvar user-temporary-file-directory
+  (concat temporary-file-directory user-login-name "/"))
+(make-directory user-temporary-file-directory t)
+(setq backup-by-copying t)
+(setq backup-directory-alist
+      `(("." . ,user-temporary-file-directory)
+        (,tramp-file-name-regexp nil)))
+(setq auto-save-list-file-prefix
+      (concat user-temporary-file-directory ".auto-saves-"))
+(setq auto-save-file-name-transforms
+      `((".*" ,user-temporary-file-directory t)))
+
+
+(autoload 'ruby-mode "ruby-mode" "Major mode for editing ruby." t)
+(setq auto-mode-alist (cons '("\\.rb\\'" . ruby-mode) auto-mode-alist))
+
+
+(global-set-key (kbd "C-x e") 'delete-region)
+
+(load-library "color-theme")
+;;(require 'color-theme)
+(color-theme-initialize)
+;;(load-file "~/.emacs.d/elpa/lush-theme-20140922.1117")
+(load-library "lush-theme")
+
+(require 'js2-refactor)
+(js2r-add-keybindings-with-prefix "C-c C-m")
+
+;; (add-to-list 'load-path "~/.emacs.d/elpa/zenburn-theme-2.1")
+;; (load-library "zenburn-theme")
+
+;;(load-theme 'zenburn t)
+
+;;(setq yas/root-directory "~/emacs.d/snippets")
+;;(yas/load-directory "~/.emacs.d/snippets")
+
+;;(setq yas/snippet-dirs "~/.emacs.d/snippets" )
+
+;;(yas/global-mode 1)
+
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+(global-set-key (kbd "C-c C-c") 'mc/edit-lines)
+(global-set-key (kbd "C-c C-n") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c C-u") 'mc/mark-all-like-this)
+
+(defun move-text-internal (arg)
+  (cond
+   ((and mark-active transient-mark-mode)
+    (if (> (point) (mark))
+        (exchange-point-and-mark))
+    (let ((column (current-column))
+          (text (delete-and-extract-region (point) (mark))))
+      (forward-line arg)
+      (move-to-column column t)
+      (set-mark (point))
+      (insert text)
+      (exchange-point-and-mark)
+      (setq deactivate-mark nil)))
+   (t
+    (let ((column (current-column)))
+      (beginning-of-line)
+      (when (or (> arg 0) (not (bobp)))
+        (forward-line)
+        (when (or (< arg 0) (not (eobp)))
+          (transpose-lines arg)
+          (when (and (eval-when-compile
+                       '(and (>= emacs-major-version 24)
+                             (>= emacs-minor-version 3)))
+                     (< arg 0))
+            (forward-line -1)))
+        (forward-line -1))
+      (move-to-column column t)))))
+
+(defun move-text-down (arg)
+  "Move region (transient-mark-mode active) or current line
+  arg lines down."
+  (interactive "*p")
+  (move-text-internal arg))
+
+(defun move-text-up (arg)
+  "Move region (transient-mark-mode active) or current line
+  arg lines up."
+  (interactive "*p")
+  (move-text-internal (- arg)))
+
+(global-set-key "\M-p" 'move-text-up)
+(global-set-key "\M-n" 'move-text-down)
+
+;;(setq yas/snippet-dirs "~/.emacs.d/snippets" )
+;; (yas/reload-all)
+
+;;(modify-frame-parameters nil '((wait-for-wm . nil)))
+
+;; (mouse-wheel-mode t)
+;; (setq scroll-step 1)
+;; (setq scroll-conservatively 50)
+;; (setq scroll-preserve-screen-position nil)
+
+;; (set-default-font "6x13")
+
+;; (setq default-frame-alist
+;;   '(
+;;   (width . 80) (height . 61)
+;;   ))
+
+;; (setq column-number-mode t)
+
+;; (custom-set-variables
+;;   ;; custom-set-variables was added by Custom.
+;;   ;; If you edit it by hand, you could mess it up, so be careful.
+;;   ;; Your init file should contain only one such instance.
+;;   ;; If there is more than one, they won't work right.
+;;  '(c-basic-offset 2)
+;;  '(c-default-style (quote ((c-mode . "bsd") (java-mode . "java") (other . "gnu"))))
+;;  '(case-fold-search t)
+;;  '(current-language-environment "UTF-8")
+;;  '(default-input-method "rfc1345")
+;;  '(global-font-lock-mode t nil (font-lock))
+;;  '(scroll-bar-mode (quote right))
+;;  '(show-paren-mode t)
+;;  '(tool-bar-mode nil)
+;;  '(transient-mark-mode t))
+;;  '(mouse-wheel-mode 1)
+;; (custom-set-faces
+;;   ;; custom-set-faces was added by Custom.
+;;   ;; If you edit it by hand, you could mess it up, so be careful.
+;;   ;; Your init file should contain only one such instance.
+;;   ;; If there is more than one, they won't work right.
+;;  )
+
+;; (setq exec-path (append exec-path (list "~/bin")))
+
+;; ;;disable splash screen and startup message
+;; (setq inhibit-startup-message t)
+;; (setq initial-scratch-message nil)
+
+;; (put 'upcase-region 'disabled nil)
+
+;; (add-to-list 'auto-mode-alist '("\\.ejs$" . nxml-mode))
+
+;; (require 'desktop)
+;; (desktop-save-mode 1)
+;; (defun my-desktop-save ()
+;;   (interactive)
+;;   ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+;; ;;  (if (eq (desktop-owner) (emacs-pid))
+;; ;;      (desktop-save desktop-dirname)))
+;;   (desktop-save desktop-dirname)
+;; )
+
+;; (add-hook 'auto-save-hook 'my-desktop-save)
+
+;; ;; Enable mouse support
+;; ;; (unless window-system
+;; ;;   (require 'mouse)
+;; ;;   (xterm-mouse-mode t)
+;; ;;   (global-set-key [mouse-4] '(lambda ()
+;; ;;                                (interactive)
+;; ;;                                (scroll-down 1)))
+;; ;;   (global-set-key [mouse-5] '(lambda ()
+;; ;;                                (interactive)
+;; ;;                                (scroll-up 1)))
+;; ;;   (defun track-mouse (e))
+;; ;;   (setq mouse-sel-mode t)
+;; ;; )
+
+;; ;; (defun copy-from-osx ()
+;; ;;   (shell-command-to-string "pbpaste"))
+
+;; ;; (defun paste-to-osx (text &optional push)
+;; ;;   (let ((process-connection-type nil))
+;; ;;       (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+;; ;;         (process-send-string proc text)
+;; ;;         (process-send-eof proc))))
+
+;; ;; (setq interprogram-cut-function 'paste-to-osx)
+;; ;; (setq interprogram-paste-function 'copy-from-osx)

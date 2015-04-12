@@ -73,3 +73,4 @@ gocode
 ansible_hosts
 .openvpn-connect.json
 .zshrc-e
+*zcompdump*
