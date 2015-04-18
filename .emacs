@@ -27,6 +27,10 @@
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (setq js-indent-level 2)
+(setq c-basic-offset 2)
+
+(require 'js2-refactor)
+(js2r-add-keybindings-with-prefix "C-c C-m")
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (require 'show-wspace)
@@ -42,6 +46,7 @@
 (setq yas-snippet-dirs '("~/snippets"))
 (require 'yasnippet)
 (yas-global-mode 1)
+(yas-compile-directory "~/snippets")
 
 (global-set-key (kbd "C-c C-c") 'mc/edit-lines)
 (global-set-key (kbd "C-c C-n") 'mc/mark-next-like-this)
