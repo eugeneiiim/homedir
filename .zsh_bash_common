@@ -104,7 +104,7 @@ alias k4='kill -9 %4'
 alias k5='kill -9 %5'
 alias k6='kill -9 %6'
 alias kj='killall java'
-alias kn='killall node'
+alias kn='killall node grunt'
 
 alias emacsnd='emacs --no-desktop'
 alias end='emacs --no-desktop'
