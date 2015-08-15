@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: require primitiveTypes
+# key: rp
+# --
+var primitiveTypes = require('blend-utils').primitiveTypes;

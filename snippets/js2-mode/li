@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: logger.info
+# key: li
+# --
+logger.info('$0');

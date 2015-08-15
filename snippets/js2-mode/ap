@@ -1,0 +1,10 @@
+# Author: Eugene Marinelli
+# name: async.parallel
+# key: ap
+# --
+async.parallel({
+  $1: function(cb) {
+  },
+  $2: function(cb) {
+  }
+}, cb);

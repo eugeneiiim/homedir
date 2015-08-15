@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: require expect.js
+# key: rx
+# --
+var expect = require('expect.js');
