@@ -124,8 +124,6 @@ else
    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 fi
 
-alias hbaselogs='tail -f `dirname \`which hbase\``/../logs/hbase*.log'
-
 alias addgen='g add src/java/blendlabs/models/gen'
 alias rconf='g reset src/scala/blendlabs/config/BlendConfig.scala ; gs'
 
@@ -151,9 +149,6 @@ if [[ -r ~/.private ]]; then
     source ~/.private
 fi
 
-# use virtualenv python
-#source ~/bin/activate
-
 alias pms='python -m SimpleHTTPServer'
 alias va='vagrant'
 alias h='heroku'
@@ -165,8 +160,6 @@ alias f='foreman'
 alias ap='git add -p'
 
 export MAKEFLAGS='-j 8'
-
-# nvm use 0.10 > /dev/null
 
 # rvm use 1.9.3
 # export PATH="/usr/local/Cellar/ruby/2.0.0-p247/bin:$PATH"

@@ -50,8 +50,6 @@ if [[ -r ~/.zsh_bash_common ]]; then
     source ~/.zsh_bash_common
 fi
 
-#cd ~/treat
-
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 ### Added by the Heroku Toolbelt
