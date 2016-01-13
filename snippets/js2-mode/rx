@@ -2,4 +2,4 @@
 # name: require expect.js
 # key: rx
 # --
-var expect = require('expect.js');
+const expect = require('expect.js');

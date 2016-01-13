@@ -2,4 +2,4 @@
 # name: require async
 # key: ra
 # --
-var async = require('async');
+const async = require('async');

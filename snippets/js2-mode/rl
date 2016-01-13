@@ -2,4 +2,4 @@
 # name: require logger
 # key: rl
 # --
-var logger = require('blend-utils').logger;
+const logger = require('blend-utils').logger;

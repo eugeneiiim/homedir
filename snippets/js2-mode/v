@@ -1,5 +1,5 @@
 # Author: Eugene Marinelli
-# name: var
+# name: const
 # key: v
 # --
-var $1 = $2;
+const $1 = $2;

@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: async.asyncify
+# key: aa
+# --
+async.asyncify(

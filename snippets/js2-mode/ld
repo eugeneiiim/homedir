@@ -2,4 +2,4 @@
 # name: lodash
 # key: ld
 # --
-var _ = require('lodash');
+const _ = require('lodash');
