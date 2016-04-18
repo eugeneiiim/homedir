@@ -190,7 +190,7 @@ RPROMPT='[%?]'
 
 alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
-ulimit -n 10000
+ulimit -n 4096
 ulimit -u 1000
 
 export GOROOT=/usr/local/opt/go/libexec
