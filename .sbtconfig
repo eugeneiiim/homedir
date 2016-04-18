@@ -1,1 +1,0 @@
-SBT_OPTS="-XX:MaxDirectMemorySize=1g -Xmx10G -XX:MaxPermSize=2048M"
