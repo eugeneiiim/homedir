@@ -177,16 +177,9 @@ export PATH=/usr/local/opt/emacs/bin:$PATH
 
 PATH=$HOME/.cabal/bin:$PATH
 
-export DOCKER_HOST=tcp://192.168.59.103:2376
-export DOCKER_CERT_PATH=/Users/emarinelli/.boot2docker/certs/boot2docker-vm
-export DOCKER_TLS_VERIFY=1
-#export DOCKER_IP=192.168.59.103
-#export DOCKER_HOST=tcp://$DOCKER_IP:2375
-
 alias docker_stop_all='docker stop $(docker ps -a -q)'
 alias docker_rm_all='docker rm $(docker ps -a -q)'
 alias docker_kill_all='docker kill $(docker ps -a -q)'
-alias b2d='boot2docker'
 
 alias ek='emacs ~/.ssh/known_hosts'
 
