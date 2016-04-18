@@ -1,2 +1,0 @@
-java -jar `dirname $0`/sbt-launch_0.12.1.jar "$@"
-# -verbose:gc
