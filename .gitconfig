@@ -10,6 +10,7 @@
   cp = cherry-pick
   br = branch
   st = stash
+  fshow = ! sh -c 'git show --pretty="format:" --name-only $1 | grep -v "^$" | uniq | sed -e "s#^#`git rev-parse --show-toplevel`/#"' -
 [core]
   excludesfile = ~/.gitignore_global
 [push]

@@ -29,6 +29,8 @@ alias gshn='git show "HEAD" --name-only'
 alias gsh2='git show "HEAD^"'
 alias gsh3='git show "HEAD^^"'
 alias gsh4='git show "HEAD^^^"'
+alias gsh5='git show "HEAD^^^^"'
+alias gsh6='git show "HEAD^^^^^"'
 alias g='git'
 alias brc='emacs ~/.bashrc'
 alias cbrc='cat ~/.bashrc'
@@ -170,6 +172,11 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:~/bin/packer
 export PATH=$PATH:/usr/local/go/bin
 
+# Ensure that homebrew emacs is preferred over /usr/bin/emacs.
+export PATH=/usr/local/opt/emacs/bin:$PATH
+
+PATH=$HOME/.cabal/bin:$PATH
+
 export DOCKER_HOST=tcp://192.168.59.103:2376
 export DOCKER_CERT_PATH=/Users/emarinelli/.boot2docker/certs/boot2docker-vm
 export DOCKER_TLS_VERIFY=1
@@ -186,5 +193,16 @@ alias ek='emacs ~/.ssh/known_hosts'
 export TERM=xterm-256color
 RPROMPT='[%?]'
 
-
 . /Users/emarinelli/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+ulimit -n 10000
+ulimit -u 1000
+
+export GOROOT=/usr/local/opt/go/libexec
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+
+. ~/.awscreds

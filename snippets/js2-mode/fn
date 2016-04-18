@@ -1,6 +1,5 @@
 # Author: Eugene Marinelli
-# name: named function
+# name: function
 # key: fn
 # --
-function($1) {
-}
+$1 => {}
