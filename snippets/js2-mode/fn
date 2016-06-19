@@ -2,4 +2,5 @@
 # name: function
 # key: fn
 # --
-$1 => {}
+function($1) {
+}
