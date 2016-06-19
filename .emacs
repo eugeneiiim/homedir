@@ -4,15 +4,15 @@
 (column-number-mode t)
 (global-linum-mode t)
 
-;; (require 'ido)
-;; (ido-mode t)
-;; (setq
-;;  ido-case-fold  t
-;;  ido-ignore-buffers '()
-;;  ido-use-filename-at-point nil
-;;  ido-use-url-at-point nil
-;;  ido-enable-flex-matching nil
-;; )
+(require 'ido)
+(ido-mode t)
+(setq
+ ido-case-fold  t
+ ido-ignore-buffers '()
+ ido-use-filename-at-point nil
+ ido-use-url-at-point nil
+ ido-enable-flex-matching nil
+)
 
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -131,4 +131,5 @@
 (setq projectile-completion-system 'helm)
 ;; (helm-projectile-on)
 
-(global-set-key (kbd "C-x C-f") 'projectile-find-file)
+(global-set-key (kbd "C-x C-d") 'projectile-find-file)
+(global-set-key (kbd "C-x C-g") 'helm-projectile-ag)
