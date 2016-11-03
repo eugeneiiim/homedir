@@ -2,7 +2,7 @@
 # name: script callback
 # key: scb
 # --
-var cb = function(err) {
+const cb = function(err) {
   if (err) {
     logger.error(err);
     process.exit(1);

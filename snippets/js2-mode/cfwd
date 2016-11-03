@@ -2,4 +2,4 @@
 # name: cb is forward
 # key: cfwd
 # --
-var cb = forward(req, res, next);
+const cb = forward(req, res, next);
