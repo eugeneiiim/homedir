@@ -13,3 +13,5 @@ __pycache__
 npm-debug.log
 .env
 *.pyc
+.tern-port
+venv
