@@ -157,8 +157,6 @@ alias h='heroku'
 alias hlt='heroku logs -t'
 alias tep='touch .emacs-project'
 alias todo='emacs ~/Dropbox/todo/todo.txt'
-alias fr='foreman run'
-alias f='foreman'
 alias ap='git add -p'
 
 export MAKEFLAGS='-j 8'
@@ -167,8 +165,6 @@ export MAKEFLAGS='-j 8'
 # export PATH="/usr/local/Cellar/ruby/2.0.0-p247/bin:$PATH"
 
 [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrcexport
-export GOPATH=~/go-projects/
-export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:~/bin/packer
 export PATH=$PATH:/usr/local/go/bin
 

@@ -28,6 +28,7 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (setq js-indent-level 2)
 (setq c-basic-offset 2)
+(setq typescript-indent-level 2)
 
 (require 'js2-refactor)
 (js2r-add-keybindings-with-prefix "C-c C-m")
@@ -133,3 +134,11 @@
 
 (global-set-key (kbd "C-x C-d") 'projectile-find-file)
 (global-set-key (kbd "C-x C-g") 'helm-projectile-ag)
+(add-to-list 'projectile-globally-ignored-directories "vendor")
+(add-to-list 'projectile-globally-ignored-directories "dev")
+(add-to-list 'projectile-globally-ignored-directories "fonts")
+
+(global-set-key (kbd "C-x C-y") 'magit-stage-file)
+
+(setq kotlin-tab-width 2)
+(put 'set-goal-column 'disabled nil)
