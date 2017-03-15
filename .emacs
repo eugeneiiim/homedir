@@ -137,6 +137,7 @@
 (add-to-list 'projectile-globally-ignored-directories "vendor")
 (add-to-list 'projectile-globally-ignored-directories "dev")
 (add-to-list 'projectile-globally-ignored-directories "fonts")
+(add-to-list 'projectile-globally-ignored-directories "dist")
 
 (global-set-key (kbd "C-x C-y") 'magit-stage-file)
 

@@ -30,14 +30,16 @@ alias gsh2='git show "HEAD^"'
 alias gsh3='git show "HEAD^^"'
 alias gsh4='git show "HEAD^^^"'
 alias gsh5='git show "HEAD^^^^"'
-alias gsh6='git show "HEAD^^^^^"'
+alias gsh6='git show "HEAD^^^^^^"'
+alias gsh7='git show "HEAD^^^^^^^"'
+alias gsh8='git show "HEAD^^^^^^^^"'
+alias gsh9='git show "HEAD^^^^^^^^^"'
 alias g='git'
 alias brc='emacs ~/.bashrc'
 alias cbrc='cat ~/.bashrc'
 alias gsp='git stash pop'
 alias grom='git rebase origin/master'
 alias ro='git rebase origin/master'
-alias gr311='git rebase origin/3.11.1'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
 alias grs='git reset --soft HEAD~ ; git status'
@@ -84,7 +86,6 @@ export EDITOR=emacs
 
 export PATH=$PATH:~/mongo/bin
 export PATH=$PATH:~/bin
-export PATH=$PATH:~/elasticsearch/bin
 export PATH=$PATH:~/.scala/bin
 export PATH=$PATH:/usr/local/share/npm/bin
 export PATH=$PATH:/usr/local/share/python
@@ -125,9 +126,6 @@ if [[ `uname` = Darwin ]]; then
 else
    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 fi
-
-alias addgen='g add src/java/blendlabs/models/gen'
-alias rconf='g reset src/scala/blendlabs/config/BlendConfig.scala ; gs'
 
 function r() {
   F=`ls ~/repo/blendlabs | grep $1 | head -n 1`
@@ -177,12 +175,10 @@ alias docker_stop_all='docker stop $(docker ps -a -q)'
 alias docker_rm_all='docker rm $(docker ps -a -q)'
 alias docker_kill_all='docker kill $(docker ps -a -q)'
 
-alias ek='emacs ~/.ssh/known_hosts'
-
 export TERM=xterm-256color
 RPROMPT='[%?]'
 
-. /Users/emarinelli/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# . /Users/emarinelli/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
@@ -190,8 +186,17 @@ ulimit -n 4096
 ulimit -u 1000
 
 export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=$HOME/go
+export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
 . ~/.awscreds
+
+export PATH=$PATH:~/repo/blendlabs/mongodb-osx-x86_64-3.0.11/bin
+export VAULT_ADDR=https://vault.sandbox.centrio.com:8200
+alias act='source venv/bin/activate'
+alias du_dirs='du -d 0 -k * | sort -n'
+
+eval $(ssh-agent)
