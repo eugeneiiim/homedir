@@ -1,0 +1,9 @@
+# Author: Eugene Marinelli
+# name: callback
+# key: cb
+# --
+function(err, ${1:ret}) {
+  if (err) return cb(err);
+
+  cb(null, $1);
+}

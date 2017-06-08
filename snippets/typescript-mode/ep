@@ -1,0 +1,9 @@
+# Author: Eugene Marinelli
+# name: express endpoint
+# key: ep
+# --
+app.get('/api/$1', function(req, res, next) {
+  var cb = forward(req, res, next);
+  $0
+  cb(null, 'done');
+});

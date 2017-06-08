@@ -1,0 +1,12 @@
+# Author: Eugene Marinelli
+# name: async.waterfall
+# key: aw
+# --
+async.waterfall([
+  function(cb) {
+    $0
+  },
+
+  function(ret, cb) {
+  }
+], cb);

@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: var start = Date.now()
+# key: sdn
+# --
+var start = Date.now();

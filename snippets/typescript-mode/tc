@@ -1,0 +1,8 @@
+# Author: Eugene Marinelli
+# name: try-catch
+# key: tc
+# --
+try {
+} catch (e) {
+  console.trace(e);
+}

@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: require global
+# key: rg
+# --
+const $1 = require('$1');

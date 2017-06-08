@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: angular scope var
+# key: sv
+# --
+$scope.$1 = $2;

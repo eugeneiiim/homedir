@@ -1,0 +1,6 @@
+# Author: Eugene Marinelli
+# name: function 2
+# key: fa
+# --
+function $1($2) {
+}

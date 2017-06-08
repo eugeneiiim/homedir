@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: cb is forward
+# key: cfwd
+# --
+const cb = forward(req, res, next);

@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: require
+# key: r
+# --
+const $1 = require('./$1');

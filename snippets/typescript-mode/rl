@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: require logger
+# key: rl
+# --
+const logger = require('blend-utils').logger;

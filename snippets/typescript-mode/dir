@@ -1,0 +1,14 @@
+# Author: Eugene Marinelli
+# name: angular directive
+# key: dir
+# --
+module.directive('$1', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '/$2',
+    scope: {},
+    controller: ['$scope', function($scope) {
+      $0
+    }]
+  };
+}]);

@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: const
+# key: v
+# --
+const $1 = $2;

@@ -1,0 +1,6 @@
+# Author: Eugene Marinelli
+# name: function
+# key: fn
+# --
+function($1) {
+}

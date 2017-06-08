@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: async
+# key: async
+# --
+async.$1($2, cb);

@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: JSON.stringify
+# key: js
+# --
+JSON.stringify($1, ' ', 2)

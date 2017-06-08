@@ -1,0 +1,12 @@
+# Author: Eugene Marinelli
+# name: async.series
+# key: as
+# --
+async.series([
+  function(cb) {
+    $0
+  },
+
+  function(cb) {
+  }
+], cb);

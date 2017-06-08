@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: forward
+# key: fwd
+# --
+forward(req, res, next)

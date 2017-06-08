@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: new Error
+# key: ne
+# --
+new Error('$0')

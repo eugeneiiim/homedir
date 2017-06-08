@@ -1,0 +1,7 @@
+# Author: Eugene Marinelli
+# name: then
+# key: then
+# --
+then(function($1) {
+  return $0;
+});

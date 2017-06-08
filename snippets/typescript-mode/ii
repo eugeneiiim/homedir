@@ -1,0 +1,7 @@
+# Author: Eugene Marinelli
+# name: iife
+# key: ii
+# --
+(function() {
+  $0
+})()

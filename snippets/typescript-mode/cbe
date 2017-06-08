@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: callback with error
+# key: cbe
+# --
+return cb(new Error('$1'));
