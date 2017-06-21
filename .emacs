@@ -30,6 +30,9 @@
 (setq c-basic-offset 2)
 (setq typescript-indent-level 2)
 
+; Ignore trailing commas
+(setq js2-strict-trailing-comma-warning nil)
+
 (require 'js2-refactor)
 (js2r-add-keybindings-with-prefix "C-c C-m")
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
