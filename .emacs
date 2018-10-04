@@ -118,7 +118,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/repo/blendlabs/morty/ecs/todo.txt"))))
+ '(package-selected-packages
+   (quote
+    (go-mode solidity-mode prettier-js dockerfile-mode yaml-mode helm-ag helm-projectile company tide typescript-mode js2-mode markdown-mode haskell-mode lush-theme js2-refactor))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -126,10 +128,10 @@
  ;; If there is more than one, they won't work right.
  )
 
-(add-to-list 'load-path "~/repo/ternjs/tern/emacs/")
-(autoload 'tern-mode "tern.el" nil t)
+;; (add-to-list 'load-path "~/repo/ternjs/tern/emacs/")
+;; (autoload 'tern-mode "tern.el" nil t)
 
-(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
@@ -146,3 +148,26 @@
 
 (setq kotlin-tab-width 2)
 (put 'set-goal-column 'disabled nil)
+
+(setq create-lockfiles nil)
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+;; (add-hook 'before-save-hook 'tide-format-before-save)
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+(setq tide-format-options '(:tabSize t))

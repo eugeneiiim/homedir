@@ -47,6 +47,7 @@ alias rs='git reset --soft HEAD~ ; git status'
 alias gr='git reset'
 alias ad='git add .'
 alias gre='git reset'
+alias gcm='git co master'
 
 alias gr='grunt'
 
@@ -195,8 +196,10 @@ export NVM_DIR="$HOME/.nvm"
 . ~/.awscreds
 
 export PATH=$PATH:~/repo/blendlabs/mongodb-osx-x86_64-3.0.11/bin
-export VAULT_ADDR=https://vault.sandbox.centrio.com:8200
 alias act='source venv/bin/activate'
 alias du_dirs='du -d 0 -k * | sort -n'
 
 eval $(ssh-agent)
+
+export PATH=$PATH:/Library/TeX/texbin
+export PATH=$PATH:~/google-cloud-sdk/bin

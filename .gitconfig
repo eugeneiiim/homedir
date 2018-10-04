@@ -19,3 +19,5 @@
 	helper = cache
 [heroku]
 	account = personal
+[hub]
+	host = git.blendlabs.com
