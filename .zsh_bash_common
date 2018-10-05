@@ -140,7 +140,7 @@ function set_upstream() {
 }
 
 # [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-# [[ -s $HOME/.nvm/nvm.sh ]] && . /Users/emarinelli/.nvm/nvm.sh # This loads NVM
+# [[ -s $HOME/.nvm/nvm.sh ]] && . /Users/eugene/.nvm/nvm.sh # This loads NVM
 
 if [[ -f "$HOME/.amazon_keys" ]]; then
     source "$HOME/.amazon_keys";
@@ -179,8 +179,6 @@ alias docker_kill_all='docker kill $(docker ps -a -q)'
 export TERM=xterm-256color
 RPROMPT='[%?]'
 
-# . /Users/emarinelli/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
 alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 ulimit -n 4096
@@ -189,9 +187,6 @@ ulimit -u 1000
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go
 export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
 . ~/.awscreds
 
@@ -203,3 +198,7 @@ eval $(ssh-agent)
 
 export PATH=$PATH:/Library/TeX/texbin
 export PATH=$PATH:~/google-cloud-sdk/bin
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

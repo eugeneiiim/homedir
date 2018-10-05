@@ -31,11 +31,11 @@
 (setq typescript-indent-level 2)
 
 ; Ignore trailing commas
-(setq js2-strict-trailing-comma-warning nil)
+;; (setq js2-strict-trailing-comma-warning nil)
 
-(require 'js2-refactor)
-(js2r-add-keybindings-with-prefix "C-c C-m")
-(add-hook 'js2-mode-hook #'js2-refactor-mode)
+;; (require 'js2-refactor)
+;; (js2r-add-keybindings-with-prefix "C-c C-m")
+;; (add-hook 'js2-mode-hook #'js2-refactor-mode)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (require 'show-wspace)
@@ -120,7 +120,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (go-mode solidity-mode prettier-js dockerfile-mode yaml-mode helm-ag helm-projectile company tide typescript-mode js2-mode markdown-mode haskell-mode lush-theme js2-refactor))))
+    (go-mode solidity-mode prettier-js dockerfile-mode yaml-mode helm-ag helm-projectile company tide typescript-mode js2-mode markdown-mode haskell-mode lush-theme )))) ;; js2-refactor
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
