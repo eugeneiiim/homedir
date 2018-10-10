@@ -17,9 +17,9 @@
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
+
 (setq load-path (cons (expand-file-name "~/emacs_stuff") load-path))
 
 (load-library "lush-theme")
@@ -120,7 +120,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (go-mode solidity-mode prettier-js dockerfile-mode yaml-mode helm-ag helm-projectile company tide typescript-mode js2-mode markdown-mode haskell-mode lush-theme )))) ;; js2-refactor
+    (tide helm go-mode solidity-mode prettier-js dockerfile-mode yaml-mode helm-ag helm-projectile company typescript-mode js2-mode markdown-mode haskell-mode lush-theme))))
+ ;; js2-refactor
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -169,5 +170,7 @@
 ;; formats the buffer before saving
 ;; (add-hook 'before-save-hook 'tide-format-before-save)
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
 
 (setq tide-format-options '(:tabSize t))
