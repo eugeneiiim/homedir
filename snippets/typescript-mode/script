@@ -1,0 +1,23 @@
+# Author: Eugene Marinelli
+# name: script
+# key: script
+# --
+import * as blendUtils from 'blend-utils'
+
+async function main(): Promise<void> {
+  blendUtils.logger.info('Hello')
+}
+
+function handleSuccess(_value: void): void {
+  blendUtils.logger.info('Success.')
+}
+
+function handleFailure(error: Error): void {
+  blendUtils.logger.error('Error.', error)
+  process.exit(1)
+}
+
+if (require.main === module) {
+  const mainPromise = main()
+  mainPromise.then(handleSuccess).catch(handleFailure)
+}

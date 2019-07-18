@@ -1,0 +1,6 @@
+# Author: Eugene Marinelli
+# name: async function
+# key: af
+# --
+async function $1($2) {
+}
