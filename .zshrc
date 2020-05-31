@@ -58,6 +58,3 @@ export PATH="/usr/local/heroku/bin:$PATH"
 function showcommit() {
     open "https://github.com/blendlabs/centrio/commit/$1"
 }
-
-export NVM_DIR="/Users/emarinelli/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
