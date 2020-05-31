@@ -1,0 +1,28 @@
+# Author: Eugene Marinelli
+# name: script
+# key: script
+# --
+// Exceptions can occur when importing modules, so put this first.
+import { logUnhandledExceptions } from '../common/diagnostics'
+logUnhandledExceptions()
+
+import * as blendUtils from 'blend-utils'
+import * as process from 'process'
+
+async function main(): Promise<void> {
+  blendUtils.logger.info('Hello world')
+}
+
+function handleSuccess(_value: void): void {
+  blendUtils.logger.info('Success.')
+}
+
+function handleFailure(error: Error): void {
+  blendUtils.logger.error('Error.', error)
+  process.exit(1)
+}
+
+if (require.main === module) {
+  const mainPromise = main()
+  mainPromise.then(handleSuccess).catch(handleFailure)
+}

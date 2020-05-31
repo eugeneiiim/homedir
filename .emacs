@@ -113,12 +113,16 @@
 ;; (global-set-key (kbd "M-{") 'insert-pair)
 ;; (global-set-key (kbd "M-\"") 'insert-pair)
 (put 'downcase-region 'disabled nil)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/repo/blendlabs/morty/ecs/todo.txt"))))
+ '(org-agenda-files (quote ("~/repo/blendlabs/morty/ecs/todo.txt")))
+ '(package-selected-packages
+   (quote
+    (web-mode cider clojure-mode rjsx-mode racer rust-mode solidity-mode dockerfile-mode company tide protobuf-mode typescript-mode markdown-mode helm-projectile helm-ag swift-mode projectile lush-theme js2-refactor))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -146,3 +150,83 @@
 
 (setq kotlin-tab-width 2)
 (put 'set-goal-column 'disabled nil)
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1)
+  )
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+;; (add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+(add-hook 'rust-mode-hook #'racer-mode)
+(add-hook 'racer-mode-hook #'eldoc-mode)
+
+(add-hook 'racer-mode-hook #'company-mode)
+
+(require 'rust-mode)
+(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+(setq company-tooltip-align-annotations t)
+
+(setq clojure-indent-style 'always-indent)
+(add-hook 'clojure-mode-hook #'cider-mode)
+
+;; CSS
+(use-package css-mode
+  :custom (css-indent-offset 2))
+(use-package scss-mode
+  :mode ("\\.scss$" "\\.sass$"))
+
+;; TSX - from https://github.com/adimit/config/blob/master/newmacs/main.org#typescript and https://www.reddit.com/r/emacs/comments/cztjdl/tsx_setup/
+(defun my-web-mode-hook ())
+
+(setq web-mode-enable-auto-quoting nil)
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-code-indent-offset 2)
+(setq web-mode-attr-indent-offset 2)
+(setq web-mode-attr-value-indent-offset 2)
+
+(use-package web-mode
+  :mode (("\\.tsx$" . web-mode))
+  :init
+  (add-hook 'web-mode-hook 'variable-pitch-mode)
+  (add-hook 'web-mode-hook 'company-mode)
+  (add-hook 'web-mode-hook 'prettier-js-mode)
+  (add-hook 'web-mode-hook (lambda () (pcase (file-name-extension buffer-file-name)
+                      ("tsx" (my-tide-setup-hook))
+                      (_ (my-web-mode-hook)))))
+  )
+
+;; Set higher priority for backend importance when suggesting auto complete. This will bring the TSServer suggestions first instead of those recommended by dabbrev-code
+(setq company-transformers '(company-sort-by-backend-importance))
+
+;; Define company backends to use. First element contains priority TSServer -> Files -> yasnippet (if installed) -> dabbrev-code
+
+(set (make-local-variable 'company-backends)
+     '((company-tide company-files :with company-yasnippet :with company-dabbrev-code)
+       (company-dabbrev-code company-dabbrev)))
+
+;; Function to use your node_modules's TSServer to avoid possible collisions with project's Typescript version and Global Typescript version
+(defun tsserver-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (tsserver
+          (and root
+               (expand-file-name "node_modules/.bin/tsserver"
+                                 root))))
+    (when (and tsserver (file-executable-p tsserver))
+      (setq-default tide-tsserver-executable tsserver))))

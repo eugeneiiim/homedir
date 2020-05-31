@@ -19,7 +19,7 @@ alias glfd='git ls-files --deleted'
 alias pull='git pull --rebase origin master'
 alias push='git push origin master'
 #alias pom='git push origin HEAD:master'
-alias poh='git push origin HEAD'
+alias poh='git push --no-verify origin HEAD'
 alias pho='poh'
 alias phm='git push heroku HEAD:master'
 alias gfo='git fetch origin'
@@ -56,7 +56,7 @@ function add() {
 }
 
 alias a='git add'
-alias ci='git commit'
+alias ci='git commit --no-verify'
 alias co='git checkout'
 
 # function gg() {
@@ -118,7 +118,7 @@ export ENSIME_JVM_ARGS=$SBT_OPTS
 
 cim() {
   MESSAGE=$@
-  git commit -m "$MESSAGE"
+  git commit --no-verify -m "$MESSAGE"
 }
 
 if [[ `uname` = Darwin ]]; then
@@ -137,9 +137,6 @@ function set_upstream() {
   BRANCH=`git symbolic-ref --short HEAD`
   git branch --set-upstream-to=origin/$BRANCH $BRANCH
 }
-
-# [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-# [[ -s $HOME/.nvm/nvm.sh ]] && . /Users/emarinelli/.nvm/nvm.sh # This loads NVM
 
 if [[ -f "$HOME/.amazon_keys" ]]; then
     source "$HOME/.amazon_keys";
@@ -189,9 +186,6 @@ export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go
 export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-
 . ~/.awscreds
 
 export PATH=$PATH:~/repo/blendlabs/mongodb-osx-x86_64-3.0.11/bin
@@ -200,3 +194,12 @@ alias act='source venv/bin/activate'
 alias du_dirs='du -d 0 -k * | sort -n'
 
 eval $(ssh-agent)
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH=$PATH:/Library/TeX/texbin
+
+source $HOME/.cargo/env
+export RUST_SRC_PATH=`rustc --print sysroot`/lib/rustlib/src/rust/src
