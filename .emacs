@@ -17,9 +17,9 @@
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
+
 (setq load-path (cons (expand-file-name "~/emacs_stuff") load-path))
 
 (load-library "lush-theme")
@@ -31,11 +31,11 @@
 (setq typescript-indent-level 2)
 
 ; Ignore trailing commas
-(setq js2-strict-trailing-comma-warning nil)
+;; (setq js2-strict-trailing-comma-warning nil)
 
-(require 'js2-refactor)
-(js2r-add-keybindings-with-prefix "C-c C-m")
-(add-hook 'js2-mode-hook #'js2-refactor-mode)
+;; (require 'js2-refactor)
+;; (js2r-add-keybindings-with-prefix "C-c C-m")
+;; (add-hook 'js2-mode-hook #'js2-refactor-mode)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (require 'show-wspace)
@@ -130,10 +130,10 @@
  ;; If there is more than one, they won't work right.
  )
 
-(add-to-list 'load-path "~/repo/ternjs/tern/emacs/")
-(autoload 'tern-mode "tern.el" nil t)
+;; (add-to-list 'load-path "~/repo/ternjs/tern/emacs/")
+;; (autoload 'tern-mode "tern.el" nil t)
 
-(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)

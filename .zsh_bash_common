@@ -47,6 +47,7 @@ alias rs='git reset --soft HEAD~ ; git status'
 alias gr='git reset'
 alias ad='git add .'
 alias gre='git reset'
+alias gcm='git co master'
 
 alias gr='grunt'
 
@@ -138,6 +139,12 @@ function set_upstream() {
   git branch --set-upstream-to=origin/$BRANCH $BRANCH
 }
 
+<<<<<<< HEAD
+=======
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+# [[ -s $HOME/.nvm/nvm.sh ]] && . /Users/eugene/.nvm/nvm.sh # This loads NVM
+
+>>>>>>> origin/master
 if [[ -f "$HOME/.amazon_keys" ]]; then
     source "$HOME/.amazon_keys";
 fi
@@ -175,8 +182,6 @@ alias docker_kill_all='docker kill $(docker ps -a -q)'
 export TERM=xterm-256color
 RPROMPT='[%?]'
 
-# . /Users/emarinelli/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
 alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 ulimit -n 4096
@@ -189,7 +194,6 @@ export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 . ~/.awscreds
 
 export PATH=$PATH:~/repo/blendlabs/mongodb-osx-x86_64-3.0.11/bin
-export VAULT_ADDR=https://vault.sandbox.centrio.com:8200
 alias act='source venv/bin/activate'
 alias du_dirs='du -d 0 -k * | sort -n'
 
@@ -203,3 +207,5 @@ export PATH=$PATH:/Library/TeX/texbin
 
 source $HOME/.cargo/env
 export RUST_SRC_PATH=`rustc --print sysroot`/lib/rustlib/src/rust/src
+
+export PATH=$PATH:/Library/TeX/texbin

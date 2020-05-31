@@ -74,3 +74,6 @@ ansible_hosts
 .openvpn-connect.json
 .zshrc-e
 *zcompdump*
+.docker
+.nvm
+.yarnrc
