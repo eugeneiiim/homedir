@@ -84,9 +84,6 @@ export PATH=$PATH:~/bin
 export PATH=$PATH:~/.scala/bin
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
 
-alias supple='ssh eugeneiiim@ssh.supplelabs.com'
-alias supple_website='ssh supplelabs_supplelabs@ssh.phx.nearlyfreespeech.net'
-
 alias gca='git commit --amend -C HEAD'
 
 if [[ -r ~/.zsh_bash_common ]]; then

@@ -2,18 +2,18 @@
 # name: script
 # key: script
 # --
-import * as blendUtils from 'blend-utils'
+import * as process from 'process'
 
 async function main(): Promise<void> {
-  blendUtils.logger.info('Hello')
+  console.log('Hello world')
 }
 
 function handleSuccess(_value: void): void {
-  blendUtils.logger.info('Success.')
+  console.log('Success.')
 }
 
 function handleFailure(error: Error): void {
-  blendUtils.logger.error('Error.', error)
+  console.error('Error.', error)
   process.exit(1)
 }
 
