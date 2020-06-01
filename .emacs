@@ -119,7 +119,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/repo/blendlabs/morty/ecs/todo.txt")))
  '(package-selected-packages
    (quote
     (web-mode cider clojure-mode rjsx-mode racer rust-mode solidity-mode dockerfile-mode company tide protobuf-mode typescript-mode markdown-mode helm-projectile helm-ag swift-mode projectile lush-theme js2-refactor))))

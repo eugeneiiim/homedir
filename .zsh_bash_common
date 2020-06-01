@@ -193,7 +193,6 @@ export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 
 . ~/.awscreds
 
-export PATH=$PATH:~/repo/blendlabs/mongodb-osx-x86_64-3.0.11/bin
 alias act='source venv/bin/activate'
 alias du_dirs='du -d 0 -k * | sort -n'
 
