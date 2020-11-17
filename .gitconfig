@@ -1,5 +1,5 @@
 [user]
-  email = eugene@blend.com
+  email = eugenemarinelli@gmail.com
   name = Eugene Marinelli
 [color]
   ui = auto
@@ -16,8 +16,6 @@
 [push]
   default = matching
 [credential]
-	helper = cache
+  helper = cache
 [heroku]
-	account = personal
-[hub]
-	host = git.blendlabs.com
+  account = personal
