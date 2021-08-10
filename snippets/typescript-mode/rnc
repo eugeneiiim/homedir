@@ -1,0 +1,26 @@
+# Author: Eugene Marinelli
+# name: react native component
+# key: rnc
+# --
+import React from 'react'
+import { View } from 'react-native'
+import { StyleSheet } from 'react-native'
+
+const styles = StyleSheet.create({
+  container: {
+  },
+})
+
+export class $1 extends React.Component<{}, { foo: string }> {
+  constructor(props: Props) {
+    super(props)
+    this.state = { foo: string }
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+      </View>
+    )
+  }
+}

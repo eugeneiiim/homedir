@@ -120,8 +120,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (web-mode cider clojure-mode rjsx-mode racer rust-mode solidity-mode dockerfile-mode company tide protobuf-mode typescript-mode markdown-mode helm-projectile helm-ag swift-mode projectile lush-theme js2-refactor))))
+   '(multiple-cursors yaml-mode helm js2-mode web-mode cider clojure-mode rjsx-mode racer solidity-mode dockerfile-mode company tide protobuf-mode typescript-mode markdown-mode helm-projectile helm-ag swift-mode projectile lush-theme js2-refactor)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -229,3 +228,5 @@
                                  root))))
     (when (and tsserver (file-executable-p tsserver))
       (setq-default tide-tsserver-executable tsserver))))
+
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
