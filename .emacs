@@ -192,12 +192,6 @@
 (setq clojure-indent-style 'always-indent)
 (add-hook 'clojure-mode-hook #'cider-mode)
 
-;; CSS
-(use-package css-mode
-  :custom (css-indent-offset 2))
-(use-package scss-mode
-  :mode ("\\.scss$" "\\.sass$"))
-
 ;; TSX - from https://github.com/adimit/config/blob/master/newmacs/main.org#typescript and https://www.reddit.com/r/emacs/comments/cztjdl/tsx_setup/
 (defun my-web-mode-hook ())
 
