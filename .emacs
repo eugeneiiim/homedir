@@ -15,9 +15,10 @@
 )
 
 (require 'package)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t)
 (package-initialize)
 
 (setq load-path (cons (expand-file-name "~/emacs_stuff") load-path))
@@ -33,9 +34,9 @@
 ; Ignore trailing commas
 ;; (setq js2-strict-trailing-comma-warning nil)
 
-;; (require 'js2-refactor)
-;; (js2r-add-keybindings-with-prefix "C-c C-m")
-;; (add-hook 'js2-mode-hook #'js2-refactor-mode)
+(require 'js2-refactor)
+(js2r-add-keybindings-with-prefix "C-c C-m")
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (require 'show-wspace)
@@ -120,7 +121,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(multiple-cursors yaml-mode helm js2-mode web-mode cider clojure-mode rjsx-mode racer solidity-mode dockerfile-mode company tide protobuf-mode typescript-mode markdown-mode helm-projectile helm-ag swift-mode projectile lush-theme js2-refactor)))
+   '(lsp-mode multiple-cursors yaml-mode helm js2-mode web-mode cider clojure-mode rjsx-mode racer solidity-mode dockerfile-mode company tide protobuf-mode typescript-mode markdown-mode helm-projectile helm-ag swift-mode projectile lush-theme js2-refactor)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -161,6 +162,16 @@
   ;; `M-x package-install [ret] company`
   (company-mode +1)
   )
+
+(setq company-dabbrev-downcase 0)
+(setq company-idle-delay 0)
+
+(defun tide-popup-select-item (prompt list)
+    (helm
+     :sources
+     (helm-build-sync-source prompt
+       :candidates list)
+       :buffer "*Tide Completion Candidates*"))
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
@@ -229,4 +240,14 @@
     (when (and tsserver (file-executable-p tsserver))
       (setq-default tide-tsserver-executable tsserver))))
 
+(require 'flycheck)
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (setup-tide-mode))))
+;; enable typescript-tslint checker
+(flycheck-add-mode 'typescript-tslint 'web-mode)
+
+(require 'lsp-mode)
+(add-hook 'typescript-mode-hook #'lsp)

@@ -2,6 +2,6 @@
 # name: iife
 # key: ii
 # --
-(function() {
+(() => {
   $0
 })()
