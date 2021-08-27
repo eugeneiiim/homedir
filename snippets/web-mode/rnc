@@ -11,16 +11,9 @@ const styles = StyleSheet.create({
   },
 })
 
-export class $1 extends React.Component<{}, { foo: string }> {
-  constructor(props: Props) {
-    super(props)
-    this.state = { foo: string }
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-      </View>
-    )
-  }
+export function $1(props: {}) {
+  return (
+    <View style={styles.container}>
+    </View>
+  )
 }

@@ -2,8 +2,8 @@
 # name: describe
 # key: des
 # --
-describe('$1', function() {
-  it('$0', function(cb) {
-    cb();
-  });
-});
+describe('$1', () => {
+  test('$0', async () => {
+    throw new Error('todo')
+  })
+})

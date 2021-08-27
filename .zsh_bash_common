@@ -123,12 +123,6 @@ else
    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 fi
 
-function r() {
-  F=`ls ~/repo/blendlabs | grep $1 | head -n 1`
-  echo cd ~/repo/blendlabs/$F
-  cd ~/repo/blendlabs/$F
-}
-
 function set_upstream() {
   BRANCH=`git symbolic-ref --short HEAD`
   git branch --set-upstream-to=origin/$BRANCH $BRANCH

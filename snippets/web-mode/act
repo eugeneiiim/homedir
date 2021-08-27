@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: act
+# key: act
+# --
+await act(async () => )

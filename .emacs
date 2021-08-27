@@ -120,7 +120,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-mode multiple-cursors yaml-mode helm js2-mode web-mode cider clojure-mode rjsx-mode racer solidity-mode dockerfile-mode company tide protobuf-mode typescript-mode markdown-mode helm-projectile helm-ag swift-mode projectile lush-theme js2-refactor)))
+   '(prettier-js lsp-mode multiple-cursors yaml-mode helm js2-mode web-mode cider clojure-mode rjsx-mode racer solidity-mode dockerfile-mode company tide protobuf-mode typescript-mode markdown-mode helm-projectile helm-ag swift-mode projectile lush-theme js2-refactor)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -164,6 +164,7 @@
 
 (setq company-dabbrev-downcase 0)
 (setq company-idle-delay 0)
+(setq company-minimum-prefix-length 1)
 
 (defun tide-popup-select-item (prompt list)
     (helm
@@ -180,13 +181,10 @@
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
-(add-hook 'rust-mode-hook #'racer-mode)
 (add-hook 'racer-mode-hook #'eldoc-mode)
 
 (add-hook 'racer-mode-hook #'company-mode)
 
-(require 'rust-mode)
-(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 (setq company-tooltip-align-annotations t)
 
 (setq clojure-indent-style 'always-indent)
@@ -200,17 +198,6 @@
 (setq web-mode-code-indent-offset 2)
 (setq web-mode-attr-indent-offset 2)
 (setq web-mode-attr-value-indent-offset 2)
-
-(use-package web-mode
-  :mode (("\\.tsx$" . web-mode))
-  :init
-  (add-hook 'web-mode-hook 'variable-pitch-mode)
-  (add-hook 'web-mode-hook 'company-mode)
-  (add-hook 'web-mode-hook 'prettier-js-mode)
-  (add-hook 'web-mode-hook (lambda () (pcase (file-name-extension buffer-file-name)
-                      ("tsx" (my-tide-setup-hook))
-                      (_ (my-web-mode-hook)))))
-  )
 
 ;; Set higher priority for backend importance when suggesting auto complete. This will bring the TSServer suggestions first instead of those recommended by dabbrev-code
 (setq company-transformers '(company-sort-by-backend-importance))

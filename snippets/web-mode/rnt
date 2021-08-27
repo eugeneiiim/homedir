@@ -1,0 +1,23 @@
+# Author: Eugene Marinelli
+# name: react native test
+# key: rnt
+# --
+import React from 'react'
+import renderer, { act } from 'react-test-renderer'
+
+import { $1 } from '../../src/$1'
+
+describe('$1', () => {
+  let instance: renderer.ReactTestRenderer
+  let props: any
+  beforeEach(async () => {
+    props = {}
+    await act(async () => {
+      instance = renderer.create(<$1 {...props as any} />)
+    })
+  })
+
+  test('matches snapshot', async () => {
+    expect(instance).toMatchSnapshot()
+  })
+})

@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: lodash
+# key: ld
+# --
+import * as _ from 'lodash'
