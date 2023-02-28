@@ -165,6 +165,15 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH=$PATH:/Library/TeX/texbin
+export PATH=$PATH:/Users/eugenemarinelli/Library/Python/3.8/bin
 
-source $HOME/.cargo/env
-export RUST_SRC_PATH=`rustc --print sysroot`/lib/rustlib/src/rust/src
+export ANDROID_SDK=$HOME/Library/Android/sdk
+export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
+export PATH=$PATH:/Users/eugenemarinelli/Library/Android/sdk/cmake/3.22.1/bin
+eval "$(jenv init -)"
+export ANDROID_NDK_HOME=/Users/eugenemarinelli/Library/Android/sdk/android-ndk-r12b
+export ANDROID_SDK=/Users/eugenemarinelli/Library/Android/sdk
+export ANDROID_SDK_ROOT=/Users/eugenemarinelli/Library/Android/sdk
+
+export KUBECONFIG=~/.kube/realm-kubeconfig.yml
+alias k=kubectl

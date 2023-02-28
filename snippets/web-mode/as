@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: assert
+# key: as
+# --
+import assert from 'assert'

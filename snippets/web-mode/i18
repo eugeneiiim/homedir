@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: i18
+# key: i18
+# --
+import i18n from 'i18n-js'

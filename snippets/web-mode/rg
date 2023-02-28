@@ -1,0 +1,5 @@
+# Author: Eugene Marinelli
+# name: require global
+# key: rg
+# --
+import * as $1 from '$1'

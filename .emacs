@@ -2,7 +2,7 @@
 (setq initial-scratch-message nil)
 (menu-bar-mode 0)
 (column-number-mode t)
-(global-linum-mode t)
+;(global-linum-mode t)
 
 (require 'ido)
 (ido-mode t)
@@ -39,7 +39,7 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (require 'show-wspace)
-;(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
+(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-trailing-whitespace)
 (setq-default indent-tabs-mode nil)
 (setq indent-tabs-mode nil)
@@ -120,7 +120,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(prettier-js lsp-mode multiple-cursors yaml-mode helm js2-mode web-mode cider clojure-mode rjsx-mode racer solidity-mode dockerfile-mode company tide protobuf-mode typescript-mode markdown-mode helm-projectile helm-ag swift-mode projectile lush-theme js2-refactor)))
+   '(php-mode gradle-mode web-mode-edit-element terraform-mode prettier-js lsp-mode multiple-cursors yaml-mode helm js2-mode web-mode cider clojure-mode rjsx-mode racer solidity-mode dockerfile-mode company tide protobuf-mode typescript-mode markdown-mode helm-projectile helm-ag swift-mode projectile lush-theme js2-refactor)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

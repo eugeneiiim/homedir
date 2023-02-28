@@ -58,3 +58,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 function showcommit() {
     open "https://github.com/blendlabs/centrio/commit/$1"
 }
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+
+source /Users/eugenemarinelli/.docker/init-zsh.sh || true # Added by Docker Desktop
