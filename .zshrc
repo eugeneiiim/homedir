@@ -49,16 +49,3 @@ bindkey "^[s" insert-sudo
 if [[ -r ~/.zsh_bash_common ]]; then
     source ~/.zsh_bash_common
 fi
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-function showcommit() {
-    open "https://github.com/blendlabs/centrio/commit/$1"
-}
-export PATH="/usr/local/opt/mysql-client/bin:$PATH"
-export PATH="/usr/local/opt/openssl@3/bin:$PATH"
-
-source /Users/eugenemarinelli/.docker/init-zsh.sh || true # Added by Docker Desktop
