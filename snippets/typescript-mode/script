@@ -2,22 +2,12 @@
 # name: script
 # key: script
 # --
-import * as process from 'process'
+// istanbul ignore file
 
-async function main(): Promise<void> {
+async function main() {
   console.log('Hello world')
 }
 
-function handleSuccess(_value: void): void {
-  console.log('Success.')
-}
-
-function handleFailure(error: Error): void {
-  console.error('Error.', error)
-  process.exit(1)
-}
-
 if (require.main === module) {
-  const mainPromise = main()
-  mainPromise.then(handleSuccess).catch(handleFailure)
+  main()
 }

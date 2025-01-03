@@ -2,4 +2,4 @@
 # name: require global
 # key: rg
 # --
-import * as $1 from '$1'
+import $1 from '$1'
