@@ -95,3 +95,4 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
 source /Users/eugenemarinelli/.docker/init-bash.sh || true # Added by Docker Desktop
+. "$HOME/.cargo/env"
