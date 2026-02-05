@@ -1,6 +1,42 @@
 alias gl='git log --graph --pretty=format:"%Cred%h %C(bold blue)%an%C(yellow)%d%Creset %s %Cgreen(%cr) %Creset" --abbrev-commit '
 
-alias gbr='for k in `git branch|perl -pe "s/^..//"`;do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k|head -n 1`\\t$k;done|sort -r | head -n 25'
+#alias gbr='for k in `git branch|perl -pe "s/^..//"`;do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k|head -n 1`\\t$k;done|sort -r | head -n 25'
+
+gbr2() {
+  # Ensure we are in a git repository
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "Not a git repository."
+    return 1
+  fi
+
+  # Get the UNIX timestamp for 7 days ago (compatible with Linux & macOS)
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    local week_ago=$(date -v-7d +%s)  # macOS
+  else
+    local week_ago=$(date -d "7 days ago" +%s)  # Linux
+  fi
+
+  # Print table header
+  printf "%-20s %-40s\n" "Last Updated" "Branch Name"
+  echo "--------------------------------------------------------------"
+
+  # Fetch branches with their latest commit timestamps
+  git for-each-ref --sort=-committerdate --format="%(committerdate:unix) %(committerdate:relative) | %(refname:short)" refs/heads/ |
+  while IFS="|" read -r commit_info branch_name; do
+    # Extract timestamp and relative date
+    timestamp=$(echo "$commit_info" | awk '{print $1}')
+    relative_date=$(echo "$commit_info" | cut -d' ' -f2-)
+
+    # Ensure timestamp is numeric and compare with 7-day threshold
+    if [[ "$timestamp" =~ ^[0-9]+$ ]]; then
+      if [[ "$timestamp" -lt "$week_ago" ]]; then
+        break  # Stop processing once we reach branches older than 7 days
+      fi
+      printf "%-20s %-40s\n" "$relative_date" "$branch_name"
+    fi
+  done
+}
+
 alias px='chmod +x'
 
 alias gca='amend -C HEAD'
@@ -10,8 +46,11 @@ alias gau='git ls-files --other --exclude-standard | xargs git add'
 alias gb='git branch'
 alias gc='git commit'
 alias gd='git diff --ignore-space-at-eol'
-alias d='gd'
-alias yp='yarn prettier'
+
+#alias yp='yarn prettier'
+alias yp='npx prettier --write . --ignore-path "$(git rev-parse --show-toplevel)/.prettierignore"'
+
+alias yl='yarn lint:fix'
 alias yt='yarn test'
 alias gdc='git diff --ignore-space-at-eol --cached'
 alias dc='gdc'
@@ -23,7 +62,6 @@ alias push='git push origin master'
 #alias pom='git push origin HEAD:master'
 alias poh='git push --no-verify origin HEAD'
 alias pho='poh'
-alias phm='git push heroku HEAD:master'
 alias gfo='git fetch origin'
 alias gf='git fetch origin'
 alias gsh='git show "HEAD"'
@@ -115,14 +153,11 @@ alias m=make
 
 cim() {
   MESSAGE=$@
-  git commit --no-verify -m "$MESSAGE"
+  #git commit --no-verify -m "$MESSAGE"
+  git commit -m "$MESSAGE"
 }
 
-if [[ `uname` = Darwin ]]; then
-   export JAVA_HOME=`/usr/libexec/java_home`
-else
-   export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-fi
+export JAVA_HOME='/Applications/Android Studio.app/Contents/jbr/Contents/Home'
 
 function set_upstream() {
   BRANCH=`git symbolic-ref --short HEAD`
@@ -133,8 +168,6 @@ if [[ -r ~/.private ]]; then
     source ~/.private
 fi
 
-alias h='heroku'
-alias hlt='heroku logs -t'
 alias ap='git add -p'
 
 export MAKEFLAGS='-j 8'
@@ -152,10 +185,6 @@ RPROMPT='[%?]'
 ulimit -n 4096
 ulimit -u 1000
 
-export GOROOT=/usr/local/opt/go/libexec
-export GOPATH=$HOME/go
-export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
-
 alias act='source venv/bin/activate'
 alias du_dirs='du -d 0 -k * | sort -n'
 
@@ -172,10 +201,44 @@ export PATH=$PATH:/Users/eugenemarinelli/Library/Python/3.8/bin
 export ANDROID_SDK=$HOME/Library/Android/sdk
 export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
 export PATH=$PATH:/Users/eugenemarinelli/Library/Android/sdk/cmake/3.22.1/bin
-eval "$(jenv init -)"
 export ANDROID_NDK_HOME=/Users/eugenemarinelli/Library/Android/sdk/android-ndk-r12b
 export ANDROID_SDK=/Users/eugenemarinelli/Library/Android/sdk
 export ANDROID_SDK_ROOT=/Users/eugenemarinelli/Library/Android/sdk
 
 export KUBECONFIG=~/.kube/realm-kubeconfig.yml
 alias k=kubectl
+alias d=docker
+
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+
+export PATH="/Users/eugenemarinelli/Library/Python/3.9/bin:$PATH"
+export PATH=/opt/homebrew/opt/python@3.11/libexec/bin:$PATH
+
+alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+alias lintb="git diff --name-only master -- '*.ts' '*.tsx' | sed 's|^cot-provider/||' | xargs yarn eslint --fix"
+
+export PATH="$HOME/.local/bin:$PATH"
+
+rwt() {
+  local repo=~/repo/realmalliance/realm
+  local dir_name="${1//\//-}"
+  local dest=~/repo/realmalliance/realm-worktrees/"$dir_name"
+  local prefixed="em/$1"
+
+  git -C "$repo" fetch origin
+
+  if git -C "$repo" show-ref --verify --quiet "refs/heads/$1"; then
+    git -C "$repo" worktree add "$dest" "$1"
+  elif git -C "$repo" show-ref --verify --quiet "refs/remotes/origin/$1"; then
+    git -C "$repo" worktree add --track -b "$1" "$dest" "origin/$1"
+  elif git -C "$repo" show-ref --verify --quiet "refs/heads/$prefixed"; then
+    git -C "$repo" worktree add "$dest" "$prefixed"
+  elif git -C "$repo" show-ref --verify --quiet "refs/remotes/origin/$prefixed"; then
+    git -C "$repo" worktree add --track -b "$prefixed" "$dest" "origin/$prefixed"
+  else
+    git -C "$repo" worktree add -b "$prefixed" "$dest"
+  fi && cd "$dest"
+}

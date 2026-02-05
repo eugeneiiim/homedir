@@ -4,8 +4,10 @@
 # --
 // istanbul ignore file
 
+import { getDeploymentAndSiteFromCommandOrInquirer } from './utils'
+
 async function main() {
-  console.log('Hello world')
+  const { deploymentId, siteId, site, prisma } = await getDeploymentAndSiteFromCommandOrInquirer()
 }
 
 if (require.main === module) {

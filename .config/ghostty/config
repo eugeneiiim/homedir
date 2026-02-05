@@ -1,0 +1,36 @@
+macos-option-as-alt = true
+unfocused-split-opacity = 0.85
+unfocused-split-fill = #1a1a1a
+split-divider-color = #444444
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+macos-non-native-fullscreen = true
+fullscreen = false
+
+# Ghostty pane navigation
+keybind = cmd+left=goto_split:left
+keybind = cmd+right=goto_split:right
+keybind = cmd+up=goto_split:top
+keybind = cmd+down=goto_split:bottom
+
+# Cmd as Meta for Emacs
+keybind = cmd+x=text:\x1bx
+keybind = cmd+w=text:\x1bw
+keybind = cmd+y=text:\x1by
+keybind = cmd+f=text:\x1bf
+keybind = cmd+b=text:\x1bb
+keybind = cmd+u=text:\x1bu
+keybind = cmd+l=text:\x1bl
+keybind = cmd+h=text:\x1bh
+keybind = cmd+g=text:\x1bg
+keybind = cmd+e=text:\x1be
+keybind = cmd+a=text:\x1ba
+keybind = cmd+p=text:\x1bp
+keybind = cmd+shift+,=text:\x1b<
+keybind = cmd+shift+.=text:\x1b>
+keybind = cmd+backspace=text:\x1b\x7f
+keybind = cmd+d=text:\x1bd
+
+# Split panes (remapped from cmd+d)
+keybind = cmd+shift+d=new_split:right

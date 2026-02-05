@@ -49,3 +49,8 @@ bindkey "^[s" insert-sudo
 if [[ -r ~/.zsh_bash_common ]]; then
     source ~/.zsh_bash_common
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# export SDKMAN_DIR="$HOME/.sdkman"
+# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export PATH="/opt/homebrew/opt/gradle@7/bin:$PATH"
