@@ -120,7 +120,7 @@
 ;;
 ;;; Code:
 
-(and (< emacs-major-version 20) (eval-when-compile (require 'cl))) ;; when, push
+;; (and (< emacs-major-version 20) (eval-when-compile (require 'cl))) ;; when, push - disabled, cl deprecated
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
