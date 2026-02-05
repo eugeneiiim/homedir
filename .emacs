@@ -20,9 +20,46 @@
 (add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t)
 (package-initialize)
 
+;; Install copilot dependencies if missing
+(dolist (pkg '(editorconfig jsonrpc f))
+  (unless (package-installed-p pkg)
+    (unless package-archive-contents
+      (package-refresh-contents))
+    (package-install pkg)))
+
+;; Copilot.el setup - clone if not present, lazy load
+(let ((copilot-dir (expand-file-name "~/.emacs.d/copilot.el")))
+  (unless (file-exists-p copilot-dir)
+    (shell-command (concat "git clone https://github.com/copilot-emacs/copilot.el.git " copilot-dir)))
+  (add-to-list 'load-path copilot-dir))
+
+(autoload 'copilot-mode "copilot" nil t)
+(autoload 'copilot-complete "copilot" nil t)
+
+;; Start copilot after idle to avoid blocking file open
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (run-with-idle-timer 0.5 nil
+                                 (lambda (buf)
+                                   (when (buffer-live-p buf)
+                                     (with-current-buffer buf
+                                       (copilot-mode 1))))
+                                 (current-buffer))))
+
+;; Copilot keybindings
+(with-eval-after-load 'copilot
+  (define-key copilot-completion-map (kbd "TAB") #'copilot-accept-completion)
+  (define-key copilot-completion-map (kbd "<tab>") #'copilot-accept-completion)
+  (define-key copilot-completion-map (kbd "M-TAB") #'copilot-accept-completion-by-word)
+  (define-key copilot-completion-map (kbd "C-n") #'copilot-next-completion)
+  (define-key copilot-completion-map (kbd "C-p") #'copilot-previous-completion)
+  (define-key copilot-completion-map (kbd "C-g") #'copilot-clear-overlay))
+(global-set-key (kbd "C-c c") #'copilot-complete)
+
 (setq load-path (cons (expand-file-name "~/emacs_stuff") load-path))
 
 (load-theme 'lush t)
+(global-font-lock-mode 1)
 
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -30,12 +67,13 @@
 (setq c-basic-offset 2)
 (setq typescript-indent-level 2)
 
-; Ignore trailing commas
-;; (setq js2-strict-trailing-comma-warning nil)
+;; Force typescript-mode instead of tree-sitter modes in Emacs 30
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
+(add-to-list 'auto-mode-alist '("\\.prisma\\'" . prisma-ts-mode))
 
-(require 'js2-refactor)
-(js2r-add-keybindings-with-prefix "C-c C-m")
-(add-hook 'js2-mode-hook #'js2-refactor-mode)
+;; Ensure font-lock is on for typescript
+(add-hook 'typescript-mode-hook (lambda () (font-lock-mode 1)))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (require 'show-wspace)
@@ -102,16 +140,8 @@
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
-(defun my-go-mode-hook ()
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  (setq tab-width 2 indent-tabs-mode 1))
-(add-hook 'go-mode-hook 'my-go-mode-hook)
-
 (setq make-backup-files nil)
 
-;; (global-set-key (kbd "M-[") 'insert-pair)
-;; (global-set-key (kbd "M-{") 'insert-pair)
-;; (global-set-key (kbd "M-\"") 'insert-pair)
 (put 'downcase-region 'disabled nil)
 
 (custom-set-variables
@@ -120,7 +150,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(php-mode gradle-mode web-mode-edit-element terraform-mode prettier-js lsp-mode multiple-cursors yaml-mode helm js2-mode web-mode cider clojure-mode rjsx-mode racer solidity-mode dockerfile-mode company tide protobuf-mode typescript-mode markdown-mode helm-projectile helm-ag swift-mode projectile lush-theme js2-refactor)))
+   '(prettier prisma-ts-mode graphql-mode vue-mode groovy-mode gpt gradle-mode web-mode-edit-element terraform-mode prettier-js lsp-mode multiple-cursors yaml-mode helm js2-mode web-mode cider rjsx-mode racer dockerfile-mode company tide protobuf-mode typescript-mode markdown-mode helm-projectile helm-ag swift-mode projectile lush-theme js2-refactor)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -135,7 +165,6 @@
 
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
-;; (helm-projectile-on)
 
 (global-set-key (kbd "C-x C-d") 'projectile-find-file)
 (global-set-key (kbd "C-x C-g") 'helm-projectile-ag)
@@ -146,21 +175,43 @@
 
 (global-set-key (kbd "C-x C-y") 'magit-stage-file)
 
-(setq kotlin-tab-width 2)
 (put 'set-goal-column 'disabled nil)
+
+;; Configure flycheck to use eslint_d for speed with flat config support
+(with-eval-after-load 'flycheck
+  (setq flycheck-javascript-eslint-executable "eslint_d")
+  (flycheck-add-mode 'javascript-eslint 'typescript-mode)
+
+  ;; Override to support ESLint flat config (eslint.config.mjs/js/cjs)
+  (defun flycheck-eslint--find-working-directory (_checker)
+    "Find working directory for ESLint, supporting flat config format."
+    (when buffer-file-name
+      (or
+       ;; First check for flat config files (ESLint 9+)
+       (locate-dominating-file buffer-file-name "eslint.config.mjs")
+       (locate-dominating-file buffer-file-name "eslint.config.js")
+       (locate-dominating-file buffer-file-name "eslint.config.cjs")
+       ;; Fall back to legacy config detection
+       (locate-dominating-file buffer-file-name "node_modules")
+       (locate-dominating-file buffer-file-name ".eslintignore")
+       (locate-dominating-file buffer-file-name ".eslintrc")
+       (locate-dominating-file buffer-file-name ".eslintrc.js")
+       (locate-dominating-file buffer-file-name ".eslintrc.json")))))
 
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
   (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (flycheck-select-checker 'javascript-eslint)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled idle-change))
+  (setq flycheck-idle-change-delay 1)
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   ;; company is an optional dependency. You have to
   ;; install it separately via package-install
   ;; `M-x package-install [ret] company`
-  (company-mode +1)
-  )
+  (when (fboundp 'company-mode)
+    (company-mode +1)))
 
 (setq company-dabbrev-downcase 0)
 (setq company-idle-delay 0)
@@ -186,9 +237,6 @@
 (add-hook 'racer-mode-hook #'company-mode)
 
 (setq company-tooltip-align-annotations t)
-
-(setq clojure-indent-style 'always-indent)
-(add-hook 'clojure-mode-hook #'cider-mode)
 
 ;; TSX - from https://github.com/adimit/config/blob/master/newmacs/main.org#typescript and https://www.reddit.com/r/emacs/comments/cztjdl/tsx_setup/
 (defun my-web-mode-hook ())
@@ -220,14 +268,96 @@
     (when (and tsserver (file-executable-p tsserver))
       (setq-default tide-tsserver-executable tsserver))))
 
-(require 'flycheck)
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
-(add-hook 'web-mode-hook
-          (lambda ()
-            (when (string-equal "tsx" (file-name-extension buffer-file-name))
-              (setup-tide-mode))))
-;; enable typescript-tslint checker
-(flycheck-add-mode 'typescript-tslint 'web-mode)
+;; (require 'flycheck)
+;; (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+;; (add-hook 'web-mode-hook
+;;           (lambda ()
+;;             (when (string-equal "tsx" (file-name-extension buffer-file-name))
+;;               (setup-tide-mode))))
+;; ;; enable typescript-tslint checker
+;; (flycheck-add-mode 'typescript-tslint 'web-mode)
 
-(require 'lsp-mode)
-(add-hook 'typescript-mode-hook #'lsp)
+;; (require 'lsp-mode)
+;; (add-hook 'typescript-mode-hook #'lsp)
+
+(require 'tide)
+(add-hook 'typescript-mode-hook #'tide-setup)
+
+;; web-mode setup
+(define-derived-mode vue-mode web-mode "Vue")
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
+
+(defun vue-eglot-init-options ()
+  (let ((tsdk-path (expand-file-name
+                    "lib"
+                    (shell-command-to-string "npm list --global --parseable typescript | head -n1 | tr -d \"\n\""))))
+    `(:typescript (:tsdk ,tsdk-path
+                         :languageFeatures (:completion
+                                            (:defaultTagNameCase "both"
+                                                                 :defaultAttrNameCase "kebabCase"
+                                                                 :getDocumentNameCasesRequest nil
+                                                                 :getDocumentSelectionRequest nil)
+                                            :diagnostics
+                                            (:getDocumentVersionRequest nil))
+                         :documentFeatures (:documentFormatting
+                                            (:defaultPrintWidth 100
+                                                                :getDocumentPrintWidthRequest nil)
+                                            :documentSymbol t
+                                            :documentColor t)))))
+;; Volar
+;; (add-to-list 'eglot-server-programs
+;;                `(vue-mode . ("vue-language-server" "--stdio" :initializationOptions ,(vue-eglot-init-options))))
+
+;; Start eslint_d daemon for fast formatting (prettierd auto-starts on first use)
+(start-process "eslint_d-start" nil "eslint_d" "start")
+
+;; Auto-format TypeScript files on save using daemon versions
+(add-to-list 'revert-without-query ".*\\.tsx?$")
+
+(defvar-local ts-format-lighter nil
+  "Mode-line lighter for ts-format status.")
+
+(put 'ts-format-lighter 'risky-local-variable t)
+
+(unless (memq 'ts-format-lighter global-mode-string)
+  (setq global-mode-string (append global-mode-string '(ts-format-lighter))))
+
+(defun ts-format-on-save ()
+  "Run prettier and eslint_d on .ts/.tsx files using nearest project config.
+Buffer is read-only until linters complete. Uses eslint_d daemon for speed."
+  (when (and buffer-file-name
+             (string-match-p "\\.tsx?$" buffer-file-name))
+    (let ((project-dir (locate-dominating-file buffer-file-name "package.json")))
+      (when project-dir
+        (let* ((file buffer-file-name)
+               (buf (current-buffer))
+               (default-directory project-dir)
+               (bin-dir (expand-file-name "node_modules/.bin/" project-dir))
+               (prettier (expand-file-name "prettier" bin-dir))
+               (cmd (concat (if (file-executable-p prettier) prettier "npx prettier")
+                            " --write " (shell-quote-argument file)
+                            " && eslint_d --fix " (shell-quote-argument file))))
+          ;; Make buffer read-only and show indicator
+          (with-current-buffer buf
+            (setq buffer-read-only t)
+            (setq ts-format-lighter (propertize " [Linting...]" 'face 'warning))
+            (force-mode-line-update))
+          (set-process-sentinel
+           (start-process-shell-command "ts-format" nil cmd)
+           `(lambda (proc event)
+              (with-current-buffer ,buf
+                ;; Restore editability and clear indicator
+                (setq buffer-read-only nil)
+                (setq ts-format-lighter nil)
+                (force-mode-line-update)
+                (if (string-match-p "finished" event)
+                    (progn
+                      (revert-buffer t t t)
+                      (redisplay)
+                      (message "Linting complete"))
+                  (message "Linting failed: %s" (string-trim event)))))))))))
+
+(add-hook 'after-save-hook 'ts-format-on-save)
+
+(require 'helm-ag)
+(setq helm-ag-base-command "ag --nocolor --nogroup")
