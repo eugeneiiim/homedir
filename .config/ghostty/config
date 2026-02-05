@@ -27,10 +27,15 @@ keybind = cmd+g=text:\x1bg
 keybind = cmd+e=text:\x1be
 keybind = cmd+a=text:\x1ba
 keybind = cmd+p=text:\x1bp
+keybind = ctrl+cmd+p=text:\x1b\x10
+keybind = ctrl+cmd+n=text:\x1b\x0e
 keybind = cmd+shift+,=text:\x1b<
 keybind = cmd+shift+.=text:\x1b>
 keybind = cmd+backspace=text:\x1b\x7f
 keybind = cmd+d=text:\x1bd
+keybind = cmd+.=text:\x1b.
+keybind = cmd+,=text:\x1b,
 
 # Split panes (remapped from cmd+d)
 keybind = cmd+shift+d=new_split:right
+keybind = cmd+shift+e=new_split:down

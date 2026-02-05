@@ -56,6 +56,12 @@
   (define-key copilot-completion-map (kbd "C-g") #'copilot-clear-overlay))
 (global-set-key (kbd "C-c c") #'copilot-complete)
 
+;; Ensure nvm node is on exec-path for Tide/tsserver
+(let ((nvm-node-dir (expand-file-name "~/.nvm/versions/node/v24.13.0/bin")))
+  (when (file-directory-p nvm-node-dir)
+    (add-to-list 'exec-path nvm-node-dir)
+    (setenv "PATH" (concat nvm-node-dir ":" (getenv "PATH")))))
+
 (setq load-path (cons (expand-file-name "~/emacs_stuff") load-path))
 
 (load-theme 'lush t)
@@ -180,7 +186,14 @@
 ;; Configure flycheck to use eslint_d for speed with flat config support
 (with-eval-after-load 'flycheck
   (setq flycheck-javascript-eslint-executable "eslint_d")
-  (flycheck-add-mode 'javascript-eslint 'typescript-mode)
+
+  ;; Only enable javascript-eslint when node_modules is installed.
+  ;; This prevents the "config file missing" error when opening TS files
+  ;; in repos where yarn/npm hasn't been run yet.
+  (put 'javascript-eslint 'flycheck-enabled
+       (lambda ()
+         (and buffer-file-name
+              (locate-dominating-file buffer-file-name "node_modules"))))
 
   ;; Override to support ESLint flat config (eslint.config.mjs/js/cjs)
   (defun flycheck-eslint--find-working-directory (_checker)
@@ -202,14 +215,13 @@
   (interactive)
   (tide-setup)
   (flycheck-mode +1)
-  (flycheck-select-checker 'javascript-eslint)
+  ;; Use eslint when available (enabled predicate checks for node_modules)
+  (when (locate-dominating-file (or buffer-file-name default-directory) "node_modules")
+    (flycheck-select-checker 'javascript-eslint))
   (setq flycheck-check-syntax-automatically '(save mode-enabled idle-change))
   (setq flycheck-idle-change-delay 1)
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
   (when (fboundp 'company-mode)
     (company-mode +1)))
 
@@ -268,6 +280,8 @@
     (when (and tsserver (file-executable-p tsserver))
       (setq-default tide-tsserver-executable tsserver))))
 
+(add-hook 'typescript-mode-hook #'tsserver-node-modules)
+
 ;; (require 'flycheck)
 ;; (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
 ;; (add-hook 'web-mode-hook
@@ -281,7 +295,6 @@
 ;; (add-hook 'typescript-mode-hook #'lsp)
 
 (require 'tide)
-(add-hook 'typescript-mode-hook #'tide-setup)
 
 ;; web-mode setup
 (define-derived-mode vue-mode web-mode "Vue")
@@ -328,7 +341,8 @@ Buffer is read-only until linters complete. Uses eslint_d daemon for speed."
   (when (and buffer-file-name
              (string-match-p "\\.tsx?$" buffer-file-name))
     (let ((project-dir (locate-dominating-file buffer-file-name "package.json")))
-      (when project-dir
+      (when (and project-dir
+                 (file-directory-p (expand-file-name "node_modules" project-dir)))
         (let* ((file buffer-file-name)
                (buf (current-buffer))
                (default-directory project-dir)
