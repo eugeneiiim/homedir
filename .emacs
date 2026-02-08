@@ -342,6 +342,13 @@ Prettier is handled by prettier-mode (before-save, via server)."
 
 (add-hook 'after-save-hook 'ts-format-on-save)
 
+(setq helm-grep-file-path-style 'relative)
+(setq helm-projectile-set-input-automatically nil)
+(advice-add 'helm-grep-ag-1 :around
+  (lambda (orig-fn directory &rest args)
+    (let ((helm-ff-default-directory directory))
+      (apply orig-fn directory args))))
+
 (require 'helm-ag)
 (setq helm-ag-base-command "ag --nocolor --nogroup")
 (setq helm-ag-insert-at-point nil)
