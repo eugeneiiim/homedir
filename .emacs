@@ -244,6 +244,9 @@
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
+;; Use prettier.el server for format-on-save (fast, updates buffer in-place)
+(add-hook 'typescript-mode-hook 'prettier-mode)
+
 (add-hook 'racer-mode-hook #'eldoc-mode)
 
 (add-hook 'racer-mode-hook #'company-mode)
@@ -324,52 +327,18 @@
 ;; Start eslint_d daemon for fast formatting (prettierd auto-starts on first use)
 (start-process "eslint_d-start" nil "eslint_d" "start")
 
-;; Auto-format TypeScript files on save using daemon versions
-(add-to-list 'revert-without-query ".*\\.tsx?$")
-
-(defvar-local ts-format-lighter nil
-  "Mode-line lighter for ts-format status.")
-
-(put 'ts-format-lighter 'risky-local-variable t)
-
-(unless (memq 'ts-format-lighter global-mode-string)
-  (setq global-mode-string (append global-mode-string '(ts-format-lighter))))
-
+;; Auto-format TypeScript files on save using eslint_d (synchronous, daemon is fast)
 (defun ts-format-on-save ()
-  "Run prettier and eslint_d on .ts/.tsx files using nearest project config.
-Buffer is read-only until linters complete. Uses eslint_d daemon for speed."
+  "Run eslint_d --fix on .ts/.tsx files after save, then revert buffer.
+Prettier is handled by prettier-mode (before-save, via server)."
   (when (and buffer-file-name
              (string-match-p "\\.tsx?$" buffer-file-name))
     (let ((project-dir (locate-dominating-file buffer-file-name "package.json")))
       (when (and project-dir
                  (file-directory-p (expand-file-name "node_modules" project-dir)))
-        (let* ((file buffer-file-name)
-               (buf (current-buffer))
-               (default-directory project-dir)
-               (bin-dir (expand-file-name "node_modules/.bin/" project-dir))
-               (prettier (expand-file-name "prettier" bin-dir))
-               (cmd (concat (if (file-executable-p prettier) prettier "npx prettier")
-                            " --write " (shell-quote-argument file)
-                            " && eslint_d --fix " (shell-quote-argument file))))
-          ;; Make buffer read-only and show indicator
-          (with-current-buffer buf
-            (setq buffer-read-only t)
-            (setq ts-format-lighter (propertize " [Linting...]" 'face 'warning))
-            (force-mode-line-update))
-          (set-process-sentinel
-           (start-process-shell-command "ts-format" nil cmd)
-           `(lambda (proc event)
-              (with-current-buffer ,buf
-                ;; Restore editability and clear indicator
-                (setq buffer-read-only nil)
-                (setq ts-format-lighter nil)
-                (force-mode-line-update)
-                (if (string-match-p "finished" event)
-                    (progn
-                      (revert-buffer t t t)
-                      (redisplay)
-                      (message "Linting complete"))
-                  (message "Linting failed: %s" (string-trim event)))))))))))
+        (let ((default-directory project-dir))
+          (call-process "eslint_d" nil nil nil "--fix" buffer-file-name)
+          (revert-buffer t t t))))))
 
 (add-hook 'after-save-hook 'ts-format-on-save)
 
