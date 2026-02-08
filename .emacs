@@ -36,7 +36,10 @@
 (autoload 'copilot-mode "copilot" nil t)
 (autoload 'copilot-complete "copilot" nil t)
 
-;; Start copilot after idle to avoid blocking file open
+;; Pre-load copilot elisp in the background after startup
+(run-with-idle-timer 1 nil (lambda () (require 'copilot nil t)))
+
+;; Enable copilot-mode in prog buffers (fast once pre-loaded above)
 (add-hook 'prog-mode-hook
           (lambda ()
             (run-with-idle-timer 0.5 nil
