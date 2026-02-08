@@ -375,3 +375,5 @@ Buffer is read-only until linters complete. Uses eslint_d daemon for speed."
 
 (require 'helm-ag)
 (setq helm-ag-base-command "ag --nocolor --nogroup")
+(setq helm-ag-insert-at-point nil)
+(setq helm-grep-ag-command "rg --color=always --smart-case --search-zip --no-heading --line-number --hidden %s -- %s %s")

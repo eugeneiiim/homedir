@@ -52,6 +52,7 @@ alias yp='npx prettier --write . --ignore-path "$(git rev-parse --show-toplevel)
 
 alias yl='yarn lint:fix'
 alias yt='yarn test'
+alias yb='yarn build'
 alias gdc='git diff --ignore-space-at-eol --cached'
 alias dc='gdc'
 alias grmd='git ls-files --deleted | xargs git rm'
@@ -226,7 +227,13 @@ rwt() {
   local repo=~/repo/realmalliance/realm
   local dir_name="${1//\//-}"
   local dest=~/repo/realmalliance/realm-worktrees/"$dir_name"
-  local prefixed="em/$1"
+
+  # Check if branch already has a worktree
+  local existing=$(git -C "$repo" worktree list | grep -E "\[$1\]" | awk '{print $1}')
+  if [[ -n "$existing" ]]; then
+    cd "$existing"
+    return
+  fi
 
   git -C "$repo" fetch origin
 
@@ -234,11 +241,11 @@ rwt() {
     git -C "$repo" worktree add "$dest" "$1"
   elif git -C "$repo" show-ref --verify --quiet "refs/remotes/origin/$1"; then
     git -C "$repo" worktree add --track -b "$1" "$dest" "origin/$1"
-  elif git -C "$repo" show-ref --verify --quiet "refs/heads/$prefixed"; then
-    git -C "$repo" worktree add "$dest" "$prefixed"
-  elif git -C "$repo" show-ref --verify --quiet "refs/remotes/origin/$prefixed"; then
-    git -C "$repo" worktree add --track -b "$prefixed" "$dest" "origin/$prefixed"
   else
-    git -C "$repo" worktree add -b "$prefixed" "$dest"
-  fi && cd "$dest"
+    git -C "$repo" worktree add -b "$1" "$dest" origin/master
+  fi && cd "$dest" && git pull
 }
+
+alias csp='claude --dangerously-skip-permissions'
+
+alias cursor='/Applications/Cursor.app/Contents/MacOS/Cursor'
