@@ -54,3 +54,15 @@ fi
 # export SDKMAN_DIR="$HOME/.sdkman"
 # [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 export PATH="/opt/homebrew/opt/gradle@7/bin:$PATH"
+
+alias gam="/Users/eugenemarinelli/bin/gam7/gam"
+
+# Autocomplete yarn scripts from package.json
+_yarn_scripts() {
+  local -a scripts
+  if [[ -f package.json ]]; then
+    scripts=($(node -e "Object.keys(require('./package.json').scripts||{}).forEach(s=>console.log(s))"))
+  fi
+  _describe 'scripts' scripts
+}
+compdef _yarn_scripts yarn
