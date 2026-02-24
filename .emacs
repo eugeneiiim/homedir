@@ -20,45 +20,6 @@
 (add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t)
 (package-initialize)
 
-;; Install copilot dependencies if missing
-(dolist (pkg '(editorconfig jsonrpc f))
-  (unless (package-installed-p pkg)
-    (unless package-archive-contents
-      (package-refresh-contents))
-    (package-install pkg)))
-
-;; Copilot.el setup - clone if not present, lazy load
-(let ((copilot-dir (expand-file-name "~/.emacs.d/copilot.el")))
-  (unless (file-exists-p copilot-dir)
-    (shell-command (concat "git clone https://github.com/copilot-emacs/copilot.el.git " copilot-dir)))
-  (add-to-list 'load-path copilot-dir))
-
-(autoload 'copilot-mode "copilot" nil t)
-(autoload 'copilot-complete "copilot" nil t)
-
-;; Pre-load copilot elisp in the background after startup
-(run-with-idle-timer 1 nil (lambda () (require 'copilot nil t)))
-
-;; Enable copilot-mode in prog buffers (fast once pre-loaded above)
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (run-with-idle-timer 0.5 nil
-                                 (lambda (buf)
-                                   (when (buffer-live-p buf)
-                                     (with-current-buffer buf
-                                       (copilot-mode 1))))
-                                 (current-buffer))))
-
-;; Copilot keybindings
-(with-eval-after-load 'copilot
-  (define-key copilot-completion-map (kbd "TAB") #'copilot-accept-completion)
-  (define-key copilot-completion-map (kbd "<tab>") #'copilot-accept-completion)
-  (define-key copilot-completion-map (kbd "M-TAB") #'copilot-accept-completion-by-word)
-  (define-key copilot-completion-map (kbd "C-n") #'copilot-next-completion)
-  (define-key copilot-completion-map (kbd "C-p") #'copilot-previous-completion)
-  (define-key copilot-completion-map (kbd "C-g") #'copilot-clear-overlay))
-(global-set-key (kbd "C-c c") #'copilot-complete)
-
 ;; Ensure nvm node is on exec-path for Tide/tsserver
 (let ((nvm-node-dir (expand-file-name "~/.nvm/versions/node/v24.13.0/bin")))
   (when (file-directory-p nvm-node-dir)

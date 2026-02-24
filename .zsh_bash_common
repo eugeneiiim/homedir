@@ -48,7 +48,7 @@ alias gc='git commit'
 alias gd='git diff --ignore-space-at-eol'
 
 #alias yp='yarn prettier'
-alias yp='npx prettier --write . --ignore-path "$(git rev-parse --show-toplevel)/.prettierignore"'
+yp() { npx prettier --write "${1:-.}" --ignore-path "$(git rev-parse --show-toplevel)/.prettierignore"; }
 
 alias yl='yarn lint:fix'
 alias yt='yarn test'
@@ -189,7 +189,8 @@ ulimit -u 1000
 alias act='source venv/bin/activate'
 alias du_dirs='du -d 0 -k * | sort -n'
 
-eval $(ssh-agent)
+# macOS provides ssh-agent via launchd; no need to spawn one per shell.
+# eval $(ssh-agent)
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -244,6 +245,27 @@ rwt() {
   else
     git -C "$repo" worktree add -b "$1" "$dest" origin/master
   fi && cd "$dest" && git pull
+}
+
+rswt() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: rswt <branch-name>"
+    return 1
+  fi
+
+  local dir_name="${1//\//-}"
+  local session_name="$dir_name"
+
+  ssh -t eugene@claude-workspace "\
+    if tmux has-session -t '${session_name}' 2>/dev/null; then \
+      tmux attach -t '${session_name}'; \
+    else \
+      tmux new-session -d -s '${session_name}' && \
+      tmux send-keys -t '${session_name}' 'rwt ${1}' C-m && \
+      tmux send-keys -t '${session_name}' 'csp' C-m && \
+      tmux split-window -dh -t '${session_name}' && \
+      tmux attach -t '${session_name}'; \
+    fi"
 }
 
 alias csp='claude --dangerously-skip-permissions'

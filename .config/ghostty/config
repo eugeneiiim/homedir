@@ -36,6 +36,10 @@ keybind = cmd+d=text:\x1bd
 keybind = cmd+.=text:\x1b.
 keybind = cmd+,=text:\x1b,
 
+# Tab navigation
+keybind = alt+cmd+left=previous_tab
+keybind = alt+cmd+right=next_tab
+
 # Split panes (remapped from cmd+d)
 keybind = cmd+shift+d=new_split:right
 keybind = cmd+shift+e=new_split:down
