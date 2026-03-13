@@ -158,6 +158,15 @@ cim() {
   git commit -m "$MESSAGE"
 }
 
+cima() {
+  MESSAGE=$(git diff --cached | claude -p "Generate a concise git commit message for this diff. Output ONLY the commit message, nothing else. Keep it short (1-2 lines max)." 2>/dev/null)
+  if [ -z "$MESSAGE" ]; then
+    echo "Failed to generate commit message"
+    return 1
+  fi
+  git commit -m "$MESSAGE"
+}
+
 export JAVA_HOME='/Applications/Android Studio.app/Contents/jbr/Contents/Home'
 
 function set_upstream() {
@@ -232,8 +241,12 @@ rwt() {
   # Check if branch already has a worktree
   local existing=$(git -C "$repo" worktree list | grep -E "\[$1\]" | awk '{print $1}')
   if [[ -n "$existing" ]]; then
-    cd "$existing"
-    return
+    if [[ -d "$existing" ]]; then
+      cd "$existing"
+      return
+    else
+      git -C "$repo" worktree prune
+    fi
   fi
 
   git -C "$repo" fetch origin
@@ -263,11 +276,25 @@ rswt() {
       tmux new-session -d -s '${session_name}' && \
       tmux send-keys -t '${session_name}' 'rwt ${1}' C-m && \
       tmux send-keys -t '${session_name}' 'csp' C-m && \
-      tmux split-window -dh -t '${session_name}' && \
+      PANE_ID=\$(tmux split-window -dh -t '${session_name}' -P -F '#{pane_id}') && \
+      tmux send-keys -t \"\$PANE_ID\" 'while [ ! -d ~/repo/realmalliance/realm-worktrees/${dir_name} ]; do sleep 0.5; done && cd ~/repo/realmalliance/realm-worktrees/${dir_name}' C-m && \
       tmux attach -t '${session_name}'; \
     fi"
 }
 
+kwt() {
+  echo -n "Remove this worktree? (Y/n) "
+  read answer
+  if [[ "$answer" == "n" || "$answer" == "N" ]]; then
+    return
+  fi
+  git worktree remove . && cd ~
+}
+
 alias csp='claude --dangerously-skip-permissions'
+alias osp='codex --dangerously-bypass-approvals-and-sandbox'
 
 alias cursor='/Applications/Cursor.app/Contents/MacOS/Cursor'
+
+alias rr='cd ~/repo/realmalliance/realm'
+alias cw='ssh eugene@claude-workspace'
