@@ -1,8 +1,13 @@
-#! /usr/bin/ruby
+#!/bin/zsh
 
-if !ARGV[0] || ARGV[0].empty?
-  puts 'No pattern specified.'
+if [[ -z "$1" ]]; then
+  print 'No pattern specified.'
   exit 1
-end
+fi
 
-`find . -name \"#{ARGV[0]}*\" | grep -v class | grep -v node_modules | grep -v .git | grep -v dev | grep -v vendor | grep -v coverage | grep -v target`.split("\n").select {|x| !x.include?('~') }.each { |l| puts l }
+exec fd --glob "$1*" . \
+  --exclude '*~' \
+  --exclude class \
+  --exclude dev \
+  --exclude vendor \
+  --exclude target
