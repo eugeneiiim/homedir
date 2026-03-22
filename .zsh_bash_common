@@ -99,11 +99,22 @@ alias a='git add'
 alias ci='git commit --no-verify'
 alias co='git checkout'
 
-# function gg() {
-#  ag $*
-#  #git grep $1 | grep -v "models/gen" | less
-#}
-alias gg='ag --ignore-dir dev --ignore-dir logs --ignore-dir vendor --ignore-dir coverage'
+unalias gg 2>/dev/null
+
+function gg() {
+  if command -v rg >/dev/null 2>&1; then
+    command rg --smart-case --line-number \
+      --glob '!**/dev/**' \
+      --glob '!**/logs/**' \
+      --glob '!**/vendor/**' \
+      --glob '!**/coverage/**' \
+      --glob '!**/dist/**' \
+      "$@"
+    return
+  fi
+
+  command ag --ignore-dir dev --ignore-dir logs --ignore-dir vendor --ignore-dir coverage --ignore-dir dist "$@"
+}
 
 alias e='emacs -nw'
 alias ec='emacsclient -t'
