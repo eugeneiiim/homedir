@@ -278,19 +278,26 @@ rswt() {
   fi
 
   local dir_name="${1//\//-}"
-  local session_name="$dir_name"
+  local session_name="${dir_name//./_}"
 
-  ssh -t eugene@claude-workspace "\
-    if tmux has-session -t '${session_name}' 2>/dev/null; then \
-      tmux attach -t '${session_name}'; \
-    else \
-      tmux new-session -d -s '${session_name}' && \
-      tmux send-keys -t '${session_name}' 'rwt ${1}' C-m && \
-      tmux send-keys -t '${session_name}' 'csp' C-m && \
-      PANE_ID=\$(tmux split-window -dh -t '${session_name}' -P -F '#{pane_id}') && \
-      tmux send-keys -t \"\$PANE_ID\" 'while [ ! -d ~/repo/realmalliance/realm-worktrees/${dir_name} ]; do sleep 0.5; done && cd ~/repo/realmalliance/realm-worktrees/${dir_name}' C-m && \
-      tmux attach -t '${session_name}'; \
-    fi"
+  while true; do
+    ssh -t eugene@claude-workspace "\
+      if tmux has-session -t '${session_name}' 2>/dev/null; then \
+        tmux attach -t '${session_name}'; \
+      else \
+        tmux new-session -d -s '${session_name}' && \
+        tmux send-keys -t '${session_name}' 'rwt ${1}' C-m && \
+        PANE_ID=\$(tmux split-window -dh -t '${session_name}' -P -F '#{pane_id}') && \
+        tmux send-keys -t \"\$PANE_ID\" 'while [ ! -d ~/repo/realmalliance/realm-worktrees/${dir_name} ]; do sleep 0.5; done && cd ~/repo/realmalliance/realm-worktrees/${dir_name}' C-m && \
+        tmux attach -t '${session_name}'; \
+      fi"
+    echo ""
+    echo "Disconnected. Press Enter to reconnect, or 'q' to quit."
+    read -r input
+    if [[ "$input" == "q" || "$input" == "Q" ]]; then
+      return 0
+    fi
+  done
 }
 
 kwt() {
@@ -299,7 +306,7 @@ kwt() {
   if [[ "$answer" == "n" || "$answer" == "N" ]]; then
     return
   fi
-  git worktree remove . && cd ~
+  git worktree remove . && cd ~ && exit
 }
 
 alias csp='claude --dangerously-skip-permissions'

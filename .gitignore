@@ -105,5 +105,7 @@ AndroidStudioProjects
 .claude
 .codex
 .config/gcloud
-bin
 .local
+
+# Local Netlify folder
+.netlify
