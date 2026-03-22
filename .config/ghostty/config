@@ -1,4 +1,5 @@
 macos-option-as-alt = true
+link-url = true
 unfocused-split-opacity = 0.85
 unfocused-split-fill = #1a1a1a
 split-divider-color = #444444
