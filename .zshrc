@@ -66,3 +66,37 @@ _yarn_scripts() {
   _describe 'scripts' scripts
 }
 compdef _yarn_scripts yarn
+
+export EMACS_DAEMON_NAME=main
+export EMACS_DAEMON_LABEL=com.eugenemarinelli.emacs-daemon
+
+_start_emacs_daemon() {
+  command emacsclient -s "$EMACS_DAEMON_NAME" -e '(daemonp)' >/dev/null 2>&1 && return 0
+
+  launchctl kickstart -k "gui/$(id -u)/$EMACS_DAEMON_LABEL" >/dev/null 2>&1 ||
+    command /opt/homebrew/bin/emacs --daemon="$EMACS_DAEMON_NAME" >/dev/null 2>&1
+
+  local i
+  for i in {1..50}; do
+    command emacsclient -s "$EMACS_DAEMON_NAME" -e '(daemonp)' >/dev/null 2>&1 && return 0
+    sleep 0.1
+  done
+
+  return 1
+}
+
+emacs() {
+  for arg in "$@"; do
+    case "$arg" in
+      --daemon*|--fg-daemon*|--version|--help|-Q|--quick|--batch|--script)
+        command /opt/homebrew/bin/emacs "$@"
+        return
+        ;;
+    esac
+  done
+
+  _start_emacs_daemon || return 1
+
+  command emacsclient -s "$EMACS_DAEMON_NAME" -nw "$@" ||
+    command /opt/homebrew/bin/emacs "$@"
+}

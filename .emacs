@@ -1,5 +1,6 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
+(setq native-comp-async-report-warnings-errors 'silent)
 (menu-bar-mode 0)
 (column-number-mode t)
 ;(global-linum-mode t)
@@ -177,6 +178,7 @@
 
 (defun setup-tide-mode ()
   (interactive)
+  (tsserver-node-modules)
   (tide-setup)
   (flycheck-mode +1)
   ;; Use eslint when available (enabled predicate checks for node_modules)
@@ -206,10 +208,17 @@
 ;; formats the buffer before saving
 ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
+;; Delay TypeScript tooling until after the file renders.
+(defun enable-typescript-tools-when-idle (buffer)
+  (when (buffer-live-p buffer)
+    (with-current-buffer buffer
+      (when (derived-mode-p 'typescript-mode)
+        (setup-tide-mode)
+        (prettier-mode 1)))))
 
-;; Use prettier.el server for format-on-save (fast, updates buffer in-place)
-(add-hook 'typescript-mode-hook 'prettier-mode)
+(add-hook 'typescript-mode-hook
+          (lambda ()
+            (run-with-idle-timer 0 nil #'enable-typescript-tools-when-idle (current-buffer))))
 
 (add-hook 'racer-mode-hook #'eldoc-mode)
 
@@ -246,8 +255,6 @@
                                  root))))
     (when (and tsserver (file-executable-p tsserver))
       (setq-default tide-tsserver-executable tsserver))))
-
-(add-hook 'typescript-mode-hook #'tsserver-node-modules)
 
 ;; (require 'flycheck)
 ;; (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
