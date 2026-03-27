@@ -103,7 +103,7 @@ unalias gg 2>/dev/null
 
 function gg() {
   if command -v rg >/dev/null 2>&1; then
-    command rg --smart-case --line-number \
+    command rg --smart-case --line-number --sort path \
       --glob '!**/dev/**' \
       --glob '!**/logs/**' \
       --glob '!**/vendor/**' \
@@ -113,7 +113,7 @@ function gg() {
     return
   fi
 
-  command ag --ignore-dir dev --ignore-dir logs --ignore-dir vendor --ignore-dir coverage --ignore-dir dist "$@"
+  command ag --ignore-dir dev --ignore-dir logs --ignore-dir vendor --ignore-dir coverage --ignore-dir dist "$@" | sort -t: -k1,1
 }
 
 alias e='emacs -nw'
@@ -164,18 +164,30 @@ alias end='emacs --no-desktop'
 alias m=make
 
 cim() {
-  MESSAGE=$@
-  #git commit --no-verify -m "$MESSAGE"
-  git commit -m "$MESSAGE"
+  if [ $# -gt 0 ]; then
+    git commit -m "$*"
+  else
+    MESSAGE=$(git diff --cached | claude -p "Generate a concise git commit message for this diff. Output ONLY the commit message, nothing else. Keep it short (1-2 lines max)." 2>/dev/null)
+    if [ -z "$MESSAGE" ]; then
+      echo "Failed to generate commit message"
+      return 1
+    fi
+    git commit -m "$MESSAGE"
+  fi
 }
 
-cima() {
-  MESSAGE=$(git diff --cached | claude -p "Generate a concise git commit message for this diff. Output ONLY the commit message, nothing else. Keep it short (1-2 lines max)." 2>/dev/null)
-  if [ -z "$MESSAGE" ]; then
-    echo "Failed to generate commit message"
-    return 1
+dpr() {
+  if [ $# -gt 0 ]; then
+    URL=$(gh pr create --draft --title "$*" --body "") && open "$URL"
+  else
+    DIFF=$(git log --oneline origin/master..HEAD && echo "---" && git diff origin/master..HEAD)
+    TITLE=$(echo "$DIFF" | claude -p "Generate a concise pull request title for these changes. Output ONLY the title, nothing else. Keep it under 70 characters." 2>/dev/null)
+    if [ -z "$TITLE" ]; then
+      echo "Failed to generate PR title"
+      return 1
+    fi
+    URL=$(gh pr create --draft --title "$TITLE" --body "") && open "$URL"
   fi
-  git commit -m "$MESSAGE"
 }
 
 export JAVA_HOME='/Applications/Android Studio.app/Contents/jbr/Contents/Home'
@@ -258,6 +270,9 @@ rwt() {
     else
       git -C "$repo" worktree prune
     fi
+  elif [[ -d "$dest" ]]; then
+    cd "$dest"
+    return
   fi
 
   git -C "$repo" fetch origin
