@@ -163,12 +163,32 @@ alias emacsnd='emacs --no-desktop'
 alias end='emacs --no-desktop'
 alias m=make
 
+_quick_claude() {
+  local api_key
+  api_key=$(cat ~/.config/anthropic/api_key 2>/dev/null)
+  if [ -z "$api_key" ]; then
+    echo "Missing API key at ~/.config/anthropic/api_key" >&2
+    return 1
+  fi
+  local prompt="$1"
+  local input="$2"
+  curl -s https://api.anthropic.com/v1/messages \
+    -H "x-api-key: $api_key" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d "$(jq -n --arg prompt "$prompt" --arg input "$input" '{
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 256,
+      messages: [{role: "user", content: ($prompt + "\n\n" + $input)}]
+    }')" | jq -r '.content[0].text'
+}
+
 cim() {
   if [ $# -gt 0 ]; then
     git commit -m "$*"
   else
-    MESSAGE=$(git diff --cached | claude -p "Generate a concise git commit message for this diff. Output ONLY the commit message, nothing else. Keep it short (1-2 lines max)." 2>/dev/null)
-    if [ -z "$MESSAGE" ]; then
+    MESSAGE=$(_quick_claude "Generate a concise git commit message for this diff. Output ONLY the commit message, nothing else. Keep it short (1-2 lines max)." "$(git diff --cached)")
+    if [ -z "$MESSAGE" ] || [ "$MESSAGE" = "null" ]; then
       echo "Failed to generate commit message"
       return 1
     fi
@@ -181,8 +201,8 @@ dpr() {
     URL=$(gh pr create --draft --title "$*" --body "") && open "$URL"
   else
     DIFF=$(git log --oneline origin/master..HEAD && echo "---" && git diff origin/master..HEAD)
-    TITLE=$(echo "$DIFF" | claude -p "Generate a concise pull request title for these changes. Output ONLY the title, nothing else. Keep it under 70 characters." 2>/dev/null)
-    if [ -z "$TITLE" ]; then
+    TITLE=$(_quick_claude "Generate a concise pull request title for these changes. Output ONLY the title, nothing else. Keep it under 70 characters." "$DIFF")
+    if [ -z "$TITLE" ] || [ "$TITLE" = "null" ]; then
       echo "Failed to generate PR title"
       return 1
     fi
