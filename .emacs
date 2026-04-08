@@ -134,6 +134,8 @@
 
 ;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 
+(setq projectile-enable-caching t)
+(setq projectile-indexing-method 'alien)
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 
@@ -213,8 +215,7 @@
   (when (buffer-live-p buffer)
     (with-current-buffer buffer
       (when (derived-mode-p 'typescript-mode)
-        (setup-tide-mode)
-        (prettier-mode 1)))))
+        (setup-tide-mode)))))
 
 (add-hook 'typescript-mode-hook
           (lambda ()
@@ -270,6 +271,13 @@
 
 (require 'tide)
 
+;; Suppress tide errors when tsserver hasn't started yet (idle timer race)
+(advice-add 'tide-send-command :around
+  (lambda (orig-fn &rest args)
+    (if (tide-current-server)
+        (apply orig-fn args)
+      (message "Tide: skipping command, server not ready yet"))))
+
 ;; web-mode setup
 (define-derived-mode vue-mode web-mode "Vue")
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
@@ -295,23 +303,67 @@
 ;; (add-to-list 'eglot-server-programs
 ;;                `(vue-mode . ("vue-language-server" "--stdio" :initializationOptions ,(vue-eglot-init-options))))
 
-;; Start eslint_d daemon for fast formatting (prettierd auto-starts on first use)
+;; Pre-warm formatter daemons so first save is fast
 (start-process "eslint_d-start" nil "eslint_d" "start")
+(start-process "prettierd-start" nil "prettierd" "--version")
 
-;; Auto-format TypeScript files on save using eslint_d (synchronous, daemon is fast)
-(defun ts-format-on-save ()
-  "Run eslint_d --fix on .ts/.tsx files after save, then revert buffer.
-Prettier is handled by prettier-mode (before-save, via server)."
+;; Fast prettier via prettierd (stdin/stdout, no disk round-trip)
+(defun ts-prettierd-before-save ()
+  "Format .ts/.tsx buffer through prettierd before saving."
+  (when (and buffer-file-name
+             (string-match-p "\\.tsx?$" buffer-file-name)
+             (locate-dominating-file buffer-file-name "node_modules"))
+    (let* ((orig-point (point))
+           (orig-window-start (window-start))
+           (tmpbuf (generate-new-buffer " *prettierd*"))
+           (exit-code (call-process-region
+                       (point-min) (point-max)
+                       "prettierd" nil tmpbuf nil
+                       buffer-file-name)))
+      (if (zerop exit-code)
+          (let ((formatted (with-current-buffer tmpbuf (buffer-string))))
+            (unless (string= formatted (buffer-string))
+              (erase-buffer)
+              (insert formatted)
+              (goto-char (min orig-point (point-max)))
+              (set-window-start nil (min orig-window-start (point-max)))))
+        (message "prettierd failed (exit %d)" exit-code))
+      (kill-buffer tmpbuf))))
+
+(add-hook 'before-save-hook 'ts-prettierd-before-save)
+
+;; Async eslint_d --fix after save (non-blocking, silent reload)
+(defun ts-eslint-after-save ()
+  "Run eslint_d --fix on .ts/.tsx files after save, silently reload when done."
   (when (and buffer-file-name
              (string-match-p "\\.tsx?$" buffer-file-name))
-    (let ((project-dir (locate-dominating-file buffer-file-name "package.json")))
+    (let ((project-dir (locate-dominating-file buffer-file-name "package.json"))
+          (file buffer-file-name)
+          (buf (current-buffer))
+          (saved-tick (buffer-modified-tick)))
       (when (and project-dir
                  (file-directory-p (expand-file-name "node_modules" project-dir)))
         (let ((default-directory project-dir))
-          (call-process "eslint_d" nil nil nil "--fix" buffer-file-name)
-          (revert-buffer t t t))))))
+          (set-process-sentinel
+           (start-process "eslint_d-fix" nil "eslint_d" "--fix" file)
+           (lambda (proc _event)
+             (when (and (eq (process-status proc) 'exit)
+                        (zerop (process-exit-status proc))
+                        (buffer-live-p buf))
+               (with-current-buffer buf
+                 ;; Only reload if buffer hasn't been edited since the save
+                 (when (equal saved-tick (buffer-modified-tick))
+                   (let ((inhibit-modification-hooks t)
+                         (before-save-hook nil)
+                         (after-save-hook nil)
+                         (pos (point))
+                         (win-start (window-start)))
+                     (insert-file-contents file nil nil nil t)
+                     (goto-char (min pos (point-max)))
+                     (ignore-errors
+                       (set-window-start (get-buffer-window buf) win-start)))))))))))))
 
-(add-hook 'after-save-hook 'ts-format-on-save)
+(add-hook 'after-save-hook 'ts-eslint-after-save)
 
 (setq helm-grep-file-path-style 'relative)
 (setq helm-projectile-set-input-automatically nil)
