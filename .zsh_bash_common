@@ -232,6 +232,7 @@ alias docker_stop_all='docker stop $(docker ps -a -q)'
 alias docker_rm_all='docker rm $(docker ps -a -q)'
 alias docker_kill_all='docker kill $(docker ps -a -q)'
 
+export FZF_DEFAULT_OPTS='--bind ctrl-k:kill-line'
 export TERM=xterm-256color
 RPROMPT='[%?]'
 
@@ -342,6 +343,12 @@ kwt() {
     return
   fi
   git worktree remove . && cd ~ && exit
+}
+
+ef() {
+  local file
+  file=$({ git diff --name-only origin/master; git ls-files --others --exclude-standard; } | sort -u | fzf --prompt="modified> ")
+  [[ -n "$file" ]] && emacs -nw "$file"
 }
 
 alias csp='claude --dangerously-skip-permissions'
