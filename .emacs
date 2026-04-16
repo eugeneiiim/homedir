@@ -274,9 +274,8 @@
 ;; Suppress tide errors when tsserver hasn't started yet (idle timer race)
 (advice-add 'tide-send-command :around
   (lambda (orig-fn &rest args)
-    (if (tide-current-server)
-        (apply orig-fn args)
-      (message "Tide: skipping command, server not ready yet"))))
+    (when (tide-current-server)
+      (apply orig-fn args))))
 
 ;; web-mode setup
 (define-derived-mode vue-mode web-mode "Vue")
@@ -332,7 +331,14 @@
 
 (add-hook 'before-save-hook 'ts-prettierd-before-save)
 
-;; Async eslint_d --fix after save (non-blocking, silent reload)
+;; Auto-revert buffers when files change on disk (safety net for external formatters).
+(global-auto-revert-mode 1)
+(setq auto-revert-use-notify t
+      auto-revert-verbose nil)
+
+;; Async eslint_d --fix after save (non-blocking, silent reload).
+;; Note: eslint_d --fix exits 1 whenever any unfixable errors remain, even if it
+;; successfully applied fixes. We therefore reload on ANY clean exit, not just 0.
 (defun ts-eslint-after-save ()
   "Run eslint_d --fix on .ts/.tsx files after save, silently reload when done."
   (when (and buffer-file-name
@@ -348,7 +354,6 @@
            (start-process "eslint_d-fix" nil "eslint_d" "--fix" file)
            (lambda (proc _event)
              (when (and (eq (process-status proc) 'exit)
-                        (zerop (process-exit-status proc))
                         (buffer-live-p buf))
                (with-current-buffer buf
                  ;; Only reload if buffer hasn't been edited since the save
@@ -359,6 +364,8 @@
                          (pos (point))
                          (win-start (window-start)))
                      (insert-file-contents file nil nil nil t)
+                     (set-visited-file-modtime)
+                     (set-buffer-modified-p nil)
                      (goto-char (min pos (point-max)))
                      (ignore-errors
                        (set-window-start (get-buffer-window buf) win-start)))))))))))))
