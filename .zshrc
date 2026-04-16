@@ -102,4 +102,13 @@ emacs() {
 }
 # Interactive git staging with fzf (overrides oh-my-zsh ga='git add')
 unalias ga 2>/dev/null
-ga() { local files; files=$(git ls-files -mo --exclude-standard | fzf -m --height=40% --bind 'space:toggle+down' --preview "git diff --color {} 2>/dev/null || cat {}"); [[ -n "$files" ]] && echo "$files" | xargs git add && git status -s; }
+ga() {
+  local files candidates
+  candidates=$(git ls-files -mo --exclude-standard)
+  if [[ -n "$1" ]]; then
+    files=$(echo "$candidates" | grep -i "$1")
+  else
+    files=$(echo "$candidates" | fzf -m --height=40% --bind 'space:toggle+down' --preview "git diff --color {} 2>/dev/null || cat {}")
+  fi
+  [[ -n "$files" ]] && echo "$files" | xargs git add && git status
+}

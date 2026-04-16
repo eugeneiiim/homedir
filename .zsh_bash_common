@@ -346,9 +346,10 @@ kwt() {
 }
 
 ef() {
-  local file
-  file=$({ git diff --name-only origin/master; git ls-files --others --exclude-standard; } | sort -u | fzf --prompt="modified> ")
-  [[ -n "$file" ]] && emacs -nw "$file"
+  local root file
+  root=$(git rev-parse --show-toplevel) || return 1
+  file=$({ git -C "$root" diff --name-only origin/master; git -C "$root" ls-files --others --exclude-standard; } | sort -u | fzf --prompt="modified> ")
+  [[ -n "$file" ]] && emacs "$root/$file"
 }
 
 alias csp='claude --dangerously-skip-permissions'

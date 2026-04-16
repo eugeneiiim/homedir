@@ -6,7 +6,9 @@ if [[ -z "$1" ]]; then
 fi
 
 exec fd --glob "$1*" . \
+  --hidden \
   --exclude '*~' \
+  --exclude .git \
   --exclude class \
   --exclude dev \
   --exclude vendor \
