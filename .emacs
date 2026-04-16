@@ -343,12 +343,11 @@
   "Run eslint_d --fix on .ts/.tsx files after save, silently reload when done."
   (when (and buffer-file-name
              (string-match-p "\\.tsx?$" buffer-file-name))
-    (let ((project-dir (locate-dominating-file buffer-file-name "package.json"))
+    (let ((project-dir (locate-dominating-file buffer-file-name "node_modules"))
           (file buffer-file-name)
           (buf (current-buffer))
           (saved-tick (buffer-modified-tick)))
-      (when (and project-dir
-                 (file-directory-p (expand-file-name "node_modules" project-dir)))
+      (when project-dir
         (let ((default-directory project-dir))
           (set-process-sentinel
            (start-process "eslint_d-fix" nil "eslint_d" "--fix" file)
