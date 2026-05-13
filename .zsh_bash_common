@@ -183,18 +183,27 @@ _quick_claude() {
     }')" | jq -r '.content[0].text'
 }
 
-cim() {
+_cim() {
+  local no_verify=$1; shift
+  local message
   if [ $# -gt 0 ]; then
-    git commit -m "$*"
+    message="$*"
   else
-    MESSAGE=$(_quick_claude "Generate a concise git commit message for this diff. Output ONLY the commit message, nothing else. Keep it short (1-2 lines max)." "$(git diff --cached)")
-    if [ -z "$MESSAGE" ] || [ "$MESSAGE" = "null" ]; then
+    message=$(_quick_claude "Generate a concise git commit message for this diff. Output ONLY the commit message, nothing else. Keep it short (1-2 lines max)." "$(git diff --cached)")
+    if [ -z "$message" ] || [ "$message" = "null" ]; then
       echo "Failed to generate commit message"
       return 1
     fi
-    git commit -m "$MESSAGE"
+  fi
+  if [ "$no_verify" = "1" ]; then
+    git commit --no-verify -m "$message" && poh
+  else
+    git commit -m "$message" && poh
   fi
 }
+
+cim()  { _cim 0 "$@"; }
+cimn() { _cim 1 "$@"; }
 
 dpr() {
   if [ $# -gt 0 ]; then
@@ -337,6 +346,17 @@ rswt() {
 }
 
 kwt() {
+  local untracked
+  untracked=$(git ls-files --others --exclude-standard)
+  if [[ -n "$untracked" ]]; then
+    echo "Untracked files:"
+    echo "$untracked" | sed 's/^/  /'
+    echo -n "Delete these untracked files via 'git clean -fd'? (y/N) "
+    read clean_answer
+    if [[ "$clean_answer" == "y" || "$clean_answer" == "Y" ]]; then
+      git clean -fd || return
+    fi
+  fi
   echo -n "Remove this worktree? (Y/n) "
   read answer
   if [[ "$answer" == "n" || "$answer" == "N" ]]; then
@@ -346,10 +366,24 @@ kwt() {
 }
 
 ef() {
-  local root file
+  local root
   root=$(git rev-parse --show-toplevel) || return 1
-  file=$({ git -C "$root" diff --name-only origin/master; git -C "$root" ls-files --others --exclude-standard; } | sort -u | fzf --prompt="modified> ")
-  [[ -n "$file" ]] && emacs "$root/$file"
+  local files
+  files=$({ git -C "$root" diff --name-only origin/master; git -C "$root" ls-files --others --exclude-standard; } | sort -u)
+  if [[ -n "$1" ]]; then
+    local matches
+    matches=$(echo "$files" | grep -- "$1")
+    [[ -z "$matches" ]] && { echo "No changed files match: $1" >&2; return 1; }
+    local paths=()
+    while IFS= read -r f; do
+      paths+=("$root/$f")
+    done <<< "$matches"
+    emacs "${paths[@]}"
+  else
+    local file
+    file=$(echo "$files" | fzf --prompt="modified> ")
+    [[ -n "$file" ]] && emacs "$root/$file"
+  fi
 }
 
 alias csp='claude --dangerously-skip-permissions'
