@@ -112,3 +112,8 @@ ga() {
   fi
   [[ -n "$files" ]] && echo "$files" | xargs git add && git status
 }
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/eugenemarinelli/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions

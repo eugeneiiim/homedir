@@ -1,5 +1,13 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
+
+;; Terminal focus-report sequences (ESC [ I / ESC [ O) leak a literal "[I" into
+;; buffers when the terminal emits them but Emacs hasn't decoded them. Translate
+;; them into focus events so they're consumed instead of self-inserted.
+(define-key input-decode-map "\e[I" [focus-in])
+(define-key input-decode-map "\e[O" [focus-out])
+(global-set-key [focus-in]  #'ignore)
+(global-set-key [focus-out] #'ignore)
 (setq native-comp-async-report-warnings-errors 'silent)
 (menu-bar-mode 0)
 (column-number-mode t)
@@ -180,7 +188,6 @@
 
 (defun setup-tide-mode ()
   (interactive)
-  (tsserver-node-modules)
   (tide-setup)
   (flycheck-mode +1)
   ;; Use eslint when available (enabled predicate checks for node_modules)
@@ -245,17 +252,9 @@
      '((company-tide company-files :with company-yasnippet :with company-dabbrev-code)
        (company-dabbrev-code company-dabbrev)))
 
-;; Function to use your node_modules's TSServer to avoid possible collisions with project's Typescript version and Global Typescript version
-(defun tsserver-node-modules ()
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (tsserver
-          (and root
-               (expand-file-name "node_modules/.bin/tsserver"
-                                 root))))
-    (when (and tsserver (file-executable-p tsserver))
-      (setq-default tide-tsserver-executable tsserver))))
+;; (tsserver-node-modules removed: tide's built-in resolver already prefers a
+;; package-local TypeScript via `tide--npm-local`, and the old helper used
+;; `setq-default`, which leaked one repo's tsserver path into every other repo.)
 
 ;; (require 'flycheck)
 ;; (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
@@ -271,11 +270,17 @@
 
 (require 'tide)
 
-;; Suppress tide errors when tsserver hasn't started yet (idle timer race)
-(advice-add 'tide-send-command :around
-  (lambda (orig-fn &rest args)
-    (when (tide-current-server)
-      (apply orig-fn args))))
+;; Lazily (re)start tsserver before a tide command if it isn't running for
+;; this buffer's project. Replaces an older :around advice that silently
+;; swallowed commands whenever no server existed -- that hid not just the
+;; idle-timer startup race it was written for, but also tsserver crashes/OOM
+;; and idle cleanup, which made M-. (jump-to-definition) appear to do nothing.
+(advice-add 'tide-send-command :before
+  (lambda (&rest _)
+    (when (and (bound-and-true-p tide-mode)
+               (buffer-file-name)
+               (not (tide-current-server)))
+      (ignore-errors (tide-start-server)))))
 
 ;; web-mode setup
 (define-derived-mode vue-mode web-mode "Vue")

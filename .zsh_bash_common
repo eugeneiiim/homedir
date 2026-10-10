@@ -103,7 +103,10 @@ unalias gg 2>/dev/null
 
 function gg() {
   if command -v rg >/dev/null 2>&1; then
-    command rg --smart-case --line-number --sort path \
+    # --hidden surfaces dot-dirs like .github (gitignore is still respected);
+    # exclude .git so we don't drown in object/ref noise.
+    command rg --smart-case --line-number --sort path --hidden \
+      --glob '!**/.git/**' \
       --glob '!**/dev/**' \
       --glob '!**/logs/**' \
       --glob '!**/vendor/**' \
@@ -113,7 +116,7 @@ function gg() {
     return
   fi
 
-  command ag --ignore-dir dev --ignore-dir logs --ignore-dir vendor --ignore-dir coverage --ignore-dir dist "$@" | sort -t: -k1,1
+  command ag --hidden --ignore .git --ignore-dir dev --ignore-dir logs --ignore-dir vendor --ignore-dir coverage --ignore-dir dist "$@" | sort -t: -k1,1
 }
 
 alias e='emacs -nw'
@@ -162,6 +165,7 @@ alias kj='killall java'
 alias emacsnd='emacs --no-desktop'
 alias end='emacs --no-desktop'
 alias m=make
+alias p=pnpm
 
 _quick_claude() {
   local api_key
@@ -246,7 +250,7 @@ export TERM=xterm-256color
 RPROMPT='[%?]'
 
 ulimit -n 4096
-ulimit -u 1000
+ulimit -u 2500
 
 alias act='source venv/bin/activate'
 alias du_dirs='du -d 0 -k * | sort -n'
@@ -288,32 +292,39 @@ export PATH="$HOME/.local/bin:$PATH"
 
 rwt() {
   local repo=~/repo/realmalliance/realm
+
+  # No branch given: generate a readable em/<adjective>-<noun>-<n> name.
+  if [[ -z "$1" ]]; then
+    local adjs=(brave calm swift bright quiet bold keen wise lush nimble) \
+          nouns=(otter falcon cedar river maple heron fox willow lynx birch)
+    set -- "em/${adjs[RANDOM % ${#adjs[@]} + 1]}-${nouns[RANDOM % ${#nouns[@]} + 1]}-$((RANDOM % 100))"
+    echo "rwt: no branch given, using $1"
+  fi
+
   local dir_name="${1//\//-}"
   local dest=~/repo/realmalliance/realm-worktrees/"$dir_name"
 
-  # Check if branch already has a worktree
-  local existing=$(git -C "$repo" worktree list | grep -E "\[$1\]" | awk '{print $1}')
-  if [[ -n "$existing" ]]; then
-    if [[ -d "$existing" ]]; then
-      cd "$existing"
-      return
+  # Reuse the branch's worktree (or a leftover dest dir) if one exists.
+  local dir=$(git -C "$repo" worktree list | grep -E "\[$1\]" | awk '{print $1}')
+  if [[ -n "$dir" && ! -d "$dir" ]]; then
+    git -C "$repo" worktree prune
+    dir=
+  fi
+  [[ -z "$dir" && -d "$dest" ]] && dir=$dest
+
+  if [[ -z "$dir" ]]; then
+    git -C "$repo" fetch origin
+    if git -C "$repo" show-ref --verify --quiet "refs/heads/$1"; then
+      git -C "$repo" worktree add "$dest" "$1"
+    elif git -C "$repo" show-ref --verify --quiet "refs/remotes/origin/$1"; then
+      git -C "$repo" worktree add --track -b "$1" "$dest" "origin/$1"
     else
-      git -C "$repo" worktree prune
-    fi
-  elif [[ -d "$dest" ]]; then
-    cd "$dest"
-    return
+      git -C "$repo" worktree add -b "$1" "$dest" origin/master
+    fi && git -C "$dest" pull || return
+    dir=$dest
   fi
 
-  git -C "$repo" fetch origin
-
-  if git -C "$repo" show-ref --verify --quiet "refs/heads/$1"; then
-    git -C "$repo" worktree add "$dest" "$1"
-  elif git -C "$repo" show-ref --verify --quiet "refs/remotes/origin/$1"; then
-    git -C "$repo" worktree add --track -b "$1" "$dest" "origin/$1"
-  else
-    git -C "$repo" worktree add -b "$1" "$dest" origin/master
-  fi && cd "$dest" && git pull
+  cd "$dir" && claude --permission-mode auto
 }
 
 rswt() {
@@ -369,11 +380,11 @@ ef() {
   local root
   root=$(git rev-parse --show-toplevel) || return 1
   local files
-  files=$({ git -C "$root" diff --name-only origin/master; git -C "$root" ls-files --others --exclude-standard; } | sort -u)
+  files=$(git -C "$root" ls-files --cached --others --exclude-standard | sort -u)
   if [[ -n "$1" ]]; then
     local matches
     matches=$(echo "$files" | grep -- "$1")
-    [[ -z "$matches" ]] && { echo "No changed files match: $1" >&2; return 1; }
+    [[ -z "$matches" ]] && { echo "No files match: $1" >&2; return 1; }
     local paths=()
     while IFS= read -r f; do
       paths+=("$root/$f")
@@ -381,12 +392,12 @@ ef() {
     emacs "${paths[@]}"
   else
     local file
-    file=$(echo "$files" | fzf --prompt="modified> ")
+    file=$(echo "$files" | fzf --prompt="file> ")
     [[ -n "$file" ]] && emacs "$root/$file"
   fi
 }
 
-alias csp='claude --dangerously-skip-permissions'
+alias csp='claude --permission-mode auto'
 alias osp='codex --dangerously-bypass-approvals-and-sandbox'
 
 alias cursor='/Applications/Cursor.app/Contents/MacOS/Cursor'
