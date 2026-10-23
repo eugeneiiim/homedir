@@ -291,6 +291,18 @@ alias lintb="git diff --name-only master -- '*.ts' '*.tsx' | sed 's|^cot-provide
 export PATH="$HOME/.local/bin:$PATH"
 
 rwt() {
+  local cli=claude
+  case "$1" in
+    claude|codex)
+      cli=$1
+      shift
+      ;;
+  esac
+  if (( $# > 1 )); then
+    echo "Usage: rwt [claude|codex] [branch-name]" >&2
+    return 1
+  fi
+
   local repo=~/repo/realmalliance/realm
 
   # No branch given: generate a readable em/<adjective>-<noun>-<n> name.
@@ -324,7 +336,11 @@ rwt() {
     dir=$dest
   fi
 
-  cd "$dir" && claude --permission-mode auto
+  cd "$dir" || return
+  case "$cli" in
+    claude) claude --permission-mode auto ;;
+    codex) codex ;;
+  esac
 }
 
 rswt() {
@@ -404,3 +420,4 @@ alias cursor='/Applications/Cursor.app/Contents/MacOS/Cursor'
 
 alias rr='cd ~/repo/realmalliance/realm'
 alias cw='ssh eugene@claude-workspace'
+alias ghp='gh pr view --web'

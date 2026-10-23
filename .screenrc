@@ -1,6 +1,6 @@
-## Control-^ (usually Control-Shift-6) is traditional and the only key not used by emacs
+## Control-h is the command key; Control-h h sends a literal Control-h
 
-escape ^^^^
+escape ^Hh
 
 ## do not trash BackSpace, usually DEL
 bindkey -k kb
