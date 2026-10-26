@@ -13,3 +13,8 @@ bindkey -d -k kD
 termcapinfo xterm* ti@:te@
 
 multiuser on
+
+defutf8 on
+
+## Claude Code picks 24-bit color from COLORTERM; keep it on 256 colors inside screen
+unsetenv COLORTERM
