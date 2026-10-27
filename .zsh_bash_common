@@ -291,15 +291,15 @@ alias lintb="git diff --name-only master -- '*.ts' '*.tsx' | sed 's|^cot-provide
 export PATH="$HOME/.local/bin:$PATH"
 
 rwt() {
-  local cli=claude
+  local cli=pi
   case "$1" in
-    claude|codex)
+    pi|claude|codex)
       cli=$1
       shift
       ;;
   esac
   if (( $# > 1 )); then
-    echo "Usage: rwt [claude|codex] [branch-name]" >&2
+    echo "Usage: rwt [pi|claude|codex] [branch-name]" >&2
     return 1
   fi
 
@@ -337,10 +337,19 @@ rwt() {
   fi
 
   cd "$dir" || return
+  local cmd
   case "$cli" in
-    claude) claude --permission-mode auto ;;
-    codex) codex ;;
+    pi) cmd=(pi) ;;
+    claude) cmd=(claude --permission-mode auto) ;;
+    codex) cmd=(codex) ;;
   esac
+  # Already inside tmux (e.g. an rswt pane): run in place rather than nesting.
+  if [[ -n "$TMUX" ]]; then
+    "${cmd[@]}"
+  else
+    # Session name == worktree dir name (branch with / -> -); -A reattaches if it exists, -D detaches other clients.
+    tmux new-session -A -D -s "$dir_name" "${cmd[@]}"
+  fi
 }
 
 rswt() {
@@ -410,6 +419,16 @@ ef() {
     local file
     file=$(echo "$files" | fzf --prompt="file> ")
     [[ -n "$file" ]] && emacs "$root/$file"
+  fi
+}
+
+ftmux() {
+  local s
+  s=$(tmux list-sessions -F '#{session_name}' | fzf) && [ -n "$s" ] || return
+  if [ -n "$TMUX" ]; then
+    tmux switch-client -t "=$s"
+  else
+    tmux attach-session -t "=$s"
   fi
 }
 

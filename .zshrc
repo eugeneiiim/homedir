@@ -117,3 +117,5 @@ fpath=(/Users/eugenemarinelli/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+alias screen=/opt/homebrew/bin/screen
