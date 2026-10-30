@@ -291,7 +291,12 @@ alias lintb="git diff --name-only master -- '*.ts' '*.tsx' | sed 's|^cot-provide
 export PATH="$HOME/.local/bin:$PATH"
 
 rwt() {
-  local cli=pi
+  local use_tmux=1
+  if [[ "$1" == -n || "$1" == --no-tmux ]]; then
+    use_tmux=
+    shift
+  fi
+  local cli=claude
   case "$1" in
     pi|claude|codex)
       cli=$1
@@ -299,7 +304,7 @@ rwt() {
       ;;
   esac
   if (( $# > 1 )); then
-    echo "Usage: rwt [pi|claude|codex] [branch-name]" >&2
+    echo "Usage: rwt [-n|--no-tmux] [pi|claude|codex] [branch-name]" >&2
     return 1
   fi
 
@@ -343,8 +348,8 @@ rwt() {
     claude) cmd=(claude --permission-mode auto) ;;
     codex) cmd=(codex) ;;
   esac
-  # Already inside tmux (e.g. an rswt pane): run in place rather than nesting.
-  if [[ -n "$TMUX" ]]; then
+  # Already inside tmux (e.g. an rswt pane) or -n given: run in place.
+  if [[ -z "$use_tmux" || -n "$TMUX" ]]; then
     "${cmd[@]}"
   else
     # Session name == worktree dir name (branch with / -> -); -A reattaches if it exists, -D detaches other clients.
