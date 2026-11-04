@@ -345,8 +345,8 @@ rwt() {
   local cmd
   case "$cli" in
     pi) cmd=(pi) ;;
-    claude) cmd=(claude --permission-mode auto) ;;
-    codex) cmd=(codex) ;;
+    claude) cmd=(headroom wrap claude --tool-search true -- --permission-mode auto) ;;
+    codex) cmd=(headroom wrap codex) ;;
   esac
   # Run in place unless -t given; also in place when already inside tmux (e.g. an rswt pane).
   if [[ -z "$use_tmux" || -n "$TMUX" ]]; then
