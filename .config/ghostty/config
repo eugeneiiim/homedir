@@ -11,10 +11,10 @@ macos-non-native-fullscreen = true
 fullscreen = false
 
 # Ghostty pane navigation
-keybind = cmd+left=goto_split:left
-keybind = cmd+right=goto_split:right
-keybind = cmd+up=goto_split:top
-keybind = cmd+down=goto_split:bottom
+keybind = performable:cmd+left=goto_split:left
+keybind = performable:cmd+right=goto_split:right
+keybind = performable:cmd+up=goto_split:top
+keybind = performable:cmd+down=goto_split:bottom
 
 # Cmd as Meta for Emacs
 keybind = cmd+x=text:\x1bx

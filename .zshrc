@@ -119,3 +119,15 @@ compinit
 # End of Docker CLI completions
 
 alias screen=/opt/homebrew/bin/screen
+
+# >>> headroom persistent env >>>
+export HEADROOM_PORT="8787"
+export HEADROOM_HOST="127.0.0.1"
+export HEADROOM_MODE="cache"
+export HEADROOM_BACKEND="anthropic"
+export HEADROOM_EMBEDDER_RUNTIME="cpu"
+export HEADROOM_KOMPRESS_BACKEND="onnx"
+export ANTHROPIC_BASE_URL="http://127.0.0.1:8787"
+export ENABLE_TOOL_SEARCH="true"
+export OPENAI_BASE_URL="http://127.0.0.1:8787/v1"
+# <<< headroom persistent env <<<

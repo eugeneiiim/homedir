@@ -69,6 +69,7 @@
     "cmd-left": "pane.go:left",
     "cmd-right": "pane.go:right",
     "cmd-backspace": "send:\u0015",
-    "cmd-b": "send:\u001bb"
+    "cmd-b": "send:\u001bb",
+    "alt-shift-.": "send:\u001b>"
   }
 }

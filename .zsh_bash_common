@@ -290,13 +290,16 @@ alias lintb="git diff --name-only master -- '*.ts' '*.tsx' | sed 's|^cot-provide
 
 export PATH="$HOME/.local/bin:$PATH"
 
+_pic_cmd=(pi "/capacity choose")
+alias pic='"${_pic_cmd[@]}"'
+
 rwt() {
   local use_tmux=
   if [[ "$1" == -t || "$1" == --tmux ]]; then
     use_tmux=1
     shift
   fi
-  local cli=claude
+  local cli=pi
   case "$1" in
     pi|claude|codex)
       cli=$1
@@ -344,9 +347,9 @@ rwt() {
   cd "$dir" || return
   local cmd
   case "$cli" in
-    pi) cmd=(pi) ;;
+    pi) cmd=("${_pic_cmd[@]}") ;;
     claude) cmd=(headroom wrap claude --tool-search true -- --permission-mode auto) ;;
-    codex) cmd=(headroom wrap codex) ;;
+    codex) cmd=(headroom wrap codex -- --approve-for-me) ;;
   esac
   # Run in place unless -t given; also in place when already inside tmux (e.g. an rswt pane).
   if [[ -z "$use_tmux" || -n "$TMUX" ]]; then
