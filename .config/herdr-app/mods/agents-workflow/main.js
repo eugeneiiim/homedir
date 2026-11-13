@@ -2,7 +2,11 @@
 
 import { View, div, image, svg } from "gpui-kit";
 import { v_flex, h_flex } from "gpui-base";
-import { agents, terminals, panes, focused, spaces, run, theme, shared, setShared, setAgentOrder, openOverlay, closeOverlay, props, window, layout } from "herdr";
+import { agents, terminals, panes, focused, spaces, run, theme, shared, setShared, setAgentOrder, openOverlay, closeOverlay, props, window, layout, exec } from "herdr";
+import { QUERY, MERGED_QUERY, mergedSearch, MAX_PAGES, isRealmFolder, summarize } from "./github.js";
+
+const GITHUB_POLL_MS = 150000;
+const GITHUB_STALE_MS = 15 * 60000;
 
 function find(node, id) {
   if (node?.id === id) return node;
@@ -46,24 +50,26 @@ function title(tab, l) {
   const telling = live && live !== prog && !path && !live.includes("@") && live.toLowerCase() !== l?.program?.key;
   return (tab.name === prog || !tab.named) && telling ? live : tab.name;
 }
-const RANK = { blocked: 4, done: 3, working: 2, "review-you": 1.8, "review-others": 1.7, stacked: 1.6, deployment: 1.5, idle: 1 };
+const RANK = { blocked: 4, done: 3, "changes-requested": 2.5, working: 2, approved: 1.9, "review-you": 1.8, "review-others": 1.7, stacked: 1.6, deployment: 1.5, shipped: 1.2, idle: 1 };
 const WAITS = {
+  "changes-requested": { label: "Changes requested", icon: "git-compare" },
+  approved: { label: "Approved", icon: "check" },
   "review-you": { label: "Waiting on your review", icon: "clock" },
   "review-others": { label: "Waiting on others' review", icon: "clock" },
   stacked: { label: "Blocked on parent branch", icon: "git-branch" },
   deployment: { label: "Waiting for deployment", icon: "clock" },
+  shipped: { label: "Shipped", icon: "check" },
 };
 
-// Explicit workflow markers, never elapsed-time guesses. Runtime errors and
-// requests for input retain priority over a potentially stale tab title.
-function workflowStatus(a) {
-  if (a.status === "blocked") return a.status;
-  const name = (a.tab_name ?? "").trim();
-  if (/^👀/u.test(name)) return "review-you";
-  if (/^✋/u.test(name)) return "review-others";
-  if (/^📚/u.test(name)) return "stacked";
-  if (/^🕒/u.test(name)) return "deployment";
-  return a.status;
+// Titles are task summaries only. Workflow stages come from GitHub, plus the explicit
+// deployment-wait label. Runtime requests for input and active work retain priority.
+// `pr`: undefined when GitHub can't answer, null when there is no open PR, else { number, wait }.
+function workflowStatus(a, pr, labels = {}) {
+  if (a.status === "blocked" || a.status === "working") return { status: a.status };
+  if (pr?.wait && pr.wait.status !== "approved") return pr.wait;
+  if (labels["workflow.deployment"] === "waiting") return { status: "deployment", why: "Terminal marked as waiting for deployment" };
+  if (pr?.wait) return pr.wait;
+  return { status: a.status };
 }
 // A sub-agent without a pane isn't in agents(): its raw word, error counting as
 // blocked. It's never done: it reports to its parent, and the parent's done is the news.
@@ -76,8 +82,8 @@ const SORTS = [
   { id: "grouped", label: "Grouped by space", icon: "layers" },
 ];
 const sortOf = () => SORTS.find((s) => s.id === shared("agents.sort")) ?? SORTS[0];
-const SECTION = { 4: "Needs you", 3: "Done", 2: "Working", 1.8: WAITS["review-you"].label, 1.7: WAITS["review-others"].label, 1.6: WAITS.stacked.label, 1.5: WAITS.deployment.label, 1: "Idle" };
-const SECTION_STATUS = { 4: "blocked", 3: "done", 2: "working", 1.8: "review-you", 1.7: "review-others", 1.6: "stacked", 1.5: "deployment" };
+const SECTION = { 4: "Needs you", 3: "Done", 2.5: WAITS["changes-requested"].label, 2: "Working", 1.9: WAITS.approved.label, 1.8: WAITS["review-you"].label, 1.7: WAITS["review-others"].label, 1.6: WAITS.stacked.label, 1.5: WAITS.deployment.label, 1.2: WAITS.shipped.label, 1: "Idle" };
+const SECTION_STATUS = { 4: "blocked", 3: "done", 2.5: "changes-requested", 2: "working", 1.9: "approved", 1.8: "review-you", 1.7: "review-others", 1.6: "stacked", 1.5: "deployment", 1.2: "shipped" };
 
 function duration(ms) {
   const m = Math.floor(ms / 60000);
@@ -96,14 +102,70 @@ function icon(p, size, color) {
 export default class Agents extends View {
   init(_props, cx) {
     if (props()?.sortMenu) return;
-    // Others' review and stacked waits start compact; your review stays open. Click a header to toggle.
-    this.folded = new Set(["sec-1.7", "sec-1.6"]);
+    // Others' review, stacked and shipped start compact; your review stays open. Click a header to toggle.
+    this.folded = new Set(["sec-1.7", "sec-1.6", "sec-1.2"]);
     // Each agent's last state and when it changed (ms), kept across restarts.
     this.changed = JSON.parse(localStorage.getItem("changed") ?? "{}");
     this.pendingPins = JSON.parse(localStorage.getItem("pins") ?? "[]");
     if (!this.pendingPins.length) localStorage.removeItem("pins");
     this.migratingPins = new Set();
+    // Last good GitHub answer: { at, complete, branches }. Kept across restarts; used while fresh.
+    this.github = JSON.parse(localStorage.getItem("github") ?? "null");
     cx.timer.every(30000, (cx) => cx.notify());
+    cx.timer.every(GITHUB_POLL_MS, (cx) => this.refreshGitHub(cx));
+    this.refreshGitHub(cx);
+  }
+
+  // One paged GraphQL query for every open realm PR. Failures keep the last good answer.
+  refreshGitHub(cx) {
+    if (this.fetching) return;
+    this.fetching = true;
+    cx.spawn(async (cx) => {
+      try {
+        const pages = await this.pagesOf(QUERY, [], (d) => d.repository.pullRequests.pageInfo);
+        const merged = await this.pagesOf(MERGED_QUERY, ["-f", `q=${mergedSearch(Date.now())}`], (d) => d.search.pageInfo);
+        const cursor = pages.cursor;
+        const { branches } = summarize(pages, merged);
+        this.github = { at: Date.now(), complete: !cursor, branches };
+        this.githubError = null;
+        localStorage.setItem("github", JSON.stringify(this.github));
+      } catch (e) {
+        this.githubError = String(e?.message ?? e).slice(0, 300);
+        console.log(`agents-workflow: GitHub refresh failed: ${this.githubError}`);
+      } finally {
+        this.fetching = false;
+        cx.notify();
+      }
+    });
+  }
+
+  // Up to MAX_PAGES pages of one query's `data`; `.cursor` is set when more remain.
+  async pagesOf(query, args, pageInfo) {
+    const pages = [];
+    let cursor = null;
+    do {
+      const call = ["api", "graphql", "-f", `query=${query}`, ...args];
+      if (cursor) call.push("-f", `cursor=${cursor}`);
+      const r = await exec("gh", call, { timeout: 60000 });
+      if (r.code !== 0) throw new Error(r.stderr.trim() || `gh exited ${r.code}`);
+      const data = JSON.parse(r.stdout).data;
+      pages.push(data);
+      const info = pageInfo(data);
+      cursor = info.hasNextPage ? info.endCursor : null;
+    } while (cursor && pages.length < MAX_PAGES);
+    pages.cursor = cursor;
+    return pages;
+  }
+
+  // What GitHub says about the agent's branch (see workflowStatus for the shapes).
+  prFor(a, paneById) {
+    const g = this.github;
+    if (!g || Date.now() - g.at > GITHUB_STALE_MS) return undefined;
+    const pane = paneById.get(a.pane);
+    if (!pane?.branch || !isRealmFolder(pane.cwd)) return undefined;
+    const pr = g.branches[pane.branch];
+    if (pr) return pr;
+    return g.complete ? null : undefined;
   }
 
   // Stamps agents whose state changed. Done and idle count as one: looking at a
@@ -223,7 +285,7 @@ export default class Agents extends View {
   status(t, a, compact = false) {
     const color = t[a.status] ?? t.dim;
     const wait = WAITS[a.status];
-    if (wait) return svg(`mods/workspace-chrome/${wait.icon}.svg`).size(12).mx(1).flex_none().text_color(a.status === "review-you" ? t.accent : t.muted).tooltip(wait.label);
+    if (wait) return svg(`mods/workspace-chrome/${wait.icon}.svg`).size(12).mx(1).flex_none().text_color(a.status === "review-you" ? t.accent : t.muted).tooltip(a.why ? `${wait.label}: ${a.why}` : wait.label);
     if (a.status === "working") return svg("mods/workspace-chrome/spinner.svg").size(12).mx(1).flex_none().text_color(t.working).spin(900);
     if (a.status === "blocked" && compact) return div().size(14).flex_none().rounded(4).bg(t.blocked + "26").text_size(10.5).font_bold().text_color(t.blocked).flex().items_center().justify_center().child("!");
     if (a.status === "blocked") return div().flex_none().px(6).h(18).rounded(5).bg(t.blocked + "26").text_size(10.5).font_semibold().text_color(t.blocked).flex().items_center().child("Needs you");
@@ -237,9 +299,11 @@ export default class Agents extends View {
     if (props()?.sortMenu) return this.sortMenu(t);
     const collapsed = narrow();
     const sort = sortOf();
-    let list = agents().map(a => ({ ...a, status: workflowStatus(a) }));
-    this.listed = new Map(list.map((a) => [a.address, a.status]));
+    const paneById = new Map(panes().map((p) => [p.pane, p]));
     const all = terminals();
+    const terminalByAddress = new Map(all.map(t => [t.address, t]));
+    let list = agents().map(a => ({ ...a, ...workflowStatus(a, this.prFor(a, paneById), terminalByAddress.get(a.address)?.labels) }));
+    this.listed = new Map(list.map((a) => [a.address, a.status]));
     this.migratePins(all);
     const shown = focused()?.agent;
     const now = Date.now();

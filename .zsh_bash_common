@@ -249,8 +249,8 @@ export FZF_DEFAULT_OPTS='--bind ctrl-k:kill-line'
 export TERM=xterm-256color
 RPROMPT='[%?]'
 
-ulimit -n 4096
-ulimit -u 2500
+ulimit -n 65536  # raised 2026-11-12 with launchd maxfiles 65536
+ulimit -u 8000  # 2500 caused fork failures with ~30 agent sessions (2026-11-12); kern.maxprocperuid is 10666
 
 alias act='source venv/bin/activate'
 alias du_dirs='du -d 0 -k * | sort -n'
