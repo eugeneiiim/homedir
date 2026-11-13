@@ -1,0 +1,8 @@
+[ui.sound]
+enabled = false
+
+[keys]
+focus_pane_left = ["prefix+h", "cmd+left"]
+focus_pane_down = ["prefix+j", "cmd+down"]
+focus_pane_up = ["prefix+k", "cmd+up"]
+focus_pane_right = ["prefix+l", "cmd+right"]
